@@ -1,0 +1,19 @@
+{
+  "name": "lambda-monitor",
+  "version": "0.0.0",
+  "description": "A monitor solution for AWS Lambda ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "monitor",
+    "lambda",
+    "microservices"
+  ],
+  "author": "Daniel Arteaga",
+  "license": "MIT",
+  "devDependencies": {
+    "aws-sdk": "^2.169.0"
+  }
+}
