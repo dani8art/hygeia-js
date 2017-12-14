@@ -11,7 +11,7 @@ class EmailReporter {
     }
 
     send(statuschecking) {
-        console.log('sending email.');
+        console.log('Sending email.');
         return SES.sendEmail(this.buildSESOptions(statuschecking)).promise();
     }
 

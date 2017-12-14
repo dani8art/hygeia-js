@@ -21,7 +21,6 @@ class Measure {
      * @memberof Measure
      */
     end(result) {
-        console.log(this.service);
         this.endTs = Measure.now();
         this.result = result;
         return this;
@@ -42,7 +41,6 @@ class Measure {
      * @memberof Measure
      */
     value() {
-        console.log(this.service);
         this.duration = this.endTs - this.startTs;
         this.startTs = this.startTs.toISOString();
         this.endTs = this.endTs.toISOString();
