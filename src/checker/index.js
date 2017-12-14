@@ -2,7 +2,7 @@
 
 const https = require('https').request;
 const http = require('http').request;
-const { URL } = require('url');
+const URL = require('url');
 const { Measure } = require('./measure');
 const { storeFactory } = require('./store');
 const { reporterFactory } = require('./reporter');
@@ -85,7 +85,7 @@ class Checker {
             if (service.health.indexOf('https://') !== -1)
                 requester = https;
 
-            let url = new URL(service.health);
+            let url = URL.parse(service.health);
             let opt = {
                 protocol: url.protocol,
                 hostname: url.hostname,

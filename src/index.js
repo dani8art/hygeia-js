@@ -11,6 +11,21 @@ exports.handler = (event, context, callback) => {
                     name: 'playkidspark',
                     health: 'https://www.playkidspark.es/sitemap.xml',
                     method: 'GET'
+                },
+                {
+                    name: 'blog',
+                    health: 'https://darteaga.com',
+                    method: 'GET'
+                },
+                {
+                    name: 'pets',
+                    health: 'https://pets.darteaga.com',
+                    method: 'GET'
+                },
+                {
+                    name: 'error',
+                    health: 'https://oets.darteaga.com',
+                    method: 'GET'
                 }
             ]
         },
