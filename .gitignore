@@ -67,3 +67,5 @@ typings/
 ##CUSTOM
 .directory
 sandbox*\.js
+
+dist/
