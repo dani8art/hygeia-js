@@ -90,7 +90,7 @@ class Checker {
                 protocol: url.protocol,
                 hostname: url.hostname,
                 port: url.port,
-                path: url.pathname + url.search,
+                path: (url.pathname || '') + (url.search || ''),
                 method: service.method
             };
 
