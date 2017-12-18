@@ -76,7 +76,11 @@ class Checker {
      * @memberof Checker
      */
     static request(service) {
+        const REQ_DEFAULT_TIMEOUT = 10 * 1000;
         console.log('Send request for checking service=%s', service.name);
+
+        // set default timeout for services
+        service.timeout = service.timeout || REQ_DEFAULT_TIMEOUT;
 
         return new Promise((resolve, reject) => {
 
@@ -91,7 +95,8 @@ class Checker {
                 hostname: url.hostname,
                 port: url.port,
                 path: (url.pathname || '') + (url.search || ''),
-                method: service.method
+                method: service.method,
+                timeout: service.timeout
             };
 
             let req = requester(opt, (res) => {
@@ -100,6 +105,12 @@ class Checker {
                 res.on('data', (chunk) => { });
                 res.on('end', () => resolve(measure));
             }, reject);
+
+            req.on('socket', socket => {
+                socket.setTimeout(service.timeout);
+                // abort if timeout
+                socket.on('timeout', () => req.abort());
+            });
 
             req.on('error', err => {
                 measure.end(err.code);

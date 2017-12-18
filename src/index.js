@@ -22,11 +22,11 @@ exports.handler = (event, context, callback) => {
                     health: 'https://pets.darteaga.com',
                     method: 'GET'
                 },
-                {
-                    name: 'error',
-                    health: 'https://oets.darteaga.com',
-                    method: 'GET'
-                }
+                // {
+                //     name: 'error',
+                //     health: 'http://www.google.com:81',
+                //     method: 'GET'
+                // }
             ]
         },
         reporter: {
