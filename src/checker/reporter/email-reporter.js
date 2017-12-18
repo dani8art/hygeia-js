@@ -2,8 +2,17 @@
 const AWS = require('aws-sdk');
 const SES = new AWS.SES({ apiVersion: '2010-12-01' });
 
+/**
+ * This reporter sed the status checked by email using AWS.SES service.
+ * @class EmailReporter
+ */
 class EmailReporter {
 
+    /**
+     * Creates an instance of EmailReporter.
+     * @param {any} options 
+     * @memberof EmailReporter
+     */
     constructor(options) {
         if (!options.email)
             throw new Error('Email in EmailReporter options is require.');

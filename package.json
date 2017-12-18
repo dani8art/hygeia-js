@@ -4,7 +4,7 @@
   "description": "A monitor solution for AWS Lambda ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [
     "monitor",
@@ -14,6 +14,7 @@
   "author": "Daniel Arteaga",
   "license": "MIT",
   "devDependencies": {
-    "aws-sdk": "^2.169.0"
+    "aws-sdk": "^2.169.0",
+    "jest": "^22.0.0"
   }
 }
