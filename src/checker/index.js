@@ -5,7 +5,7 @@ const http = require('http').request;
 const URL = require('url');
 const { Measure } = require('./measure');
 const { storeFactory } = require('./store');
-const { reporterFactory } = require('./reporter');
+const { createReporter } = require('./reporter');
 /**
  * @class Checker
  */
@@ -14,7 +14,7 @@ class Checker {
     constructor(options) {
         this.options = options;
         this.store = storeFactory(options.store);
-        this.reporter = reporterFactory(options.reporter);
+        this.reporter = createReporter(options.reporter);
     }
 
     /**
