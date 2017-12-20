@@ -1,6 +1,6 @@
 'use strict';
 
-const { MemoryStore } = require('./memory-store');
+const { MemoryStore } = require('./store-memory');
 
 const TYPES = ['memory']
 

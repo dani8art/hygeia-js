@@ -18,4 +18,4 @@ describe('Reporters - Reporter Factory', () => {
             });
         }).toThrow('This type of reporter is not implemented.');
     });
-})
+});
