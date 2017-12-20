@@ -19,12 +19,23 @@ class EmailReporter {
         this.email = options.email;
     }
 
+    /**
+     * This method send email using AWS.SES service.
+     * @param {any} statuschecking Status Cheking Object to send.
+     * @returns {Promise<any>}
+     * @memberof EmailReporter
+     */
     send(statuschecking) {
         console.log('Sending email.');
         return SES.sendEmail(this.buildSESOptions(statuschecking)).promise();
     }
 
-
+    /**
+     *  This method build options object for AWS.SES service configuration
+     * @param {any} statuschecking Status Checking Object to send
+     * @returns {AWS.SES.SendEmailRequest}
+     * @memberof EmailReporter
+     */
     buildSESOptions(statuschecking) {
         return {
             Destination: {
@@ -35,16 +46,16 @@ class EmailReporter {
             Message: {
                 Body: {
                     Html: {
-                        Charset: "UTF-8",
+                        Charset: 'UTF-8',
                         Data: JSON.stringify(statuschecking, null, 2)
                     }
                 },
                 Subject: {
-                    Charset: "UTF-8",
-                    Data: "Report [lambda-status-checker]"
+                    Charset: 'UTF-8',
+                    Data: 'Report [lambda-status-checker]'
                 }
             },
-            Source: "checker@darteaga.com",
+            Source: 'checker@darteaga.com',
         }
     }
 
