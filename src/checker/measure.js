@@ -41,6 +41,8 @@ class Measure {
      * @memberof Measure
      */
     value() {
+        if (!this.result) throw new Error('Can not call value() before end()');
+
         this.duration = this.endTs - this.startTs;
         this.startTs = this.startTs.toISOString();
         this.endTs = this.endTs.toISOString();
