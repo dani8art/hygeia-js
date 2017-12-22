@@ -4,8 +4,11 @@
   "description": "A monitor solution for AWS Lambda ",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test-watch": "jest --watchAll --verbose",
+    "test": "jest --coverage",
+    "test-ci": "jest --coverage --json --outputFile=test-results.json"
   },
+  "jest": {},
   "keywords": [
     "monitor",
     "lambda",

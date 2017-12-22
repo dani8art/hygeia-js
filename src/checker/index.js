@@ -4,16 +4,23 @@ const https = require('https').request;
 const http = require('http').request;
 const URL = require('url');
 const { Measure } = require('./measure');
-const { storeFactory } = require('./store');
+const { createStore } = require('./store');
 const { createReporter } = require('./reporter');
 /**
  * @class Checker
  */
 class Checker {
-
+    /**
+     * Creates an instance of Checker.
+     * @param {any} options 
+     * @memberof Checker
+     */
     constructor(options) {
+        if (!options.store) throw new Error('Store options are required.');
+        if (!options.reporter) throw new Error('Reporter options are required.');
+
         this.options = options;
-        this.store = storeFactory(options.store);
+        this.store = createStore(options.store);
         this.reporter = createReporter(options.reporter);
     }
 
@@ -79,7 +86,7 @@ class Checker {
         const REQ_DEFAULT_TIMEOUT = 10 * 1000;
         console.log('Send request for checking service=%s', service.name);
 
-        // set default timeout for services
+        // set default request option for services
         service.timeout = service.timeout || REQ_DEFAULT_TIMEOUT;
 
         return new Promise((resolve, reject) => {
@@ -95,7 +102,7 @@ class Checker {
                 hostname: url.hostname,
                 port: url.port,
                 path: (url.pathname || '') + (url.search || ''),
-                method: service.method,
+                method: service.method || 'GET',
                 timeout: service.timeout
             };
 
