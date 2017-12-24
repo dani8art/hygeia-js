@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Reporters - Email Test method buildSESOptions 1`] = `
+"
+            <!DOCTYPE html>
+            <html>
+                <head>
+                
+            <link rel=\\"stylesheet\\" href=\\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css\\" integrity=\\"sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb\\" crossorigin=\\"anonymous\\">
+            <style>
+                .card-title{text-transform: uppercase;}
+                .card{margin-bottom: 5px;}
+                h6{font-size: 80%;font-weight: 400;}
+            </style>    
+        
+                </head>
+                <body>
+                
+            <div class=\\"container\\">
+                <h3>Health of System</h3>
+                <div class=\\"row\\">
+                    
+                <div class=\\"col-12\\">
+                    <div class=\\"card\\">
+                        <div class=\\"card-body\\">
+                            <h5 class=\\"card-title\\">statuschecker <span class=\\"float-right badge badge-pill badge-success\\">200</span></h5>
+                            <h6 class=\\"card-subtitle mb-2 text-muted\\">2017-12-20 18:48:37</h6>
+                            <p class=\\"card-text\\">
+                                <b>Duration: </b> 937 ms
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            
+                </div>
+            </div>
+        
+                </body>
+            </html>
+        "
+`;

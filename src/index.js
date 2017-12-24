@@ -21,7 +21,7 @@ exports.handler = (event, context, callback) => {
                     name: 'pets',
                     health: 'https://pets.darteaga.com',
                     method: 'GET'
-                },
+                }//,
                 // {
                 //     name: 'error',
                 //     health: 'http://www.google.com:81',

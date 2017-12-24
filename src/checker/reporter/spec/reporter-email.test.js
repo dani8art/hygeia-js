@@ -27,9 +27,9 @@ describe('Reporters - Email', () => {
 
         expect(sesOptions.Destination.ToAddresses).toContain('test@test.com');
         expect(sesOptions.Message.Body.Html.Charset).toBe('UTF-8');
-        expect(sesOptions.Message.Body.Html.Data).toBe(JSON.stringify(statusChecking, null, 2));
+        expect(sesOptions.Message.Body.Html.Data).toMatchSnapshot();
         expect(sesOptions.Message.Subject.Charset).toBe('UTF-8');
-        expect(sesOptions.Message.Subject.Data).toBe('Report [lambda-status-checker]');
+        expect(sesOptions.Message.Subject.Data).toBe('Report [lambda-health-checker]');
         expect(sesOptions.Source).toBe('checker@darteaga.com');
     });
 });

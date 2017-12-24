@@ -3,7 +3,7 @@ const AWS = require('aws-sdk');
 const SES = new AWS.SES({ apiVersion: '2010-12-01' });
 
 /**
- * This reporter sed the status checked by email using AWS.SES service.
+ * This reporter send the checked health by email using AWS.SES service.
  * @class EmailReporter
  */
 class EmailReporter {
@@ -21,22 +21,22 @@ class EmailReporter {
 
     /**
      * This method send email using AWS.SES service.
-     * @param {any} statuschecking Status Cheking Object to send.
+     * @param {any} health Checked health object to send.
      * @returns {Promise<any>}
      * @memberof EmailReporter
      */
-    send(statuschecking) {
+    send(health) {
         console.log('Sending email.');
-        return SES.sendEmail(this.buildSESOptions(statuschecking)).promise();
+        return SES.sendEmail(this.buildSESOptions(health)).promise();
     }
 
     /**
      *  This method build options object for AWS.SES service configuration
-     * @param {any} statuschecking Status Checking Object to send
+     * @param {any} health Checked health object to send
      * @returns {AWS.SES.SendEmailRequest}
      * @memberof EmailReporter
      */
-    buildSESOptions(statuschecking) {
+    buildSESOptions(health) {
         return {
             Destination: {
                 ToAddresses: [
@@ -47,19 +47,67 @@ class EmailReporter {
                 Body: {
                     Html: {
                         Charset: 'UTF-8',
-                        Data: JSON.stringify(statuschecking, null, 2)
+                        Data: this.buildMessageBody(health) // JSON.stringify(health, null, 2)
                     }
                 },
                 Subject: {
                     Charset: 'UTF-8',
-                    Data: 'Report [lambda-status-checker]'
+                    Data: 'Report [lambda-health-checker]'
                 }
             },
             Source: 'checker@darteaga.com',
         }
     }
 
-    // TODO: buildMessageBody()
+    buildMessageBody(health) {
+        let head = `
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+            <style>
+                .card-title{text-transform: uppercase;}
+                .card{margin-bottom: 5px;}
+                h6{font-size: 80%;font-weight: 400;}
+            </style>    
+        `;
+
+        let services = '';
+        health.forEach(s => {
+            services += `
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">${s.service} <span class="float-right badge badge-pill badge-${s.result < 300 ? 'success' : 'danger'}">${s.result}</span></h5>
+                            <h6 class="card-subtitle mb-2 text-muted">${s.startTs.replace(/T/, ' ').replace(/\..+/, '')}</h6>
+                            <p class="card-text">
+                                <b>Duration: </b> ${s.duration} ms
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            `;
+        });
+
+        let body = `
+            <div class="container">
+                <h3>Health of System</h3>
+                <div class="row">
+                    ${services}
+                </div>
+            </div>
+        `;
+
+        let html = `
+            <!DOCTYPE html>
+            <html>
+                <head>
+                ${head}
+                </head>
+                <body>
+                ${body}
+                </body>
+            </html>
+        `
+        return html;
+    }
 }
 
 module.exports = { EmailReporter };
