@@ -1,7 +1,7 @@
 {
-  "name": "lambda-monitor",
+  "name": "lambda-heath-checker",
   "version": "0.0.0",
-  "description": "A monitor solution for AWS Lambda ",
+  "description": "A serverless solution for health checking of web services.",
   "main": "index.js",
   "scripts": {
     "test-watch": "jest --watchAll --verbose",

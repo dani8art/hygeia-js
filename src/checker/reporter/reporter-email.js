@@ -88,7 +88,7 @@ class EmailReporter {
 
         let body = `
             <div class="container">
-                <h3>Health of System</h3>
+                <h3>Health report</h3>
                 <div class="row">
                     ${services}
                 </div>
