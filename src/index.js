@@ -31,7 +31,8 @@ exports.handler = (event, context, callback) => {
         },
         reporter: {
             //type: 'email',
-            email: 'admin@darteaga.com'
+            email: 'admin@darteaga.com',
+            policy: 'error' // 'always'
         }
     });
 

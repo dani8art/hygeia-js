@@ -61,8 +61,17 @@ class Checker {
                 })
                 .then(() => {
 
-                    console.log('Send status checking by reporter.');
-                    return this.reporter.send(values).then(resolve);
+                    console.log('Reporter policy = ' + this.reporter.policy);
+                    let isHealthy = this.isHealthy(values);
+                    console.log('isHealthy = ' + isHealthy);
+
+                    if ((this.reporter.policy === 'error' && !isHealthy) || this.reporter.policy === 'always') {
+                        console.log('Send report by ' + this.reporter.name);
+                        return this.reporter.send(values).then(resolve);
+                    } else {
+                        console.log('Not Send report');
+                        return Promise.resolve();
+                    }
 
                 })
                 .catch(err => {
@@ -126,6 +135,18 @@ class Checker {
             req.end();
 
         });
+    }
+
+    /**
+     * Check if a health report have any servive unhealthy.
+     * @param {any} health 
+     * @returns {Boolean} isHealthy
+     * @memberof Checker
+     */
+    isHealthy(health) {
+        let isHealthy = true;
+        health.forEach(s => isHealthy = isHealthy && s.result < 300);
+        return isHealthy;
     }
 }
 

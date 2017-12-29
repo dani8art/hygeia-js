@@ -8,7 +8,19 @@ describe('Reporters - Email', () => {
             email: 'test@test.com'
         });
 
+        expect(reporter.name).toBe('EmailReporter');
         expect(reporter.email).toBe('test@test.com');
+        expect(reporter.policy).toBe('always');
+    });
+
+    test('Create email reporter with policy', () => {
+        let reporter = new EmailReporter({
+            email: 'test@test.com',
+            policy: 'error'
+        });
+
+        expect(reporter.email).toBe('test@test.com');
+        expect(reporter.policy).toBe('error');
     });
 
     test('Throw error when any email is passed', () => {

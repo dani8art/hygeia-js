@@ -14,9 +14,11 @@ class EmailReporter {
      * @memberof EmailReporter
      */
     constructor(options) {
+        this.name = 'EmailReporter';
         if (!options.email)
             throw new Error('Email in EmailReporter options is require.');
         this.email = options.email;
+        this.policy = options.policy || 'always';
     }
 
     /**
@@ -26,7 +28,6 @@ class EmailReporter {
      * @memberof EmailReporter
      */
     send(health) {
-        console.log('Sending email.');
         return SES.sendEmail(this.buildSESOptions(health)).promise();
     }
 
