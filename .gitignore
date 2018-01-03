@@ -69,3 +69,5 @@ typings/
 sandbox*\.js
 coverage/
 dist/
+
+\.serverless/

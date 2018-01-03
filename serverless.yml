@@ -1,0 +1,42 @@
+custom: 
+  pkg: ${file(package.json)}
+  stage: ${opt:stage, 'dev'}
+
+service: ${self:custom.pkg.name}
+
+provider:
+  name: aws
+  stage: ${self:custom.stage}
+  runtime: nodejs6.10
+  memorySize: 128
+  region: us-west-2 
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - logs:CreateLogGroup
+        - logs:CreateLogStream
+        - logs:PutLogEvents
+      Resource: arn:aws:logs:*:*:*
+    - Effect: Allow
+      Action:
+        - cloudwatch:PutMetricData
+      Resource: '*'
+    - Effect: Allow
+      Action:
+        - ses:SendEmail
+      Resource: '*'
+    - Effect: Allow
+      Action:
+        - s3:GetObject
+      Resource: '*'
+
+package:
+  artifact: dist/${self:custom.pkg.name}-${self:custom.pkg.version}.zip
+
+functions:
+  checker:
+    handler: handler.handler
+    events:
+      - schedule: 'rate(60 minutes)'
+    environment:
+      NODE_ENV: ${self:custom.stage}
