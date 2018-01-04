@@ -36,6 +36,7 @@ package:
 functions:
   checker:
     handler: handler.handler
+    timeout: 15
     events:
       - schedule: 'rate(60 minutes)'
     environment:
