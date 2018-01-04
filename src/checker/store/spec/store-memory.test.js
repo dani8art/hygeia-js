@@ -1,15 +1,23 @@
 'use strict';
 const { MemoryStore } = require('../store-memory');
+const { Service } = require('../../service');
 
 describe('Stores - Memory', () => {
 
     test('Create memory store', done => {
         const store = new MemoryStore({
-            data: { example: 'example' }
+            data: [{ name: 'example', health: 'http://example.com' }]
         });
 
         store.get().then(data => {
-            expect(data).toEqual({ example: 'example' });
+            expect(data).toEqual([
+                new Service({
+                    name: 'example',
+                    health: 'http://example.com',
+                    method: 'GET',
+                    timeout: 10000
+                })
+            ]);
             done();
         })
     });

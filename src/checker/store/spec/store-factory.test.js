@@ -5,7 +5,7 @@ const { createStore } = require('../');
 describe('Stores - Store Factory', () => {
     test('Create a memory store', () => {
         const reporter = createStore({
-            data: { test: 'test' }
+            data: [{ name: 'example', health: 'http://example.com' }]
         });
 
         expect(reporter).toBeInstanceOf(MemoryStore);

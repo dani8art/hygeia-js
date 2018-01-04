@@ -18,7 +18,11 @@
     "deploy:dev": "npm run build && serverless deploy function -f checker",
     "deploy:pro": "npm run build && serverless deploy function -f checker --stage prod"
   },
-  "jest": {},
+  "jest": {
+    "watchPathIgnorePatterns": [
+      "/node_modules/"
+    ]
+  },
   "keywords": [
     "monitor",
     "lambda",

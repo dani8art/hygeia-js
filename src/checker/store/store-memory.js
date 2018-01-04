@@ -1,4 +1,6 @@
 'use strict';
+const { Service } = require('../service');
+
 /**
  * @class MemoryStore
  */
@@ -12,7 +14,9 @@ class MemoryStore {
     constructor(options) {
         if (!options.data)
             throw new Error('Data is required.');
-        this.data = options.data;
+
+        // add services data from memory checking if they are compliance with class Service.
+        this.data = options.data.map(ser => new Service(ser));
     }
 
     /**

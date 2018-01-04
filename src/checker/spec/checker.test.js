@@ -5,7 +5,7 @@ const { Measure } = require('../measure');
 describe('Checker', () => {
     test('Create a new checker', () => {
         const checker = new Checker({
-            store: { data: { name: 'google', health: 'http://www.google.es' } },
+            store: { data: [{ name: 'google', health: 'http://www.google.es' }] },
             reporter: { email: 'test@test.com' }
         });
 
@@ -26,7 +26,7 @@ describe('Checker', () => {
     test('Throw error if reporter options are not passed', () => {
         expect(() => {
             const checker = new Checker({
-                store: { data: { name: 'google', health: 'http://www.google.es' } },
+                store: { data: [{ name: 'google', health: 'http://www.google.es' }] },
             });
         }).toThrow('Reporter options are required.');
     });
@@ -40,7 +40,7 @@ describe('Checker', () => {
             duration: 824
         }]
         const checker = new Checker({
-            store: { data: { name: 'google', health: 'http://www.google.es' } },
+            store: { data: [{ name: 'google', health: 'http://www.google.es' }] },
             reporter: { email: 'test@test.com' }
         });
 
@@ -56,7 +56,7 @@ describe('Checker', () => {
             duration: 824
         }]
         const checker = new Checker({
-            store: { data: { name: 'google', health: 'http://www.google.es' } },
+            store: { data: [{ name: 'google', health: 'http://www.google.es' }] },
             reporter: { email: 'test@test.com' }
         });
 
@@ -64,13 +64,13 @@ describe('Checker', () => {
     });
 
     test('sendRequest is a Promise', () => {
-        let req = Checker.request({ name: 'google', health: 'http://www.google.es' });
+        let req = Checker.request({ name: 'google', health: 'http://www.google.es', timeout: 3000 });
 
         expect(req).toBeInstanceOf(Promise);
     });
 
     test('sendRequest statusCode == 200', done => {
-        Checker.request({ name: 'google', health: 'http://www.google.es' })
+        Checker.request({ name: 'google', health: 'http://www.google.es', timeout: 3000 })
             .then(measure => {
                 expect(measure).toBeInstanceOf(Measure);
                 expect(measure.result).toBe(200);
@@ -87,4 +87,8 @@ describe('Checker', () => {
             });
     });
 
+    test('sendRequest without timeout', () => {
+        expect(Checker.request({ name: 'google', health: 'http://www.google.es' }))
+            .reject;
+    });
 });

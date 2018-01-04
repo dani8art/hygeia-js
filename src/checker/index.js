@@ -4,6 +4,7 @@ const https = require('https').request;
 const http = require('http').request;
 const URL = require('url');
 const { Measure } = require('./measure');
+const { Service } = require('./service');
 const { createStore } = require('./store');
 const { createReporter } = require('./reporter');
 /**
@@ -45,9 +46,12 @@ class Checker {
                 .then(services => {
 
                     console.log('Start checking for: %s', services.map(e => e.name));
-                    services.forEach(element => {
+
+                    // Make promises checking if data are compliance with class Service.
+                    services.map(ser => new Service(ser)).forEach(element => {
                         promises.push(Checker.request(element));
                     });
+
                     return Promise.all(promises);
 
                 })
@@ -92,11 +96,7 @@ class Checker {
      * @memberof Checker
      */
     static request(service) {
-        const REQ_DEFAULT_TIMEOUT = 10 * 1000;
         console.log('Send request for checking service=%s', service.name);
-
-        // set default request option for services
-        service.timeout = service.timeout || REQ_DEFAULT_TIMEOUT;
 
         return new Promise((resolve, reject) => {
 
@@ -111,7 +111,7 @@ class Checker {
                 hostname: url.hostname,
                 port: url.port,
                 path: (url.pathname || '') + (url.search || ''),
-                method: service.method || 'GET',
+                method: service.method,
                 timeout: service.timeout
             };
 
@@ -123,9 +123,13 @@ class Checker {
             }, reject);
 
             req.on('socket', socket => {
-                socket.setTimeout(service.timeout);
+                try {
+                    socket.setTimeout(service.timeout);
+                } catch (e) { return reject(e); }
+
                 // abort if timeout
                 socket.on('timeout', () => req.abort());
+                socket.on('error', reject);
             });
 
             req.on('error', err => {
