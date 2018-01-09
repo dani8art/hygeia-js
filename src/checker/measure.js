@@ -22,7 +22,7 @@ class Measure {
      */
     end(result) {
         this.endTs = Measure.now();
-        this.result = result;
+        this.health = result;
         return this;
     }
 
@@ -41,7 +41,7 @@ class Measure {
      * @memberof Measure
      */
     value() {
-        if (!this.result) throw new Error('Can not call value() before end()');
+        if (!this.health) throw new Error('Can not call value() before end()');
 
         this.duration = this.endTs - this.startTs;
         this.startTs = this.startTs.toISOString();
