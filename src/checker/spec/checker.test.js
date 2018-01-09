@@ -73,7 +73,7 @@ describe('Checker', () => {
         Checker.request({ name: 'google', health: 'http://www.google.es', timeout: 3000 })
             .then(measure => {
                 expect(measure).toBeInstanceOf(Measure);
-                expect(measure.result).toBe(200);
+                expect(measure.health).toBe(200);
                 done();
             });
     });
@@ -82,7 +82,7 @@ describe('Checker', () => {
         Checker.request({ name: 'google', health: 'http://www.google.es:81', timeout: 3000 })
             .then(measure => {
                 expect(measure).toBeInstanceOf(Measure);
-                expect(measure.result).not.toBe(200);
+                expect(measure.health).not.toBe(200);
                 done();
             });
     });
