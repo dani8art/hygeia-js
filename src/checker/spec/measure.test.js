@@ -13,7 +13,7 @@ describe('Measure', () => {
         const measure = new Measure('test');
         measure.end(200);
 
-        expect(measure.result).toBe(200);
+        expect(measure.health).toBe(200);
         expect(measure.endTs).toBeInstanceOf(Date);
     });
 
