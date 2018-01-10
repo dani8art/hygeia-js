@@ -33,7 +33,15 @@ describe('Reporters - Email', () => {
         let reporter = new EmailReporter({
             email: 'test@test.com'
         });
-        let hreport = { measures: [{ service: "statuschecker", startTs: "2017-12-20T18:48:37.981Z", endTs: "2017-12-20T18:48:38.918Z", health: 200, duration: 937 }] };
+        let hreport = {
+            measures: [
+                {
+                    service: "statuschecker", startTs: "2017-12-20T18:48:37.981Z",
+                    endTs: "2017-12-20T18:48:38.918Z", health: 200, duration: 937
+                }
+            ],
+            date: "2017-12-20T18:48:38.918Z"
+        };
 
         let sesOptions = reporter.buildSESOptions(hreport);
 

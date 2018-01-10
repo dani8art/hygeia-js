@@ -48,7 +48,7 @@ class EmailReporter {
                 Body: {
                     Html: {
                         Charset: 'UTF-8',
-                        Data: this.buildMessageBody(healthReport.measures) // JSON.stringify(healthReport, null, 2)
+                        Data: this.buildMessageBody(healthReport) // JSON.stringify(healthReport, null, 2)
                     }
                 },
                 Subject: {
@@ -60,39 +60,40 @@ class EmailReporter {
         }
     }
 
-    buildMessageBody(health) {
+    buildMessageBody(healthReport) {
+
         let head = `
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
             <style>
                 .card-title{text-transform: uppercase;}
-                .card{margin-bottom: 5px;}
-                h6{font-size: 80%;font-weight: 400;}
+                .card-body{padding: 10px 10px 10px 10px}
+                .card{margin-bottom: 6px;}
+                h6, .small{font-size: 80%;font-weight: 400;text-transform: none;}
             </style>    
         `;
 
         let services = '';
-        health.forEach(s => {
+        healthReport.measures.forEach(s => {
             services += `
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">${s.service} <span class="float-right badge badge-pill badge-${s.health < 300 ? 'success' : 'danger'}">${s.health}</span></h5>
-                            <h6 class="card-subtitle mb-2 text-muted">${s.startTs.replace(/T/, ' ').replace(/\..+/, '')}</h6>
-                            <p class="card-text">
-                                <b>Duration: </b> ${s.duration} ms
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                <tr>
+                    <td class="card-title">${s.service} <span class="small">(${s.duration} ms)</span></td>
+                    <td class="text-center"> <span class="badge badge-pill badge-${s.health < 300 ? 'success' : 'danger'}">${s.health}</span></td>
+                </tr>
             `;
         });
 
         let body = `
             <div class="container">
-                <h3>Health report</h3>
+                <h4>Health Report</h4>
                 <div class="row">
+                <table class="table">
+                    <tbody>
                     ${services}
+                    </tbody>
+                </table>
                 </div>
+
+                <p class="small text-right">${this.parseDate(healthReport.date)} - ${healthReport.environment} - v${healthReport.version}</p>
             </div>
         `;
 
@@ -108,6 +109,10 @@ class EmailReporter {
             </html>
         `
         return html;
+    }
+
+    parseDate(data) {
+        return data.replace(/T/, ' ').replace(/\..+/, '');
     }
 }
 

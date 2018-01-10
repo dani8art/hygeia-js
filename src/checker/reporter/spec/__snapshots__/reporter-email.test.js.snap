@@ -9,30 +9,30 @@ exports[`Reporters - Email Test method buildSESOptions 1`] = `
             <link rel=\\"stylesheet\\" href=\\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css\\" integrity=\\"sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb\\" crossorigin=\\"anonymous\\">
             <style>
                 .card-title{text-transform: uppercase;}
-                .card{margin-bottom: 5px;}
-                h6{font-size: 80%;font-weight: 400;}
+                .card-body{padding: 10px 10px 10px 10px}
+                .card{margin-bottom: 6px;}
+                h6, .small{font-size: 80%;font-weight: 400;text-transform: none;}
             </style>    
         
                 </head>
                 <body>
                 
             <div class=\\"container\\">
-                <h3>Health report</h3>
+                <h4>Health Report</h4>
                 <div class=\\"row\\">
+                <table class=\\"table\\">
+                    <tbody>
                     
-                <div class=\\"col-12\\">
-                    <div class=\\"card\\">
-                        <div class=\\"card-body\\">
-                            <h5 class=\\"card-title\\">statuschecker <span class=\\"float-right badge badge-pill badge-success\\">200</span></h5>
-                            <h6 class=\\"card-subtitle mb-2 text-muted\\">2017-12-20 18:48:37</h6>
-                            <p class=\\"card-text\\">
-                                <b>Duration: </b> 937 ms
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                <tr>
+                    <td class=\\"card-title\\">statuschecker <span class=\\"small\\">(937 ms)</span></td>
+                    <td class=\\"text-center\\"> <span class=\\"badge badge-pill badge-success\\">200</span></td>
+                </tr>
             
+                    </tbody>
+                </table>
                 </div>
+
+                <p class=\\"small text-right\\">2017-12-20 18:48:38 - undefined - vundefined</p>
             </div>
         
                 </body>

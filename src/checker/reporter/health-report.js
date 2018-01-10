@@ -74,7 +74,7 @@ class HealthReport {
         if (!this.measure)
             throw new Error('Can not end an HealthReport before start');
 
-        this.measure.end(this.getHealth());
+        this.measure.end(this.getHealth()).value();
         this.date = this.measure.startTs;
         this.health = this.measure.health;
         this.duration = this.measure.duration;
