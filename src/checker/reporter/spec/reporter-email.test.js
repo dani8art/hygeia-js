@@ -33,9 +33,9 @@ describe('Reporters - Email', () => {
         let reporter = new EmailReporter({
             email: 'test@test.com'
         });
-        let statusChecking = [{ service: "statuschecker", startTs: "2017-12-20T18:48:37.981Z", endTs: "2017-12-20T18:48:38.918Z", result: 200, duration: 937 }];
+        let hreport = { measures: [{ service: "statuschecker", startTs: "2017-12-20T18:48:37.981Z", endTs: "2017-12-20T18:48:38.918Z", health: 200, duration: 937 }] };
 
-        let sesOptions = reporter.buildSESOptions(statusChecking);
+        let sesOptions = reporter.buildSESOptions(hreport);
 
         expect(sesOptions.Destination.ToAddresses).toContain('test@test.com');
         expect(sesOptions.Message.Body.Html.Charset).toBe('UTF-8');

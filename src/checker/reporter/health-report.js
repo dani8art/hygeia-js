@@ -50,7 +50,7 @@ class HealthReport {
     getHealth() {
         let health = 200;
         this.measures.forEach(measure => {
-            if (measure.health > health) health = measure.health;
+            if (measure.health > health || typeof measure.health === 'string') health = measure.health;
         });
         return health;
     }
@@ -62,7 +62,7 @@ class HealthReport {
      */
     isHealthy() {
         if (!this.health) throw new Error('HealthReport must be finished before check isHealthy');
-        return this.getHealth() < 300
+        return this.getHealth() < 300;
     }
 
     /**

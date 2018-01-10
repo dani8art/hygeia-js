@@ -31,38 +31,6 @@ describe('Checker', () => {
         }).toThrow('Reporter options are required.');
     });
 
-    test('isHealthy true', () => {
-        let mockHealthReport = [{
-            service: "google",
-            startTs: "2017-12-27T20:27:27.185Z",
-            endTs: "2017-12-27T20:27:28.009Z",
-            result: 200,
-            duration: 824
-        }]
-        const checker = new Checker({
-            store: { data: [{ name: 'google', health: 'http://www.google.es' }] },
-            reporter: { email: 'test@test.com' }
-        });
-
-        expect(checker.isHealthy(mockHealthReport)).toBe(true);
-    });
-
-    test('isHealthy false', () => {
-        let mockHealthReport = [{
-            service: "google",
-            startTs: "2017-12-27T20:27:27.185Z",
-            endTs: "2017-12-27T20:27:28.009Z",
-            result: 300,
-            duration: 824
-        }]
-        const checker = new Checker({
-            store: { data: [{ name: 'google', health: 'http://www.google.es' }] },
-            reporter: { email: 'test@test.com' }
-        });
-
-        expect(checker.isHealthy(mockHealthReport)).toBe(false);
-    });
-
     test('sendRequest is a Promise', () => {
         let req = Checker.request({ name: 'google', health: 'http://www.google.es', timeout: 3000 });
 

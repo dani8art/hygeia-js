@@ -23,21 +23,21 @@ class EmailReporter {
 
     /**
      * This method send email using AWS.SES service.
-     * @param {any} health Checked health object to send.
+     * @param {any} healthReport Checked healthReport object to send.
      * @returns {Promise<any>}
      * @memberof EmailReporter
      */
-    send(health) {
-        return SES.sendEmail(this.buildSESOptions(health)).promise();
+    send(healthReport) {
+        return SES.sendEmail(this.buildSESOptions(healthReport)).promise();
     }
 
     /**
      *  This method build options object for AWS.SES service configuration
-     * @param {any} health Checked health object to send
+     * @param {any} healthReport Checked healthReport object to send
      * @returns {AWS.SES.SendEmailRequest}
      * @memberof EmailReporter
      */
-    buildSESOptions(health) {
+    buildSESOptions(healthReport) {
         return {
             Destination: {
                 ToAddresses: [
@@ -48,7 +48,7 @@ class EmailReporter {
                 Body: {
                     Html: {
                         Charset: 'UTF-8',
-                        Data: this.buildMessageBody(health) // JSON.stringify(health, null, 2)
+                        Data: this.buildMessageBody(healthReport.measures) // JSON.stringify(healthReport, null, 2)
                     }
                 },
                 Subject: {
@@ -76,7 +76,7 @@ class EmailReporter {
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">${s.service} <span class="float-right badge badge-pill badge-${s.result < 300 ? 'success' : 'danger'}">${s.result}</span></h5>
+                            <h5 class="card-title">${s.service} <span class="float-right badge badge-pill badge-${s.health < 300 ? 'success' : 'danger'}">${s.health}</span></h5>
                             <h6 class="card-subtitle mb-2 text-muted">${s.startTs.replace(/T/, ' ').replace(/\..+/, '')}</h6>
                             <p class="card-text">
                                 <b>Duration: </b> ${s.duration} ms

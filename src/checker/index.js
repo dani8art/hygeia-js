@@ -4,6 +4,7 @@ const https = require('https').request;
 const http = require('http').request;
 const URL = require('url');
 const { Measure } = require('./measure');
+const { HealthReport } = require('./reporter/health-report');
 const { Service } = require('./service');
 const { createStore } = require('./store');
 const { createReporter } = require('./reporter');
@@ -40,50 +41,42 @@ class Checker {
      * @memberof Checker
      */
     check() {
-        let promises = [], measure = new Measure('statuschecker'), values = [];
+        let promises = [], hreport = new HealthReport().start();
         return new Promise((resolve, reject) => {
             this.store.get()
                 .then(services => {
-
                     console.log('Start checking for: %s', services.map(e => e.name));
 
                     // Make promises checking if data are compliance with class Service.
                     services.map(ser => new Service(ser)).forEach(element => {
                         promises.push(Checker.request(element));
                     });
-
                     return Promise.all(promises);
-
                 })
                 .then(res => {
-
-                    values = res.map(e => e.value());
-
-                    values.push(measure.end(200).value());
-
-                    console.log('End checking, Results: %s', JSON.stringify(values, null, 2));
+                    // Add measures to the report.
+                    res.forEach(e => hreport.addMeasure(e.value()));
+                    return hreport.end();
                 })
-                .then(() => {
+                .then((hreport) => {
+                    console.log('End checking, Results: %s', JSON.stringify(hreport, null, 2));
 
                     console.log('Reporter policy = ' + this.reporter.policy);
-                    let isHealthy = this.isHealthy(values);
+                    let isHealthy = hreport.isHealthy();
                     console.log('isHealthy = ' + isHealthy);
 
                     if ((this.reporter.policy === 'error' && !isHealthy) || this.reporter.policy === 'always') {
                         console.log('Send report by ' + this.reporter.name);
-                        return this.reporter.send(values).then(resolve);
+                        return this.reporter.send(hreport).then(resolve);
                     } else {
                         console.log('Not Send report');
                         return Promise.resolve();
                     }
-
                 })
                 .catch(err => {
-
                     console.error(err);
                     console.log('Send status checking by reporter.');
-                    return this.reporter.send(values).then(() => reject(err)).catch(reject);
-
+                    return this.reporter.send(hreport).then(() => reject(err)).catch(reject);
                 });
         });
     }
@@ -141,17 +134,6 @@ class Checker {
         });
     }
 
-    /**
-     * Check if a health report have any servive unhealthy.
-     * @param {any} health 
-     * @returns {Boolean} isHealthy
-     * @memberof Checker
-     */
-    isHealthy(health) {
-        let isHealthy = true;
-        health.forEach(s => isHealthy = isHealthy && s.result < 300);
-        return isHealthy;
-    }
 }
 
 
