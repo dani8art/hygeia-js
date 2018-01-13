@@ -1,6 +1,6 @@
 'use strict';
 const { HealthReport } = require('../health-report');
-const PACKAGE_PATH = '../../../../package.json'
+const PACKAGE_PATH = process.env.NODE_ENV === 'dev' ? '../../package.json' : '../../../../package.json'
 const pkg = require(PACKAGE_PATH);
 
 describe('HealthReport', () => {

@@ -1,5 +1,5 @@
 {
-  "name": "lambda-heath-checker",
+  "name": "lambda-health-checker",
   "version": "0.0.2",
   "description": "A serverless solution for health checking of web services.",
   "main": "src/handler.js",
@@ -12,11 +12,11 @@
     "zip": "gulp",
     "build": "npm run clear && npm run zip",
     "configure": "npm run configure:pro",
-    "configure:dev": "npm run build && serverless deploy",
-    "configure:pro": "npm run build && serverless deploy --stage prod",
-    "deploy": "npm run deploy:pro",
-    "deploy:dev": "npm run build && serverless deploy function -f checker",
-    "deploy:pro": "npm run build && serverless deploy function -f checker --stage prod"
+    "configure:pre": "npm run build && serverless deploy --stage pre",
+    "configure:prod": "npm run build && serverless deploy --stage prod",
+    "deploy": "npm run deploy:prod",
+    "deploy:pre": "npm run build && serverless deploy function -f checker --stage pre",
+    "deploy:prod": "npm run build && serverless deploy function -f checker --stage prod"
   },
   "jest": {
     "watchPathIgnorePatterns": [
@@ -38,5 +38,13 @@
     "jest": "^22.0.0",
     "rimraf": "^2.6.2",
     "serverless": "^1.25.0"
+  },
+  "bugs": {
+    "url": "https://github.com/dani8art/lambda-status-checker/issues",
+    "email": "project@hostname.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dani8art/lambda-status-checker.git"
   }
 }

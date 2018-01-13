@@ -1,6 +1,4 @@
 'use strict';
-const PACKAGE_PATH = '../../../package.json'
-const pkg = require(PACKAGE_PATH);
 const { Measure } = require('../measure');
 
 /**
@@ -15,7 +13,8 @@ class HealthReport {
      * @memberof HealthReport
      */
     constructor() {
-        this.version = pkg.version;
+        this.pkg = HealthReport.getPackage();
+        this.version = this.pkg.version;
         this.environment = process.env.NODE_ENV || 'dev';
         this.measures = [];
     }
@@ -79,7 +78,23 @@ class HealthReport {
         this.health = this.measure.health;
         this.duration = this.measure.duration;
         delete this.measure;
+        delete this.pkg;
         return this;
+    }
+
+    /**
+     * Get the package.json of the porject.
+     * @static
+     * @returns {any} Object with package.json properties
+     * @memberof HealthReport
+     */
+    static getPackage() {
+        return require({
+            "undefined": '../../../package.json',
+            "test": '../../../package.json',
+            "pre": '../../package.json',
+            "prod": '../../package.json'
+        }[process.env.NODE_ENV]);
     }
 }
 
