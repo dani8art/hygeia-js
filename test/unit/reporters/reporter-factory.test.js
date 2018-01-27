@@ -1,6 +1,6 @@
 'use strict';
-const { EmailReporter } = require('../reporter-email');
-const { createReporter } = require('../');
+const { EmailReporter } = require('../../../src/checker/reporters/reporter-email');
+const { createReporter } = require('../../../src/checker/reporters/');
 
 describe('Reporters - Reporter Factory', () => {
     test('Create an email reporter', () => {
