@@ -3,11 +3,11 @@
 const https = require('https').request;
 const http = require('http').request;
 const URL = require('url');
-const { Measure } = require('./measure');
-const { HealthReport } = require('./reporter/health-report');
-const { Service } = require('./service');
-const { createStore } = require('./store');
-const { createReporter } = require('./reporter');
+const { Measure } = require('./domain/measure');
+const { HealthReport } = require('./domain/health-report');
+const { Service } = require('./domain/service');
+const { createStore } = require('./stores');
+const { createReporter } = require('./reporters');
 /**
  * @class Checker
  */

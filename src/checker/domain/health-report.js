@@ -1,5 +1,5 @@
 'use strict';
-const { Measure } = require('../measure');
+const { Measure } = require('./measure');
 
 /**
  * Class that represent a health report of the system with all service measures

@@ -1,5 +1,5 @@
 'use strict';
-const { Service } = require('../service');
+const { Service } = require('../domain/service');
 
 /**
  * @class MemoryStore

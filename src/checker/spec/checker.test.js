@@ -1,6 +1,6 @@
 'use strict';
 const { Checker } = require('../');
-const { Measure } = require('../measure');
+const { Measure } = require('../domain/measure');
 
 describe('Checker', () => {
     test('Create a new checker', () => {

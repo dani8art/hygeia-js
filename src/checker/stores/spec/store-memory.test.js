@@ -1,6 +1,6 @@
 'use strict';
 const { MemoryStore } = require('../store-memory');
-const { Service } = require('../../service');
+const { Service } = require('../../domain/service');
 
 describe('Stores - Memory', () => {
 
