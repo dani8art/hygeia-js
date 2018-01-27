@@ -1,6 +1,6 @@
 'use strict';
-const { MemoryStore } = require('../store-memory');
-const { createStore } = require('../');
+const { MemoryStore } = require('../../../src/checker/stores/store-memory');
+const { createStore } = require('../../../src/checker/stores/');
 
 describe('Stores - Store Factory', () => {
     test('Create a memory store', () => {
