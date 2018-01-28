@@ -1,5 +1,5 @@
 'use strict';
-const { EmailReporter } = require('../../../src/checker/reporters/reporter-email');
+const { EmailReporter } = require('../../../src/reporters');
 
 describe('Reporters - Email', () => {
 

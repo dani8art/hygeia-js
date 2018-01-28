@@ -51,4 +51,4 @@ class Measure {
 
 }
 
-module.exports = { Measure };
+module.exports = Measure;

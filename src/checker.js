@@ -3,9 +3,7 @@
 const https = require('https').request;
 const http = require('http').request;
 const URL = require('url');
-const { Measure } = require('./domain/measure');
-const { HealthReport } = require('./domain/health-report');
-const { Service } = require('./domain/service');
+const { HealthReport, Measure, Service } = require('./domain');
 const { createStore } = require('./stores');
 const { createReporter } = require('./reporters');
 /**
@@ -109,6 +107,7 @@ class Checker {
             };
 
             let req = requester(opt, (res) => {
+                console.log('End request for service=%s', service.name);
                 measure.end(res.statusCode);
                 res.setEncoding('utf8');
                 res.on('data', (chunk) => { });
@@ -138,4 +137,4 @@ class Checker {
 
 
 
-module.exports = { Checker };
+module.exports = Checker;

@@ -1,5 +1,5 @@
 'use strict';
-const { HealthReport } = require('../../../src/checker/domain/health-report');
+const { HealthReport } = require('../../../src/domain');
 const pkg = require('../../../package.json');
 
 describe('HealthReport', () => {

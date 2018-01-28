@@ -53,4 +53,4 @@ class Service {
 
 Service.DEFAULT_TIMEOUT = 10 * 1000;
 
-module.exports = { Service };
+module.exports = Service;

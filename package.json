@@ -1,22 +1,12 @@
 {
-  "name": "lambda-health-checker",
+  "name": "hygeia-js",
   "version": "0.0.3",
-  "description": "A serverless solution for health checking of web services.",
-  "main": "src/handler.js",
+  "description": "A toolkit for health checking of web services.",
+  "main": "src/index.js",
   "scripts": {
     "test-watch": "jest --watchAll --verbose",
     "test": "jest --coverage",
-    "test-ci": "jest --coverage --json --outputFile=test-results.json",
-    "test-aws": "serverless invoke -f checker -l",
-    "clear": "rimraf dist/*",
-    "zip": "gulp",
-    "build": "npm run clear && npm run zip",
-    "configure": "npm run configure:pro",
-    "configure:pre": "npm run build && serverless deploy --stage pre",
-    "configure:prod": "npm run build && serverless deploy --stage prod",
-    "deploy": "npm run deploy:prod",
-    "deploy:pre": "npm run build && serverless deploy function -f checker --stage pre",
-    "deploy:prod": "npm run build && serverless deploy function -f checker --stage prod"
+    "test-ci": "jest --coverage --json --outputFile=test-results.json"
   },
   "jest": {
     "watchPathIgnorePatterns": [
@@ -24,8 +14,10 @@
     ]
   },
   "keywords": [
-    "monitor",
-    "lambda",
+    "healthcheck",
+    "healthbeat",
+    "healthy",
+    "serverless",
     "microservices"
   ],
   "author": "Daniel Arteaga",
@@ -40,11 +32,11 @@
     "serverless": "^1.25.0"
   },
   "bugs": {
-    "url": "https://github.com/dani8art/lambda-status-checker/issues",
-    "email": "project@hostname.com"
+    "url": "https://github.com/dani8art/hygeia-js/issues",
+    "email": "admin@darteaga.com"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/dani8art/lambda-status-checker.git"
+    "url": "https://github.com/dani8art/hygeia-js.git"
   }
 }

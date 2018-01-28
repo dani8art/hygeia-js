@@ -30,5 +30,7 @@ module.exports = {
 
         }
 
-    }
+    },
+
+    MemoryStore
 };

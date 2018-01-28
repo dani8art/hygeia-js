@@ -1,5 +1,5 @@
 'use strict';
-const { Measure } = require('./measure');
+const Measure = require('./measure');
 
 /**
  * Class that represent a health report of the system with all service measures
@@ -13,7 +13,7 @@ class HealthReport {
      * @memberof HealthReport
      */
     constructor() {
-        this.pkg = HealthReport.getPackage();
+        this.pkg = require('../../package.json');
         this.version = this.pkg.version;
         this.environment = process.env.NODE_ENV || 'dev';
         this.measures = [];
@@ -82,20 +82,6 @@ class HealthReport {
         return this;
     }
 
-    /**
-     * Get the package.json of the porject.
-     * @static
-     * @returns {any} Object with package.json properties
-     * @memberof HealthReport
-     */
-    static getPackage() {
-        return require({
-            "undefined": '../../../package.json',
-            "test": '../../../package.json',
-            "pre": '../../package.json',
-            "prod": '../../package.json'
-        }[process.env.NODE_ENV]);
-    }
 }
 
-module.exports = { HealthReport };
+module.exports = HealthReport;
