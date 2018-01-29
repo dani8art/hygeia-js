@@ -6,7 +6,8 @@
   "scripts": {
     "test-watch": "jest --watchAll --verbose",
     "test": "jest --coverage",
-    "test-ci": "jest --coverage --json --outputFile=test-results.json"
+    "test-ci": "jest --coverage --json --outputFile=test-results.json",
+    "license": "gulp"
   },
   "jest": {
     "watchPathIgnorePatterns": [
@@ -21,7 +22,7 @@
     "microservices"
   ],
   "author": "Daniel Arteaga",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "devDependencies": {
     "aws-sdk": "^2.169.0",
     "gulp": "^3.9.1",
@@ -38,5 +39,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/dani8art/hygeia-js.git"
-  }
+  },
+  "homepage": "https://github.com/dani8art/hygeia-js"
 }
