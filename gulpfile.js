@@ -4,7 +4,7 @@ var header = require('gulp-header');
 var pkg = require('./package.json');
 
 var banner = ['/**',
-    ' * <%= pkg.name %>', ,
+    ' * <%= pkg.name %>',
     ' * Copyright (c) 2018 darteaga (<%= pkg.homepage %>)',
     ' * <%= pkg.license %> Licensed',
     ' */',

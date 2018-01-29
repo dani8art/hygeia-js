@@ -1,3 +1,9 @@
+/**
+ * hygeia-js
+ * Copyright (c) 2018 darteaga (https://github.com/dani8art/hygeia-js)
+ * GPL-3.0 Licensed
+ */
+
 'use strict';
 const AWS = require('aws-sdk');
 const SES = new AWS.SES({ apiVersion: '2010-12-01' });
