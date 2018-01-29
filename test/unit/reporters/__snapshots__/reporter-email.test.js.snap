@@ -32,7 +32,7 @@ exports[`Reporters - Email Test method buildSESOptions 1`] = `
                 </table>
                 </div>
 
-                <p class=\\"small text-right\\">2017-12-20 18:48:38 - undefined - vundefined</p>
+                <p class=\\"small text-center\\">hygeia-js vundefined (undefined)</p>
             </div>
         
                 </body>

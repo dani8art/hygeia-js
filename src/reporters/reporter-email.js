@@ -53,10 +53,10 @@ class EmailReporter {
                 },
                 Subject: {
                     Charset: 'UTF-8',
-                    Data: 'Report [lambda-health-checker]'
+                    Data: 'Report [hygeia-healthcheck]'
                 }
             },
-            Source: 'checker@darteaga.com',
+            Source: 'hygeia@darteaga.com',
         }
     }
 
@@ -93,7 +93,7 @@ class EmailReporter {
                 </table>
                 </div>
 
-                <p class="small text-right">${this.parseDate(healthReport.date)} - ${healthReport.environment} - v${healthReport.version}</p>
+                <p class="small text-center">hygeia-js v${healthReport.version} (${healthReport.environment})</p>
             </div>
         `;
 

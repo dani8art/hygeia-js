@@ -49,7 +49,7 @@ describe('Reporters - Email', () => {
         expect(sesOptions.Message.Body.Html.Charset).toBe('UTF-8');
         expect(sesOptions.Message.Body.Html.Data).toMatchSnapshot();
         expect(sesOptions.Message.Subject.Charset).toBe('UTF-8');
-        expect(sesOptions.Message.Subject.Data).toBe('Report [lambda-health-checker]');
-        expect(sesOptions.Source).toBe('checker@darteaga.com');
+        expect(sesOptions.Message.Subject.Data).toBe('Report [hygeia-healthcheck]');
+        expect(sesOptions.Source).toBe('hygeia@darteaga.com');
     });
 });
