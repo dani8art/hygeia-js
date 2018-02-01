@@ -1,4 +1,4 @@
-# [Hygeia JS]() &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/dani8art/hyegia-js/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/react.svg?style=flat)](https://www.npmjs.com/package/react) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)]()
+# [Hygeia JS]() &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/dani8art/hyegia-js/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/hygeia-js.svg?style=flat)](https://www.npmjs.com/package/react) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)]()
 
 `<<description>>.`
 
@@ -33,7 +33,7 @@ We have several examples [on the website](). Here is the first one to get you st
 
 ## Installation
 
-Hygeia is available as the `hygeia-js` package on [npm](https://www.npmjs.com/dani8art/hygeia-js). 
+Hygeia is available as the `hygeia-js` package on [npm](https://www.npmjs.com/package/hygeia-js). 
 
 ### NPM
 
