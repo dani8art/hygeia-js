@@ -1,0 +1,19 @@
+{
+  "increment": "conventional:angular",
+  "non-interactive": true,
+  "preReleaseId": "canary",
+  "src": {
+    "commitMessage": "%s",
+    "tagAnnotation": "%s"
+  },
+  "npm": {
+    "publish": false
+  },
+  "github": {
+    "release": true,
+    "releaseName": "%s",
+    "tokenRef": "GITHUB_TOKEN",
+    "draft": true
+  },
+  "changelogCommand": "git log --pretty=format:'* %s (%h)' [REV_RANGE]"
+}

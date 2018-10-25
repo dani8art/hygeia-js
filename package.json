@@ -4,9 +4,11 @@
   "description": "A toolkit for health checking of web services.",
   "main": "src/index.js",
   "scripts": {
-    "test-watch": "jest --watchAll --verbose",
     "test": "jest --coverage",
-    "test-ci": "jest --coverage --json --outputFile=test-results.json",
+    "test:dev": "jest --watchAll --verbose",
+    "test:ci": "jest --coverage --json --outputFile=test-results.json",
+    "release": "release-it",
+    "release:pre": "release-it --preRelease=canary",
     "license": "gulp"
   },
   "jest": {
@@ -40,5 +42,8 @@
     "type": "git",
     "url": "https://github.com/dani8art/hygeia-js.git"
   },
-  "homepage": "https://github.com/dani8art/hygeia-js"
+  "homepage": "https://github.com/dani8art/hygeia-js",
+  "dependencies": {
+    "release-it": "^7.6.2"
+  }
 }
