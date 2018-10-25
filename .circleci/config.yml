@@ -1,0 +1,108 @@
+version: 2
+
+references:
+  js_deps_cache_key: &js_deps_cache_key
+    v8-dependency-{{ checksum "yarn.lock" }}
+  js_deps_backup_cache_key: &js_deps_backup_cache_key
+    v8-dependency-
+
+jobs:
+  test:
+    docker:
+      - image: node:8.11.1
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - *js_deps_cache_key
+          - *js_deps_backup_cache_key
+      - run: 
+          name: install npm dependecies
+          command: yarn
+      - save_cache:
+          paths:
+            - node_modules
+          key: *js_deps_cache_key
+      - run: yarn test
+
+  pre_release:
+    docker:
+      - image: node:8.11.1
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - *js_deps_cache_key
+          - *js_deps_backup_cache_key
+      - run:
+          name: install npm dependecies
+          command: yarn
+      - run: git config --global push.default matching
+      - run: git config --global user.email "totem-bot@darteaga.com"
+      - run: git config --global user.name "Totem Bot"
+      - run: git status
+      - run:
+          command: |
+            GIT_COMMIT_DESC=$(git log --format=%B -n 1)
+            RELEASE_REGEX="[0-9][0-9]?\.[0-99][0-9]?\.[0-99][0-9]?(-.*\.[0-99])?"
+
+            if [[ "$GIT_COMMIT_DESC" =~ $RELEASE_REGEX ]];
+            then
+              echo "Release commit, skipping release command"
+            else
+              yarn release:pre
+            fi 
+
+  release:
+    docker:
+      - image: node:8.11.1
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - *js_deps_cache_key
+          - *js_deps_backup_cache_key
+      - run:
+          name: install npm dependecies
+          command: yarn
+      - run: git config --global push.default matching
+      - run: git config --global user.email "totem-bot@darteaga.com"
+      - run: git config --global user.name "Totem Bot"
+      - run: git status
+      - run:
+          command: |
+            GIT_COMMIT_DESC=$(git log --format=%B -n 1)
+            RELEASE_REGEX="[0-9][0-9]?\.[0-99][0-9]?\.[0-99][0-9]?(-.*\.[0-99])?"
+
+            if [[ "$GIT_COMMIT_DESC" =~ $RELEASE_REGEX ]];
+            then
+              echo "Release commit, skipping release command"
+            else
+              yarn release
+            fi 
+
+workflows:
+  version: 2
+  test_and_release:
+    jobs:
+      - test
+      - pre_release:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - develop
+            tags:
+              ignore: 
+                - /.*/
+      - release:
+          requires:
+            - test
+          filters:
+            branches:
+              only:
+                - master
+            tags:
+              ignore: 
+                - /.*/
