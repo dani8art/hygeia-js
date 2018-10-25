@@ -1,19 +1,44 @@
 {
-  "name": "lambda-monitor",
-  "version": "0.0.0",
-  "description": "A monitor solution for AWS Lambda ",
-  "main": "index.js",
+  "name": "hygeia-js",
+  "version": "0.0.4",
+  "description": "A toolkit for health checking of web services.",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test-watch": "jest --watchAll --verbose",
+    "test": "jest --coverage",
+    "test-ci": "jest --coverage --json --outputFile=test-results.json",
+    "license": "gulp"
+  },
+  "jest": {
+    "watchPathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "keywords": [
-    "monitor",
-    "lambda",
+    "healthcheck",
+    "healthbeat",
+    "healthy",
+    "serverless",
     "microservices"
   ],
   "author": "Daniel Arteaga",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "devDependencies": {
-    "aws-sdk": "^2.169.0"
-  }
+    "aws-sdk": "^2.169.0",
+    "gulp": "^3.9.1",
+    "gulp-cli": "^2.0.0",
+    "gulp-zip": "^4.1.0",
+    "jest": "^22.0.0",
+    "rimraf": "^2.6.2",
+    "serverless": "^1.25.0"
+  },
+  "bugs": {
+    "url": "https://github.com/dani8art/hygeia-js/issues",
+    "email": "admin@darteaga.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dani8art/hygeia-js.git"
+  },
+  "homepage": "https://github.com/dani8art/hygeia-js"
 }

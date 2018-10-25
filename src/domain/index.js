@@ -7,11 +7,7 @@
 "use strict";
 
 module.exports = {
-
-    domain: require('./domain'),
-    reporters: require('./reporters'),
-    stores: require('./stores'),
-
-    Checker: require('./checker')
-
+    HealthReport: require("./health-report"),
+    Measure: require("./measure"),
+    Service: require("./service")
 };

@@ -67,3 +67,7 @@ typings/
 ##CUSTOM
 .directory
 sandbox*\.js
+coverage/
+dist/
+
+\.serverless/

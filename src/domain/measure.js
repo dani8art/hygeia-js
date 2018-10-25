@@ -1,3 +1,9 @@
+/**
+ * hygeia-js
+ * Copyright (c) 2018 darteaga (https://github.com/dani8art/hygeia-js)
+ * GPL-3.0 Licensed
+ */
+
 'use strict';
 
 /**
@@ -21,9 +27,8 @@ class Measure {
      * @memberof Measure
      */
     end(result) {
-        console.log(this.service);
         this.endTs = Measure.now();
-        this.result = result;
+        this.health = result;
         return this;
     }
 
@@ -42,7 +47,8 @@ class Measure {
      * @memberof Measure
      */
     value() {
-        console.log(this.service);
+        if (!this.health) throw new Error('Can not call value() before end()');
+
         this.duration = this.endTs - this.startTs;
         this.startTs = this.startTs.toISOString();
         this.endTs = this.endTs.toISOString();
@@ -51,4 +57,4 @@ class Measure {
 
 }
 
-module.exports = { Measure };
+module.exports = Measure;

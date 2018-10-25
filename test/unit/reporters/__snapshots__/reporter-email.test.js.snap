@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Reporters - Email Test method buildSESOptions 1`] = `
+"
+            <!DOCTYPE html>
+            <html>
+                <head>
+                
+            <link rel=\\"stylesheet\\" href=\\"https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css\\" integrity=\\"sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb\\" crossorigin=\\"anonymous\\">
+            <style>
+                .card-title{text-transform: uppercase;}
+                .card-body{padding: 10px 10px 10px 10px}
+                .card{margin-bottom: 6px;}
+                h6, .small{font-size: 80%;font-weight: 400;text-transform: none;}
+            </style>    
+        
+                </head>
+                <body>
+                
+            <div class=\\"container\\">
+                <h4>Health Report</h4>
+                <div class=\\"row\\">
+                <table class=\\"table\\">
+                    <tbody>
+                    
+                <tr>
+                    <td class=\\"card-title\\">statuschecker <span class=\\"small\\">(937 ms)</span></td>
+                    <td class=\\"text-center\\"> <span class=\\"badge badge-pill badge-success\\">200</span></td>
+                </tr>
+            
+                    </tbody>
+                </table>
+                </div>
+
+                <p class=\\"small text-center\\">hygeia-js vundefined (undefined)</p>
+            </div>
+        
+                </body>
+            </html>
+        "
+`;
