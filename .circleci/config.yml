@@ -37,7 +37,7 @@ jobs:
       - run:
           name: install npm dependecies
           command: yarn
-      - run: git branch --unset-upstream origin/master
+      - run: git branch --unset-upstream ${CIRCLE_BRANCH}
       - run: git branch --set-upstream-to origin/${CIRCLE_BRANCH}
       - run: git config --global push.default matching
       - run: git config --global user.email "totem-bot@darteaga.com"
