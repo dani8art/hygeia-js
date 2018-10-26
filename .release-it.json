@@ -4,8 +4,7 @@
   "preReleaseId": "canary",
   "src": {
     "commitMessage": "%s",
-    "tagAnnotation": "%s",
-    "pushArgs": "--set-upstream origin $(git rev-parse --abbrev-ref HEAD)"
+    "tagAnnotation": "%s"
   },
   "npm": {
     "publish": false
