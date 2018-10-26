@@ -44,6 +44,6 @@
   },
   "homepage": "https://github.com/dani8art/hygeia-js",
   "dependencies": {
-    "release-it": "^7.6.2"
+    "release-it": "git+https://github.com/dani8art/release-it.git#ecd8936e8238d1fe1d49c8de10bcd86c085224fe"
   }
 }
