@@ -2,7 +2,7 @@
   "increment": "conventional:angular",
   "non-interactive": true,
   "preReleaseId": "canary",
-  "requireUpstream": true,
+  "requireUpstream": false,
   "src": {
     "commitMessage": "%s",
     "tagAnnotation": "%s"
