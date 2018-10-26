@@ -2,7 +2,6 @@
   "increment": "conventional:angular",
   "non-interactive": true,
   "requireUpstream": false,
-  "requireCleanWorkingDir": false,
   "preReleaseId": "canary",
   "src": {
     "commitMessage": "%s",
