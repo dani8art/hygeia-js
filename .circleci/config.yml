@@ -37,7 +37,7 @@ jobs:
       - run:
           name: install npm dependecies
           command: yarn
-      - run: git config --global push.default matching
+      - run: git config --global push.default current
       - run: git config --global user.email "totem-bot@darteaga.com"
       - run: git config --global user.name "Totem Bot"
       - run: git status
