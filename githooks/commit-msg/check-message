@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# set this to your active development branch
+develop_branch="develop"
+current_branch="$(git rev-parse --abbrev-ref HEAD)"
+# regex to validate in commit msg
+commit_regex='^(merge|fix|feat|refactor|docs|chore|style|perf|test|revert)(\(.*\))?:|[0-9][0-9]?\.[0-99][0-9]?\.[0-99][0-9]?(-.*\.[0-99])?'
+error_msg="Aborting commit. Your commit message is missing either a type between (patch) (minor) (major)"
+
+if ! grep -iqE "$commit_regex" "$1"; then
+    echo "$error_msg" >&2
+    exit 1
+fi
