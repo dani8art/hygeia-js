@@ -5,7 +5,7 @@
   "src": {
     "commitMessage": "%s",
     "tagAnnotation": "%s",
-    "pushArgs": "--set-upstream origin ${CIRCLE_BRANCH}"
+    "pushArgs": "--set-upstream origin $(git rev-parse --abbrev-ref HEAD)"
   },
   "npm": {
     "publish": false
