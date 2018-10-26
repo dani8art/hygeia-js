@@ -1,11 +1,11 @@
-{
+module.exports = {
   "increment": "conventional:angular",
   "non-interactive": true,
   "preReleaseId": "canary",
-  "requireUpstream": false,
   "src": {
     "commitMessage": "%s",
-    "tagAnnotation": "%s"
+    "tagAnnotation": "%s",
+    "pushArgs": `--set-upstream origin ${await getBranchName()}`,
   },
   "npm": {
     "publish": false
