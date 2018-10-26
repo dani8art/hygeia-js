@@ -1,6 +1,7 @@
 {
   "increment": "conventional:angular",
   "non-interactive": true,
+  "requireUpstream": false,
   "preReleaseId": "canary",
   "src": {
     "commitMessage": "%s",
