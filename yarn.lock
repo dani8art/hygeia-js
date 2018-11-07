@@ -6211,9 +6211,10 @@ regjsparser@^0.1.4:
   dependencies:
     jsesc "~0.5.0"
 
-"release-it@git+https://github.com/dani8art/release-it.git#7fe37ed19c0e1cded5f0cc0260b5ad1bd51d0508":
-  version "7.6.2"
-  resolved "git+https://github.com/dani8art/release-it.git#7fe37ed19c0e1cded5f0cc0260b5ad1bd51d0508"
+release-it@^7.6.3:
+  version "7.6.3"
+  resolved "https://registry.yarnpkg.com/release-it/-/release-it-7.6.3.tgz#ee99792d4b7f3359692da5222405e580b91c74c7"
+  integrity sha512-h1UuDF0Usfu/fqvmSzJawap8QckDJ6wT2xYaJvfyVQVMCQoQ2Ij12t6JWT56W52BT715GhpYO7YR0f2lOtzcNw==
   dependencies:
     "@octokit/rest" "15.13.1"
     async-retry "1.2.3"
