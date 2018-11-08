@@ -2,34 +2,50 @@
 
 Hygeia is a modular health checking tool, It is writen in JavaScript and designed and thougth for deploying in many differents scenarios such as: [AWS Lambda](), [Express Middleware](), [Hapi Plugin]() or [Moleculer Service]().
 
-* **Modular:** `<<modular description>>`
-* **Deployment agnostic:** `<<deployment agnostic description>>`
+* **Modular:** Hygeia was designed to be as configurable as it was possible, its modular design makes it different and it allows you to use several tools for checking the status of services.
+* **Deployment agnostic:** It can be used in many differents scenarios, JavaScript allows you to use it on a background process wrote and launch in Node JS, as an endpoint of a RESTful API or as an AWS Lambda function.
 
-[Learn how to use Hygeia JS in your own project]().
+[Learn how to use Hygeia JS in your own project](https://hygeia-js.herokuapp.com/docs/gs-installation.html).
 
 ## Documentation
 
-You can find the Hygeia documentation [on the website]().  
+You can find the Hygeia documentation [on the website](https://hygeia-js.herokuapp.com).  
 It is divided into several sections:
 
-* [Quick Start]()
-* [Advanced Guides]()
-* [API Reference]()
-* [Tutorial]()
-* [Where to Get Support]()
+* [Quick Start](https://hygeia-js.herokuapp.com/docs/gs-checking-status.html)
+* [Advanced Guides](https://hygeia-js.herokuapp.com/docs/health-checking-lambda-aws.html)
+* [API Reference](https://hygeia-js.herokuapp.com/docs/api-checker.html)
+* [Tutorial](https://hygeia-js.herokuapp.com/docs/health-checking-lambda-aws.html)
+* [Where to Get Support](https://hygeia-js.herokuapp.com/docs/where-to-get-support.html)
 * [Contributing Guide]()
 
 You can improve it by sending pull requests to [this repository]().
 
 ## Examples
 
-We have several examples [on the website](). Here is the first one to get you started:
+We have several examples [on the website](https://hygeia-js.herokuapp.com/docs/gs-checking-status.html). Here is the first one to get you started:
 
 ```jsx
+const checker = new Checker({
+  store: {
+    data: [
+      {
+        name: 'google',
+        health: 'https://www.google.es',
+        method: 'GET',
+      },
+      {
+        name: 'error',
+        health: 'http://www.google.com:81',
+        method: 'GET',
+      },
+    ]
+});
 
+checker.check()
+    .then(() => console.log('Status checked for all the services.'))
+    .then((err => console.log(err)));
 ```
-
-`<<example description>>`
 
 ## Installation
 
@@ -50,11 +66,9 @@ yarn add hygeia-js
 
 The main purpose of this repository is to continue to evolve Hygeia core, making it faster and easier to use. Development of Hygeia happens in the open on GitHub, and we are grateful to the community for contributing bugfixes and improvements. Read below to learn how you can take part in improving Hygeia.
 
-### [Code of Conduct]()
+### [Code of Conduct](https://code.fb.com/codeofconduct/)
 
-> TODO
-
-`<<search for codeofconduc>>`
+We has adopted a Code of Conduct from Facebook Open Source that we expect project participants to adhere to. Please read [the full text](https://code.fb.com/codeofconduct/) so that you can understand what actions will and will not be tolerated.
 
 ### [Contributing Guide]()
 
