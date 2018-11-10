@@ -1,6 +1,6 @@
 <h1 align="center">
-  <p align="center">Hygeia JS</p>
   <a href="https://hygeia-js.herokuapp.com"><img src="https://hygeia-js.herokuapp.com/img/hygeia-logo.svg" alt="Hygeia"></a>
+  <p align="center">Hygeia JS</p>
 </h1>
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/dani8art/hyegia-js/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/hygeia-js.svg?style=flat)](https://www.npmjs.com/package/hygeia-js) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)]()
