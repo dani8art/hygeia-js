@@ -7,15 +7,14 @@
 'use strict';
 
 /**
- * This class represent a service for checking his health
  * @class Service
  */
 class Service {
 
     /**
      * Creates an instance of Service.
+     * @constructor
      * @param {any} service Properties of service
-     * @memberof Service
      */
     constructor(service) {
         // Property name

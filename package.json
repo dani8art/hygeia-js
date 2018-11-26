@@ -11,12 +11,22 @@
     "release": "release-it",
     "release:pre": "release-it --preRelease=canary",
     "license": "gulp",
-    "lambda:event": "AWS_REGION=us-west-2 node dev/lambda-event.js"
+    "lambda:event": "AWS_REGION=us-west-2 node dev/lambda-event.js",
+    "docs": "yarn docs:checker && yarn docs:service && yarn docs:healthreport",
+    "docs:checker": "yarn docs:checker:json && jsdoc2md -t docs/.template.hbs --files src/checker.js > docs/api-checker.md",
+    "docs:service": "yarn docs:service:json && jsdoc2md -t docs/.template.hbs --files src/domain/service.js > docs/api-service.md",
+    "docs:healthreport": "yarn docs:healthreport:json && jsdoc2md -t docs/.template.hbs --files src/domain/health-report.js > docs/api-health-report.md",
+    "docs:service:json": "jsdoc2md --json --files src/domain/service.js > docs/api-service.json",
+    "docs:healthreport:json": "jsdoc2md --json --files src/domain/health-report.js > docs/api-health-report.json",
+    "docs:checker:json": "jsdoc2md --json --files src/checker.js > docs/api-checker.json",
+    "docs:start": "yarn --cwd website/ start --port $PORT",
+    "docs:dev": "yarn --cwd website/ start"
   },
   "jest": {
     "watchPathIgnorePatterns": [
       "/node_modules/"
-    ]
+    ],
+    "testEnvironment": "node"
   },
   "keywords": [
     "healthcheck",
@@ -29,10 +39,12 @@
   "license": "GPL-3.0",
   "devDependencies": {
     "aws-sdk": "^2.169.0",
+    "docusaurus": "^1.5.1",
     "gulp": "^3.9.1",
     "gulp-cli": "^2.0.0",
     "gulp-zip": "^4.1.0",
     "jest": "^22.0.0",
+    "jsdoc-to-markdown": "^4.0.1",
     "rimraf": "^2.6.2",
     "serverless": "^1.25.0"
   },

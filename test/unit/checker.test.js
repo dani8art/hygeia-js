@@ -1,6 +1,6 @@
 'use strict';
 const { Checker } = require('../../src');
-const { Measure } = require('../../src/domain');
+const { Measure, Service } = require('../../src/domain');
 
 describe('Checker', () => {
     test('Create a new checker', () => {
@@ -56,7 +56,7 @@ describe('Checker', () => {
     });
 
     test('sendRequest without timeout', () => {
-        expect(Checker.request({ name: 'google', health: 'http://www.google.es' }))
-            .reject;
+        const service = new Service({ name: 'google', health: 'http://www.google.es' });
+        expect(Checker.request(service)).reject;
     });
 });

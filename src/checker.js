@@ -12,14 +12,22 @@ const URL = require('url');
 const { HealthReport, Measure, Service } = require('./domain');
 const { createStore } = require('./stores');
 const { createReporter } = require('./reporters');
+
 /**
  * @class Checker
  */
 class Checker {
     /**
      * Creates an instance of Checker.
+     * @constructor
      * @param {any} options 
-     * @memberof Checker
+     * @example
+     * ```js
+     * const { Checker } = require('hygeia-js');
+     * const myChecker = new Checker(options);
+     * 
+     * myChecker.check().then(done).catch(errorHandler);
+     * ```
      */
     constructor(options) {
         if (!options.store) throw new Error('Store options are required.');
@@ -34,6 +42,11 @@ class Checker {
      * Set the store of the checker
      * @param {Store} store 
      * @memberof Checker
+     * @returns {void}
+     * @example
+     * ```js
+     * myChecker.useStore(new FileStore('./path/to/file'))
+     * ``` 
      */
     useStore(store) {
         console.log('Set store.');
@@ -41,8 +54,13 @@ class Checker {
     }
 
     /**
-     * Execute check of status of the services in the store.
+     * For each services in the `Checker` will check its status.
      * @memberof Checker
+     * @returns {Promise<HealthReport>}
+     * @example
+     * ```js
+     * myChecker.check().then(healthReport => console.log(healthReport));
+     * ``` 
      */
     check() {
         let promises = [], hreport = new HealthReport().start();
@@ -86,11 +104,21 @@ class Checker {
     }
 
     /**
-     * Make an HTTP/S request for checking the state.
+     * Make an HTTP/S request for checking the status of `service`.
      * @static
      * @param {Service} service Service to be checked.
-     * @returns 
+     * @returns {Promise<Measure>}
      * @memberof Checker
+     * @example
+     * ```js
+     * const service = {
+     *   name: 'google',
+     *   health: 'https://www.google.es',
+     *   method: 'GET'
+     * };
+     * 
+     * Checker.request(service).then(measure => console.log(measure));
+     * ``` 
      */
     static request(service) {
         console.log('Send request for checking service=%s', service.name);
@@ -140,7 +168,5 @@ class Checker {
     }
 
 }
-
-
 
 module.exports = Checker;

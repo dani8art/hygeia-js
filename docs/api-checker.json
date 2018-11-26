@@ -1,0 +1,153 @@
+[
+  {
+    "id": "Checker()",
+    "longname": "Checker",
+    "name": "Checker",
+    "kind": "constructor",
+    "description": "Creates an instance of Checker.",
+    "memberof": "Checker",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "any"
+          ]
+        },
+        "name": "options"
+      }
+    ],
+    "examples": [
+      "```js\nconst { Checker } = require('hygeia-js');\nconst myChecker = new Checker(options);\n\nmyChecker.check().then(done).catch(errorHandler);\n```"
+    ],
+    "order": 2
+  },
+  {
+    "id": "Checker",
+    "longname": "Checker",
+    "name": "Checker",
+    "kind": "class",
+    "scope": "global",
+    "meta": {
+      "lineno": 16,
+      "filename": "checker.js",
+      "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src"
+    },
+    "order": 0
+  },
+  {
+    "id": "Checker",
+    "longname": "Checker",
+    "name": "Checker",
+    "kind": "class",
+    "scope": "global",
+    "meta": {
+      "lineno": 32,
+      "filename": "checker.js",
+      "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src"
+    },
+    "order": 1
+  },
+  {
+    "id": "Checker#useStore",
+    "longname": "Checker#useStore",
+    "name": "useStore",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Set the store of the checker",
+    "memberof": "Checker",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "Store"
+          ]
+        },
+        "name": "store"
+      }
+    ],
+    "examples": [
+      "```js\nmyChecker.useStore(new FileStore('./path/to/file'))\n``` "
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "void"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 51,
+      "filename": "checker.js",
+      "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src"
+    },
+    "order": 3
+  },
+  {
+    "id": "Checker#check",
+    "longname": "Checker#check",
+    "name": "check",
+    "kind": "function",
+    "scope": "instance",
+    "description": "For each services in the `Checker` will check its status.",
+    "memberof": "Checker",
+    "params": [],
+    "examples": [
+      "```js\nmyChecker.check().then(healthReport => console.log(healthReport));\n``` "
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "Promise.<HealthReport>"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 65,
+      "filename": "checker.js",
+      "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src"
+    },
+    "order": 4
+  },
+  {
+    "id": "Checker.request",
+    "longname": "Checker.request",
+    "name": "request",
+    "kind": "function",
+    "scope": "static",
+    "description": "Make an HTTP/S request for checking the status of `service`.",
+    "memberof": "Checker",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "Service"
+          ]
+        },
+        "description": "Service to be checked.",
+        "name": "service"
+      }
+    ],
+    "examples": [
+      "```js\nconst service = {\n  name: 'google',\n  health: 'https://www.google.es',\n  method: 'GET'\n};\n\nChecker.request(service).then(measure => console.log(measure));\n``` "
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "Promise.<Measure>"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 123,
+      "filename": "checker.js",
+      "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src"
+    },
+    "order": 5
+  }
+]
