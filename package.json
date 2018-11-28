@@ -20,11 +20,22 @@
     "docs:healthreport:json": "jsdoc2md --json --files src/domain/health-report.js > docs/api-health-report.json",
     "docs:checker:json": "jsdoc2md --json --files src/checker.js > docs/api-checker.json",
     "docs:start": "yarn --cwd website/ start --port $PORT",
-    "docs:dev": "yarn --cwd website/ start"
+    "docs:dev": "yarn --cwd website/ start",
+    "docs:version": "yarn --cwd website/ run version",
+    "docs:examples": "yarn --cwd website/ examples"
   },
   "jest": {
     "watchPathIgnorePatterns": [
-      "/node_modules/"
+      "/node_modules/",
+      "/website/",
+      "/dev/",
+      "/.github/",
+      "/dev/",
+      "/docs/",
+      "/examples/",
+      "/githooks/",
+      "/scripts/",
+      "/.circleci/"
     ],
     "testEnvironment": "node"
   },

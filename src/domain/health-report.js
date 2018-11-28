@@ -15,7 +15,6 @@ class HealthReport {
     /**
      * Creates an instance of HealthReport.
      * @constructor
-     * @param {any} options 
      */
     constructor() {
         this.pkg = require('../../package.json');
@@ -36,7 +35,7 @@ class HealthReport {
 
     /**
      * Add Service measures.
-     * @param {Measure} measure 
+     * @param {Measure} measure Measure that will be added to the report.
      * @returns {this}
      * @memberof HealthReport
      */

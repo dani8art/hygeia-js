@@ -10,10 +10,20 @@
       {
         "type": {
           "names": [
-            "any"
+            "Store"
           ]
         },
-        "name": "options"
+        "description": "Store where services will be gotten.",
+        "name": "options.store"
+      },
+      {
+        "type": {
+          "names": [
+            "Array.<Reporter>"
+          ]
+        },
+        "description": "Reporters where HealtReport will be sent.",
+        "name": "options.reporters"
       }
     ],
     "examples": [
@@ -41,7 +51,7 @@
     "kind": "class",
     "scope": "global",
     "meta": {
-      "lineno": 32,
+      "lineno": 33,
       "filename": "checker.js",
       "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src"
     },
@@ -62,6 +72,7 @@
             "Store"
           ]
         },
+        "description": "Store where services will be gotten.",
         "name": "store"
       }
     ],
@@ -78,7 +89,7 @@
       }
     ],
     "meta": {
-      "lineno": 51,
+      "lineno": 52,
       "filename": "checker.js",
       "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src"
     },
@@ -106,7 +117,7 @@
       }
     ],
     "meta": {
-      "lineno": 65,
+      "lineno": 66,
       "filename": "checker.js",
       "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src"
     },
@@ -127,7 +138,7 @@
             "Service"
           ]
         },
-        "description": "Service to be checked.",
+        "description": "Service that will be checked.",
         "name": "service"
       }
     ],
@@ -144,7 +155,7 @@
       }
     ],
     "meta": {
-      "lineno": 123,
+      "lineno": 124,
       "filename": "checker.js",
       "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src"
     },

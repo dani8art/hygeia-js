@@ -1,7 +1,8 @@
 ---
-id: api-health-report.js
+id: version-0.0.4-api-health-report.js
 title: HealthReport
 sidebar_label: HealthReport
+original_id: api-health-report.js
 ---
 
   **Kind**: global class  

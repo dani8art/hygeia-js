@@ -20,7 +20,8 @@ class Checker {
     /**
      * Creates an instance of Checker.
      * @constructor
-     * @param {any} options 
+     * @param {Store} options.store Store where services will be gotten. 
+     * @param {Reporter[]} options.reporters Reporters where HealtReport will be sent. 
      * @example
      * ```js
      * const { Checker } = require('hygeia-js');
@@ -40,7 +41,7 @@ class Checker {
 
     /**
      * Set the store of the checker
-     * @param {Store} store 
+     * @param {Store} store  Store where services will be gotten. 
      * @memberof Checker
      * @returns {void}
      * @example
@@ -106,7 +107,7 @@ class Checker {
     /**
      * Make an HTTP/S request for checking the status of `service`.
      * @static
-     * @param {Service} service Service to be checked.
+     * @param {Service} service Service that will be checked.
      * @returns {Promise<Measure>}
      * @memberof Checker
      * @example

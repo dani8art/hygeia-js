@@ -37,6 +37,39 @@
       },
       "where-to-get-support": {
         "title": "Contact"
+      },
+      "version-0.0.4-api-checker.js": {
+        "title": "Checker",
+        "sidebar_label": "Checker"
+      },
+      "version-0.0.4-api-health-report.js": {
+        "title": "HealthReport",
+        "sidebar_label": "HealthReport"
+      },
+      "version-0.0.4-api-service.js": {
+        "title": "Service",
+        "sidebar_label": "Service"
+      },
+      "version-0.0.4-concepts-overview": {
+        "title": "Overview"
+      },
+      "version-0.0.4-concepts-reporters": {
+        "title": "Reporter"
+      },
+      "version-0.0.4-concepts-stores": {
+        "title": "Store"
+      },
+      "version-0.0.4-gs-checking-status": {
+        "title": "Checking Status"
+      },
+      "version-0.0.4-gs-installation": {
+        "title": "Installation"
+      },
+      "version-0.0.4-health-checking-lambda-aws": {
+        "title": "Health Checking Lambda AWS"
+      },
+      "version-0.0.4-where-to-get-support": {
+        "title": "Contact"
       }
     },
     "links": {

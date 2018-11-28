@@ -1,7 +1,8 @@
 ---
-id: api-checker.js
+id: version-0.0.4-api-checker.js
 title: Checker
 sidebar_label: Checker
+original_id: api-checker.js
 ---
 
   **Kind**: global class  

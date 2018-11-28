@@ -1,7 +1,8 @@
 ---
-id: api-service.js
+id: version-0.0.4-api-service.js
 title: Service
 sidebar_label: Service
+original_id: api-service.js
 ---
 
   **Kind**: global class  

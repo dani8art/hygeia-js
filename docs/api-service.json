@@ -10,11 +10,38 @@
       {
         "type": {
           "names": [
-            "any"
+            "string"
           ]
         },
-        "description": "Properties of service",
-        "name": "service"
+        "description": "The name of the service.",
+        "name": "service.name"
+      },
+      {
+        "type": {
+          "names": [
+            "url"
+          ]
+        },
+        "description": "Service endpoint that will be checked.",
+        "name": "service.health"
+      },
+      {
+        "type": {
+          "names": [
+            "string"
+          ]
+        },
+        "description": "HTTP method that will be used",
+        "name": "service.method"
+      },
+      {
+        "type": {
+          "names": [
+            "string"
+          ]
+        },
+        "description": "Request timeout.",
+        "name": "service.timeout"
       }
     ],
     "order": 2
@@ -39,7 +66,7 @@
     "kind": "class",
     "scope": "global",
     "meta": {
-      "lineno": 19,
+      "lineno": 22,
       "filename": "service.js",
       "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src/domain"
     },
@@ -65,7 +92,7 @@
       }
     ],
     "meta": {
-      "lineno": 42,
+      "lineno": 41,
       "filename": "service.js",
       "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src/domain"
     },
