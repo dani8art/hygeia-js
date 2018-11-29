@@ -69,6 +69,6 @@ typings/
 .directory
 sandbox*\.js
 coverage/
-dist/
-
+dist
+build
 \.serverless/

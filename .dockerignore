@@ -7,10 +7,8 @@ githooks
 node_modules
 scripts
 test
-website
 .release-it.json
 gulpfile.js
 yarn.lock
 coverage
 dist
-build

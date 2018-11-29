@@ -20,9 +20,16 @@
     "docs:healthreport:json": "jsdoc2md --json --files src/domain/health-report.js > docs/api-health-report.json",
     "docs:checker:json": "jsdoc2md --json --files src/checker.js > docs/api-checker.json",
     "docs:start": "yarn --cwd website/ start --port $PORT",
+    "start": "yarn docs:start",
     "docs:dev": "yarn --cwd website/ start",
     "docs:version": "yarn --cwd website/ run version",
+    "docs:build": "yarn --cwd website/ run build",
+    "docs:docker:build": "docker build -f ./website/dockerfile -t ${npm_package_docker_image}:${npm_package_version} .",
+    "docs:docker:tag": "docker tag ${npm_package_docker_image}:${npm_package_version} ${npm_package_docker_image}:latest",
     "docs:examples": "yarn --cwd website/ examples"
+  },
+  "docker": {
+    "image": "darteaga.com/darteaga/hygeia-js-docs"
   },
   "jest": {
     "watchPathIgnorePatterns": [
