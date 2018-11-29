@@ -57,7 +57,6 @@
   "license": "GPL-3.0",
   "devDependencies": {
     "aws-sdk": "^2.169.0",
-    "docusaurus": "^1.5.1",
     "gulp": "^3.9.1",
     "gulp-cli": "^2.0.0",
     "gulp-zip": "^4.1.0",
@@ -76,6 +75,7 @@
   },
   "homepage": "https://github.com/dani8art/hygeia-js",
   "dependencies": {
+    "docusaurus": "^1.5.1",
     "release-it": "git+https://github.com/dani8art/release-it.git#7fe37ed19c0e1cded5f0cc0260b5ad1bd51d0508"
   }
 }
