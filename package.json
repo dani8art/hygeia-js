@@ -1,6 +1,6 @@
 {
   "name": "hygeia-js",
-  "version": "0.0.5-canary.6",
+  "version": "0.0.5-canary.7",
   "description": "A toolkit for health checking of web services.",
   "main": "src/index.js",
   "scripts": {
@@ -77,6 +77,6 @@
   },
   "homepage": "https://github.com/dani8art/hygeia-js",
   "dependencies": {
-    "release-it": "git+https://github.com/dani8art/release-it.git#7fe37ed19c0e1cded5f0cc0260b5ad1bd51d0508"
+    "release-it": "^7.6.3"
   }
 }
