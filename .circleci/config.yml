@@ -52,6 +52,10 @@ jobs:
             else
               yarn release:pre
             fi 
+      - save_cache:
+          paths:
+            - node_modules
+          key: *js_deps_cache_key
 
   release:
     docker:
@@ -80,6 +84,10 @@ jobs:
             else
               yarn release
             fi 
+      - save_cache:
+        paths:
+          - node_modules
+        key: *js_deps_cache_key
 
   pre_docs_deliver:
     machine: true
@@ -92,6 +100,10 @@ jobs:
       - run: yarn docs:build
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run: yarn docs:docker:push
+      - save_cache:
+          paths:
+            - node_modules
+          key: *js_deps_cache_key
   
   docs_deliver:
     machine: true
@@ -110,6 +122,10 @@ jobs:
       - run: yarn docs:build
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run: yarn docs:docker:push
+      - save_cache:
+          paths:
+            - node_modules
+          key: *js_deps_cache_key
 
   npm_publish:
     docker:
@@ -126,6 +142,10 @@ jobs:
       - run:
           name: Publish package
           command: npm publish
+      - save_cache:
+          paths:
+            - node_modules
+          key: *js_deps_cache_key
 
 workflows:
   version: 2
