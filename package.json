@@ -20,7 +20,7 @@
     "docs:healthreport:json": "jsdoc2md --json --files src/domain/health-report.js > docs/api-health-report.json",
     "docs:checker:json": "jsdoc2md --json --files src/checker.js > docs/api-checker.json",
     "docs:start": "yarn --cwd website/ start --port $PORT",
-    "start": "yarn docs:start",
+    "start": "yarn --cwd website/ && yarn docs:start",
     "docs:dev": "yarn --cwd website/ start",
     "docs:version": "yarn --cwd website/ run version",
     "docs:build": "yarn --cwd website/ run build",
@@ -63,7 +63,8 @@
     "jest": "^22.0.0",
     "jsdoc-to-markdown": "^4.0.1",
     "rimraf": "^2.6.2",
-    "serverless": "^1.29.0"
+    "serverless": "^1.29.0",
+    "docusaurus": "^1.5.1"
   },
   "bugs": {
     "url": "https://github.com/dani8art/hygeia-js/issues",
@@ -75,7 +76,6 @@
   },
   "homepage": "https://github.com/dani8art/hygeia-js",
   "dependencies": {
-    "docusaurus": "^1.5.1",
     "release-it": "git+https://github.com/dani8art/release-it.git#7fe37ed19c0e1cded5f0cc0260b5ad1bd51d0508"
   }
 }
