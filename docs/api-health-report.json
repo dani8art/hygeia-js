@@ -1,0 +1,174 @@
+[
+  {
+    "id": "HealthReport()",
+    "longname": "HealthReport",
+    "name": "HealthReport",
+    "kind": "constructor",
+    "description": "Creates an instance of HealthReport.",
+    "memberof": "HealthReport",
+    "params": [],
+    "order": 2
+  },
+  {
+    "id": "HealthReport",
+    "longname": "HealthReport",
+    "name": "HealthReport",
+    "kind": "class",
+    "scope": "global",
+    "meta": {
+      "lineno": 10,
+      "filename": "health-report.js",
+      "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src/domain"
+    },
+    "order": 0
+  },
+  {
+    "id": "HealthReport",
+    "longname": "HealthReport",
+    "name": "HealthReport",
+    "kind": "class",
+    "scope": "global",
+    "meta": {
+      "lineno": 19,
+      "filename": "health-report.js",
+      "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src/domain"
+    },
+    "order": 1
+  },
+  {
+    "id": "HealthReport#start",
+    "longname": "HealthReport#start",
+    "name": "start",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Start reporting time and measures.",
+    "memberof": "HealthReport",
+    "params": [],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "this"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 31,
+      "filename": "health-report.js",
+      "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src/domain"
+    },
+    "order": 3
+  },
+  {
+    "id": "HealthReport#addMeasure",
+    "longname": "HealthReport#addMeasure",
+    "name": "addMeasure",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Add Service measures.",
+    "memberof": "HealthReport",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "Measure"
+          ]
+        },
+        "description": "Measure that will be added to the report.",
+        "name": "measure"
+      }
+    ],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "this"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 42,
+      "filename": "health-report.js",
+      "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src/domain"
+    },
+    "order": 4
+  },
+  {
+    "id": "HealthReport#getHealth",
+    "longname": "HealthReport#getHealth",
+    "name": "getHealth",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Get the health/result of the entrie report.",
+    "memberof": "HealthReport",
+    "params": [],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "this"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 53,
+      "filename": "health-report.js",
+      "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src/domain"
+    },
+    "order": 5
+  },
+  {
+    "id": "HealthReport#isHealthy",
+    "longname": "HealthReport#isHealthy",
+    "name": "isHealthy",
+    "kind": "function",
+    "scope": "instance",
+    "description": "Check if there are any service unhealthy",
+    "memberof": "HealthReport",
+    "params": [],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "boolean"
+          ]
+        },
+        "description": "Boolean that indicate if this report has all services healthy."
+      }
+    ],
+    "meta": {
+      "lineno": 66,
+      "filename": "health-report.js",
+      "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src/domain"
+    },
+    "order": 6
+  },
+  {
+    "id": "HealthReport#end",
+    "longname": "HealthReport#end",
+    "name": "end",
+    "kind": "function",
+    "scope": "instance",
+    "description": "End the health report and recopile information.",
+    "memberof": "HealthReport",
+    "params": [],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "this"
+          ]
+        }
+      }
+    ],
+    "meta": {
+      "lineno": 76,
+      "filename": "health-report.js",
+      "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src/domain"
+    },
+    "order": 7
+  }
+]

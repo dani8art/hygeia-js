@@ -1,0 +1,101 @@
+[
+  {
+    "id": "Service()",
+    "longname": "Service",
+    "name": "Service",
+    "kind": "constructor",
+    "description": "Creates an instance of Service.",
+    "memberof": "Service",
+    "params": [
+      {
+        "type": {
+          "names": [
+            "string"
+          ]
+        },
+        "description": "The name of the service.",
+        "name": "service.name"
+      },
+      {
+        "type": {
+          "names": [
+            "url"
+          ]
+        },
+        "description": "Service endpoint that will be checked.",
+        "name": "service.health"
+      },
+      {
+        "type": {
+          "names": [
+            "string"
+          ]
+        },
+        "description": "HTTP method that will be used",
+        "name": "service.method"
+      },
+      {
+        "type": {
+          "names": [
+            "string"
+          ]
+        },
+        "description": "Request timeout.",
+        "name": "service.timeout"
+      }
+    ],
+    "order": 2
+  },
+  {
+    "id": "Service",
+    "longname": "Service",
+    "name": "Service",
+    "kind": "class",
+    "scope": "global",
+    "meta": {
+      "lineno": 9,
+      "filename": "service.js",
+      "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src/domain"
+    },
+    "order": 0
+  },
+  {
+    "id": "Service",
+    "longname": "Service",
+    "name": "Service",
+    "kind": "class",
+    "scope": "global",
+    "meta": {
+      "lineno": 22,
+      "filename": "service.js",
+      "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src/domain"
+    },
+    "order": 1
+  },
+  {
+    "id": "Service.getJSONSchema",
+    "longname": "Service.getJSONSchema",
+    "name": "getJSONSchema",
+    "kind": "function",
+    "scope": "static",
+    "description": "Return the JSON schema of Service Object",
+    "memberof": "Service",
+    "params": [],
+    "returns": [
+      {
+        "type": {
+          "names": [
+            "ServiceSchema"
+          ]
+        },
+        "description": "JSON Schema of Service Object"
+      }
+    ],
+    "meta": {
+      "lineno": 41,
+      "filename": "service.js",
+      "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src/domain"
+    },
+    "order": 3
+  }
+]

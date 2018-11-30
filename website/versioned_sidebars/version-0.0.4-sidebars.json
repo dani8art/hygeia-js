@@ -1,0 +1,25 @@
+{
+  "version-0.0.4-docs": {
+    "Getting Started": [
+      "version-0.0.4-gs-installation",
+      "version-0.0.4-gs-checking-status"
+    ],
+    "Concepts": [
+      "version-0.0.4-concepts-overview",
+      "version-0.0.4-concepts-reporters",
+      "version-0.0.4-concepts-stores"
+    ],
+    "API": [
+      "version-0.0.4-api-checker.js",
+      "version-0.0.4-api-service.js",
+      "version-0.0.4-api-health-report.js"
+    ],
+    "Guides": [
+      "version-0.0.4-health-checking-lambda-aws"
+    ],
+    "Where to get support": [
+      "version-0.0.4-where-to-get-support"
+    ]
+  },
+  "version-0.0.4-docs-other": {}
+}

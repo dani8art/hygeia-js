@@ -10,12 +10,42 @@
     "test:ci": "jest --coverage --json --outputFile=test-results.json",
     "release": "release-it",
     "release:pre": "release-it --preRelease=canary",
-    "license": "gulp"
+    "license": "gulp",
+    "lambda:event": "AWS_REGION=us-west-2 node dev/lambda-event.js",
+    "docs": "yarn docs:checker && yarn docs:service && yarn docs:healthreport",
+    "docs:checker": "yarn docs:checker:json && jsdoc2md -t docs/.template.hbs --files src/checker.js > docs/api-checker.md",
+    "docs:service": "yarn docs:service:json && jsdoc2md -t docs/.template.hbs --files src/domain/service.js > docs/api-service.md",
+    "docs:healthreport": "yarn docs:healthreport:json && jsdoc2md -t docs/.template.hbs --files src/domain/health-report.js > docs/api-health-report.md",
+    "docs:service:json": "jsdoc2md --json --files src/domain/service.js > docs/api-service.json",
+    "docs:healthreport:json": "jsdoc2md --json --files src/domain/health-report.js > docs/api-health-report.json",
+    "docs:checker:json": "jsdoc2md --json --files src/checker.js > docs/api-checker.json",
+    "docs:start": "yarn --cwd website/ start --port $PORT",
+    "start": "yarn --cwd website/ && yarn docs:start",
+    "docs:dev": "yarn --cwd website/ start",
+    "docs:version": "yarn --cwd website/ run version",
+    "docs:website": "yarn --cwd website/ run build",
+    "docs:build": "yarn docs:website && yarn docs:docker:build",
+    "docs:docker:build": "docker build -f ./website/dockerfile -t ${npm_package_docker_image} .",
+    "docs:docker:push": "docker push ${npm_package_docker_image}",
+    "docs:examples": "yarn --cwd website/ examples"
+  },
+  "docker": {
+    "image": "docker-registry.darteaga.com/darteaga/hygeia-js-docs"
   },
   "jest": {
     "watchPathIgnorePatterns": [
-      "/node_modules/"
-    ]
+      "/node_modules/",
+      "/website/",
+      "/dev/",
+      "/.github/",
+      "/dev/",
+      "/docs/",
+      "/examples/",
+      "/githooks/",
+      "/scripts/",
+      "/.circleci/"
+    ],
+    "testEnvironment": "node"
   },
   "keywords": [
     "healthcheck",
@@ -32,8 +62,10 @@
     "gulp-cli": "^2.0.0",
     "gulp-zip": "^4.1.0",
     "jest": "^22.0.0",
+    "jsdoc-to-markdown": "^4.0.1",
     "rimraf": "^2.6.2",
-    "serverless": "^1.25.0"
+    "serverless": "^1.29.0",
+    "docusaurus": "^1.5.1"
   },
   "bugs": {
     "url": "https://github.com/dani8art/hygeia-js/issues",

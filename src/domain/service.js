@@ -7,29 +7,27 @@
 'use strict';
 
 /**
- * This class represent a service for checking his health
  * @class Service
  */
 class Service {
 
     /**
      * Creates an instance of Service.
-     * @param {any} service Properties of service
-     * @memberof Service
+     * @constructor
+     * @param {string} service.name The name of the service.
+     * @param {url} service.health Service endpoint that will be checked.
+     * @param {string} service.method HTTP method that will be used
+     * @param {string} service.timeout Request timeout.
      */
     constructor(service) {
-        // Property name
         if (!service.name) throw new Error('name property is required on type Service.');
         this.name = service.name;
 
-        // Property health
         if (!service.health) throw new Error('health property is required on type Service.');
         this.health = service.health
 
-        // Property method
         this.method = service.method || 'GET';
 
-        // Property timeout
         if (service.timeout && typeof service.timeout !== "number") throw new Error('timeout property must be a number.');
         this.timeout = service.timeout || Service.DEFAULT_TIMEOUT;
     }
