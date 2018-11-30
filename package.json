@@ -23,13 +23,14 @@
     "start": "yarn --cwd website/ && yarn docs:start",
     "docs:dev": "yarn --cwd website/ start",
     "docs:version": "yarn --cwd website/ run version",
-    "docs:build": "yarn --cwd website/ run build",
-    "docs:docker:build": "docker build -f ./website/dockerfile -t ${npm_package_docker_image}:${npm_package_version} .",
-    "docs:docker:tag": "docker tag ${npm_package_docker_image}:${npm_package_version} ${npm_package_docker_image}:latest",
+    "docs:website": "yarn --cwd website/ run build",
+    "docs:build": "yarn docs:website && yarn docs:docker:build",
+    "docs:docker:build": "docker build -f ./website/dockerfile -t ${npm_package_docker_image} .",
+    "docs:docker:push": "docker push ${npm_package_docker_image}",
     "docs:examples": "yarn --cwd website/ examples"
   },
   "docker": {
-    "image": "darteaga.com/darteaga/hygeia-js-docs"
+    "image": "docker-registry.darteaga.com/darteaga/hygeia-js-docs"
   },
   "jest": {
     "watchPathIgnorePatterns": [

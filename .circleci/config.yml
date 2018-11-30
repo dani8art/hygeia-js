@@ -81,6 +81,52 @@ jobs:
               yarn release
             fi 
 
+  pre_docs_deliver:
+    machine: true
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - *js_deps_cache_key
+          - *js_deps_backup_cache_key
+      - run: yarn docs:build
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run: yarn docs:docker:push
+  
+  docs_deliver:
+    machine: true
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - *js_deps_cache_key
+          - *js_deps_backup_cache_key
+      - run: yarn docs:version
+      - run: git config --global push.default current
+      - run: git config --global user.email "totem-bot@darteaga.com"
+      - run: git config --global user.name "Totem Bot"
+      - run: git commit -m "fix(docs):fix new docs version"
+      - run: git push
+      - run: yarn docs:build
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run: yarn docs:docker:push
+
+  npm_publish:
+    docker:
+      - image: node:8.11.1
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - *js_deps_cache_key
+          - *js_deps_backup_cache_key
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
+      - run:
+          name: Publish package
+          command: npm publish
+
 workflows:
   version: 2
   test_and_release:
@@ -96,6 +142,13 @@ workflows:
             tags:
               ignore: 
                 - /.*/
+      - pre_docs_deliver:
+          requires:
+            - pre_release
+          filters:
+            branches:
+              only:
+                - develop
       - release:
           requires:
             - test
@@ -106,3 +159,19 @@ workflows:
             tags:
               ignore: 
                 - /.*/
+      - docs_deliver:
+          requires:
+            - release
+          filters:
+            branches:
+              only:
+                - master
+      - npm_publish:
+          requires:
+            - release
+            - pre_release
+          filters:
+            branches:
+              only:
+                - master
+                - develop
