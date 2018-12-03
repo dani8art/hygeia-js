@@ -176,5 +176,6 @@ workflows:
             - pre_release
           filters:
             tags:
-              only: 
-                - /.*/
+              only: /.*/
+            branches:
+              ignore: /.*/
