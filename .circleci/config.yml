@@ -146,13 +146,13 @@ workflows:
             tags:
               ignore: 
                 - /.*/
-      - pre_docs_deliver:
-          requires:
-            - pre_release
-          filters:
-            branches:
-              only:
-                - develop
+#       - pre_docs_deliver:
+#           requires:
+#             - pre_release
+#           filters:
+#             branches:
+#               only:
+#                 - develop
       - release:
           requires:
             - test
@@ -163,19 +163,18 @@ workflows:
             tags:
               ignore: 
                 - /.*/
-      - docs_deliver:
-          requires:
-            - release
-          filters:
-            branches:
-              only:
-                - master
+#       - docs_deliver:
+#           requires:
+#             - release
+#           filters:
+#             branches:
+#               only:
+#                 - master
       - npm_publish:
           requires:
             - release
             - pre_release
           filters:
-            branches:
-              only:
-                - master
-                - develop
+            tags:
+              only: 
+                - /.*/
