@@ -171,9 +171,6 @@ workflows:
 #               only:
 #                 - master
       - npm_publish:
-          requires:
-            - release
-            - pre_release
           filters:
             tags:
               only: /.*/
