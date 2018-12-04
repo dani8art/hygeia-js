@@ -5,16 +5,11 @@ references:
     v8-dependency-{{ checksum "yarn.lock" }}
   js_deps_backup_cache_key: &js_deps_backup_cache_key
     v8-dependency-
-    
-  machine_js_deps_cache_key: &machine_js_deps_cache_key
-    machine-v8-dependency-{{ checksum "yarn.lock" }}
-  machine_js_deps_backup_cache_key: &machine_js_deps_backup_cache_key
-    machine-v8-dependency-
 
 jobs:
   test:
     docker:
-      - image: node:8.11.1
+      - image: circleci/node:8
     steps:
       - checkout
       - restore_cache:
@@ -32,7 +27,7 @@ jobs:
 
   pre_release:
     docker:
-      - image: node:8.11.1
+      - image: circleci/node:8
     steps:
       - checkout
       - restore_cache:
@@ -64,7 +59,7 @@ jobs:
 
   release:
     docker:
-      - image: node:8.11.1
+      - image: circleci/node:8
     steps:
       - checkout
       - restore_cache:
@@ -103,8 +98,8 @@ jobs:
           docker_layer_caching: true
       - restore_cache:
           keys:
-          - *machine_js_deps_cache_key
-          - *machine_js_deps_backup_cache_key
+          - *js_deps_cache_key
+          - *js_deps_backup_cache_key
       - run: yarn
       - run: yarn docs:build
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS docker-registry.darteaga.com
@@ -112,22 +107,26 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-          key: *machine_js_deps_cache_key
+          key: *js_deps_cache_key
   
   docs_deliver:
-    machine: true
+    docker:
+      - image: circleci/node:8
     steps:
       - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
       - restore_cache:
           keys:
-          - *machine_js_deps_cache_key
-          - *machine_js_deps_backup_cache_key
+          - *js_deps_cache_key
+          - *js_deps_backup_cache_key
       - run: yarn
       - run: yarn docs:version
       - run: git config --global push.default current
       - run: git config --global user.email "totem-bot@darteaga.com"
       - run: git config --global user.name "Totem Bot"
-      - run: git commit -m "fix(docs):fix new docs version"
+      - run: git add .
+      - run: git commit -m "fix(docs):fix new docs version [ci skip]"
       - run: git push
       - run: yarn docs:build
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
@@ -139,7 +138,7 @@ jobs:
 
   npm_publish:
     docker:
-      - image: node:8.11.1
+      - image: circleci/node:8
     steps:
       - checkout
       - restore_cache:
@@ -209,11 +208,11 @@ workflows:
             branches:
               only:
                 - master
-#       - docs_deliver:
-#           requires:
-#             - release
-#           filters:
-#             branches:
-#               only:
-#                 - master
+      - docs_deliver:
+          requires:
+            - release
+          filters:
+            branches:
+              only:
+                - master
 
