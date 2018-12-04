@@ -90,9 +90,9 @@ jobs:
               yarn release
             fi 
       - save_cache:
-        paths:
-          - node_modules
-        key: *js_deps_cache_key
+          paths:
+            - node_modules
+          key: *js_deps_cache_key
 
   pre_docs_deliver:
     machine: true
@@ -107,14 +107,19 @@ jobs:
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run: yarn docs:docker:push
       - save_cache:
-        paths:
-          - node_modules
-        key: *machine_js_deps_cache_key
+          paths:
+            - node_modules
+          key: *machine_js_deps_cache_key
   
   docs_deliver:
     machine: true
     steps:
       - checkout
+      - restore_cache:
+          keys:
+          - *machine_js_deps_cache_key
+          - *machine_js_deps_backup_cache_key
+      - run: yarn
       - run: yarn docs:version
       - run: git config --global push.default current
       - run: git config --global user.email "totem-bot@darteaga.com"
@@ -124,6 +129,10 @@ jobs:
       - run: yarn docs:build
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run: yarn docs:docker:push
+      - save_cache:
+          paths:
+            - node_modules
+          key: *machine_js_deps_cache_key
 
   npm_publish:
     docker:
