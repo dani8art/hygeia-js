@@ -176,6 +176,8 @@ workflows:
               only:
                 - develop
       - pre_docs_deliver:
+          requires:
+            - pre_release
           filters:
             branches:
               only:
