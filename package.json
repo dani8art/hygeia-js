@@ -1,6 +1,6 @@
 {
   "name": "hygeia-js",
-  "version": "0.0.5-canary.18",
+  "version": "0.0.5-canary.19",
   "description": "A toolkit for health checking of web services.",
   "main": "src/index.js",
   "scripts": {
