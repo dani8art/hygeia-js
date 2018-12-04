@@ -2,9 +2,9 @@ version: 2
 
 references:
   js_deps_cache_key: &js_deps_cache_key
-    v8-dependency-{{ checksum "yarn.lock" }}
+    v1-dependency-{{ checksum "yarn.lock" }}
   js_deps_backup_cache_key: &js_deps_backup_cache_key
-    v8-dependency-
+    v1-dependency-
 
 jobs:
   test:
