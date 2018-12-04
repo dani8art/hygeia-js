@@ -95,9 +95,12 @@ jobs:
           key: *js_deps_cache_key
 
   pre_docs_deliver:
-    machine: true
+    docker:
+      - image: circleci/node:8
     steps:
       - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
       - restore_cache:
           keys:
           - *machine_js_deps_cache_key
