@@ -5,6 +5,11 @@ references:
     v8-dependency-{{ checksum "yarn.lock" }}
   js_deps_backup_cache_key: &js_deps_backup_cache_key
     v8-dependency-
+    
+  machine_js_deps_cache_key: &machine_js_deps_cache_key
+    v8-dependency-{{ checksum "yarn.lock" }}
+  machine_js_deps_backup_cache_key: &machine_js_deps_backup_cache_key
+    v8-dependency-
 
 jobs:
   test:
@@ -93,9 +98,18 @@ jobs:
     machine: true
     steps:
       - checkout
+      - restore_cache:
+          keys:
+          - *machine_js_deps_cache_key
+          - *machine_js_deps_backup_cache_key
+      - run: yarn
       - run: yarn docs:build
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run: yarn docs:docker:push
+      - save_cache:
+        paths:
+          - node_modules
+        key: *machine_js_deps_cache_key
   
   docs_deliver:
     machine: true
@@ -133,9 +147,26 @@ jobs:
 
 workflows:
   version: 2
-  test_and_release:
+  all:
+    - test:
+        filters:
+          branches:
+            ignore:
+              - develop
+              - master
+    - npm_publish:
+        filters:
+          tags:
+            only: /.*/
+          branches:
+            ignore: /.*/
+  canary:
     jobs:
-      - test
+      - test:
+          filters:
+            branches:
+              only:
+                - develop
       - pre_release:
           requires:
             - test
@@ -143,16 +174,19 @@ workflows:
             branches:
               only:
                 - develop
-            tags:
-              ignore: 
-                - /.*/
-#       - pre_docs_deliver:
-#           requires:
-#             - pre_release
-#           filters:
-#             branches:
-#               only:
-#                 - develop
+      - pre_docs_deliver:
+          filters:
+            branches:
+              only:
+                - develop
+              
+  production:
+    jobs:
+      - test:
+          filters:
+            branches:
+              only:
+                - master
       - release:
           requires:
             - test
@@ -160,9 +194,6 @@ workflows:
             branches:
               only:
                 - master
-            tags:
-              ignore: 
-                - /.*/
 #       - docs_deliver:
 #           requires:
 #             - release
@@ -170,9 +201,4 @@ workflows:
 #             branches:
 #               only:
 #                 - master
-      - npm_publish:
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              ignore: /.*/
+
