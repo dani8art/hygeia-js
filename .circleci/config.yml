@@ -7,9 +7,9 @@ references:
     v8-dependency-
     
   machine_js_deps_cache_key: &machine_js_deps_cache_key
-    v8-dependency-{{ checksum "yarn.lock" }}
+    machine-v8-dependency-{{ checksum "yarn.lock" }}
   machine_js_deps_backup_cache_key: &machine_js_deps_backup_cache_key
-    v8-dependency-
+    machine-v8-dependency-
 
 jobs:
   test:
