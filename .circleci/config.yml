@@ -134,7 +134,7 @@ jobs:
       - save_cache:
           paths:
             - node_modules
-          key: *machine_js_deps_cache_key
+          key: *js_deps_cache_key
 
   npm_publish:
     docker:
