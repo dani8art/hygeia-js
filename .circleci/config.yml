@@ -148,18 +148,19 @@ jobs:
 workflows:
   version: 2
   all:
-    - test:
-        filters:
-          branches:
-            ignore:
-              - develop
-              - master
-    - npm_publish:
-        filters:
-          tags:
-            only: /.*/
-          branches:
-            ignore: /.*/
+    jobs:
+      - test:
+          filters:
+            branches:
+              ignore:
+                - develop
+                - master
+      - npm_publish:
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              ignore: /.*/
   canary:
     jobs:
       - test:
