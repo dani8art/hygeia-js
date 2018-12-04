@@ -107,7 +107,7 @@ jobs:
           - *machine_js_deps_backup_cache_key
       - run: yarn
       - run: yarn docs:build
-      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS docker-registry.darteaga.com
       - run: yarn docs:docker:push
       - save_cache:
           paths:
