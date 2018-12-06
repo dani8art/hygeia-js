@@ -104,7 +104,7 @@ jobs:
       - run: git config --global user.email "totem-bot@darteaga.com"
       - run: git config --global user.name "Totem Bot"
       - run: git add .
-      - run: git commit -m "docs: fix new docs version [ci skip]"
+      - run: git commit -m "docs:fix new docs version [ci skip]"
       - run: git push
       - run: yarn docs:build
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
