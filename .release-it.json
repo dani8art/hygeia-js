@@ -4,7 +4,7 @@
   "requireUpstream": false,
   "preReleaseId": "canary",
   "src": {
-    "commitMessage": "%s [ci skip]",
+    "commitMessage": "ci: %s [ci skip]",
     "tagAnnotation": "%s"
   },
   "npm": {

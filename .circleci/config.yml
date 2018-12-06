@@ -40,18 +40,7 @@ jobs:
       - run: git config --global push.default current
       - run: git config --global user.email "totem-bot@darteaga.com"
       - run: git config --global user.name "Totem Bot"
-      - run: git status
-      - run:
-          command: |
-            GIT_COMMIT_DESC=$(git log --format=%B -n 1)
-            RELEASE_REGEX="[0-9][0-9]?\.[0-99][0-9]?\.[0-99][0-9]?(-.*\.[0-99])?"
-
-            if [[ "$GIT_COMMIT_DESC" =~ $RELEASE_REGEX ]];
-            then
-              echo "Release commit, skipping release command"
-            else
-              yarn release:pre
-            fi 
+      - run: yarn release:pre
       - save_cache:
           paths:
             - node_modules
@@ -72,18 +61,7 @@ jobs:
       - run: git config --global push.default matching
       - run: git config --global user.email "totem-bot@darteaga.com"
       - run: git config --global user.name "Totem Bot"
-      - run: git status
-      - run:
-          command: |
-            GIT_COMMIT_DESC=$(git log --format=%B -n 1)
-            RELEASE_REGEX="[0-9][0-9]?\.[0-99][0-9]?\.[0-99][0-9]?(-.*\.[0-99])?"
-
-            if [[ "$GIT_COMMIT_DESC" =~ $RELEASE_REGEX ]];
-            then
-              echo "Release commit, skipping release command"
-            else
-              yarn release
-            fi 
+      - run: yarn release
       - save_cache:
           paths:
             - node_modules
@@ -126,7 +104,7 @@ jobs:
       - run: git config --global user.email "totem-bot@darteaga.com"
       - run: git config --global user.name "Totem Bot"
       - run: git add .
-      - run: git commit -m "fix(docs):fix new docs version [ci skip]"
+      - run: git commit -m "docs: fix new docs version [ci skip]"
       - run: git push
       - run: yarn docs:build
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
