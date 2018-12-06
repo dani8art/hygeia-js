@@ -2,14 +2,14 @@ version: 2
 
 references:
   js_deps_cache_key: &js_deps_cache_key
-    v8-dependency-{{ checksum "yarn.lock" }}
+    v1-dependency-{{ checksum "yarn.lock" }}
   js_deps_backup_cache_key: &js_deps_backup_cache_key
-    v8-dependency-
+    v1-dependency-
 
 jobs:
   test:
     docker:
-      - image: node:8.11.1
+      - image: circleci/node:8
     steps:
       - checkout
       - restore_cache:
@@ -27,7 +27,7 @@ jobs:
 
   pre_release:
     docker:
-      - image: node:8.11.1
+      - image: circleci/node:8
     steps:
       - checkout
       - restore_cache:
@@ -37,26 +37,18 @@ jobs:
       - run:
           name: install npm dependecies
           command: yarn
-      - run: git branch -u origin/${CIRCLE_BRANCH}
-      - run: git config --global push.default matching
+      - run: git config --global push.default current
       - run: git config --global user.email "totem-bot@darteaga.com"
       - run: git config --global user.name "Totem Bot"
-      - run: git status
-      - run:
-          command: |
-            GIT_COMMIT_DESC=$(git log --format=%B -n 1)
-            RELEASE_REGEX="[0-9][0-9]?\.[0-99][0-9]?\.[0-99][0-9]?(-.*\.[0-99])?"
-
-            if [[ "$GIT_COMMIT_DESC" =~ $RELEASE_REGEX ]];
-            then
-              echo "Release commit, skipping release command"
-            else
-              yarn release:pre
-            fi 
+      - run: yarn release:pre
+      - save_cache:
+          paths:
+            - node_modules
+          key: *js_deps_cache_key
 
   release:
     docker:
-      - image: node:8.11.1
+      - image: circleci/node:8
     steps:
       - checkout
       - restore_cache:
@@ -69,24 +61,102 @@ jobs:
       - run: git config --global push.default matching
       - run: git config --global user.email "totem-bot@darteaga.com"
       - run: git config --global user.name "Totem Bot"
-      - run: git status
-      - run:
-          command: |
-            GIT_COMMIT_DESC=$(git log --format=%B -n 1)
-            RELEASE_REGEX="[0-9][0-9]?\.[0-99][0-9]?\.[0-99][0-9]?(-.*\.[0-99])?"
+      - run: yarn release
+      - save_cache:
+          paths:
+            - node_modules
+          key: *js_deps_cache_key
 
-            if [[ "$GIT_COMMIT_DESC" =~ $RELEASE_REGEX ]];
-            then
-              echo "Release commit, skipping release command"
-            else
-              yarn release
-            fi 
+  pre_docs_deliver:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - restore_cache:
+          keys:
+          - *js_deps_cache_key
+          - *js_deps_backup_cache_key
+      - run: yarn
+      - run: yarn docs:build
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS docker-registry.darteaga.com
+      - run: yarn docs:docker:push
+      - save_cache:
+          paths:
+            - node_modules
+          key: *js_deps_cache_key
+  
+  docs_deliver:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - restore_cache:
+          keys:
+          - *js_deps_cache_key
+          - *js_deps_backup_cache_key
+      - run: yarn
+      - run: yarn docs:version
+      - run: git config --global push.default current
+      - run: git config --global user.email "totem-bot@darteaga.com"
+      - run: git config --global user.name "Totem Bot"
+      - run: git add .
+      - run: git commit -m "docs:fix new docs version [ci skip]"
+      - run: git push
+      - run: yarn docs:build
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run: yarn docs:docker:push
+      - save_cache:
+          paths:
+            - node_modules
+          key: *js_deps_cache_key
+
+  npm_publish:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - *js_deps_cache_key
+          - *js_deps_backup_cache_key
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./.npmrc
+      - run:
+          name: Publish package
+          command: npm publish
+      - save_cache:
+          paths:
+            - node_modules
+          key: *js_deps_cache_key
 
 workflows:
   version: 2
-  test_and_release:
+  all:
     jobs:
-      - test
+      - test:
+          filters:
+            branches:
+              ignore:
+                - develop
+                - master
+      - npm_publish:
+          filters:
+            tags:
+              only: /.*/
+            branches:
+              ignore: /.*/
+  canary:
+    jobs:
+      - test:
+          filters:
+            branches:
+              only:
+                - develop
       - pre_release:
           requires:
             - test
@@ -94,9 +164,21 @@ workflows:
             branches:
               only:
                 - develop
-            tags:
-              ignore: 
-                - /.*/
+      - pre_docs_deliver:
+          requires:
+            - pre_release
+          filters:
+            branches:
+              only:
+                - develop
+              
+  production:
+    jobs:
+      - test:
+          filters:
+            branches:
+              only:
+                - master
       - release:
           requires:
             - test
@@ -104,6 +186,11 @@ workflows:
             branches:
               only:
                 - master
-            tags:
-              ignore: 
-                - /.*/
+      - docs_deliver:
+          requires:
+            - release
+          filters:
+            branches:
+              only:
+                - master
+

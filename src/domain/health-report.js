@@ -8,15 +8,13 @@
 const Measure = require('./measure');
 
 /**
- * Class that represent a health report of the system with all service measures
  * @class HealthReport
  */
 class HealthReport {
 
     /**
      * Creates an instance of HealthReport.
-     * @param {any} options 
-     * @memberof HealthReport
+     * @constructor
      */
     constructor() {
         this.pkg = require('../../package.json');
@@ -27,7 +25,7 @@ class HealthReport {
 
     /**
      * Start reporting time and measures.
-     * @returns {HealthReport} this.
+     * @returns {this}
      * @memberof HealthReport
      */
     start() {
@@ -37,8 +35,8 @@ class HealthReport {
 
     /**
      * Add Service measures.
-     * @param {Measure} measure 
-     * @returns {HealthReport} this.
+     * @param {Measure} measure Measure that will be added to the report.
+     * @returns {this}
      * @memberof HealthReport
      */
     addMeasure(measure) {
@@ -49,7 +47,7 @@ class HealthReport {
 
     /**
      * Get the health/result of the entrie report.
-     * @returns {HealthReport} this.
+     * @returns {this}
      * @memberof HealthReport
      */
     getHealth() {
@@ -72,7 +70,7 @@ class HealthReport {
 
     /**
      * End the health report and recopile information.
-     * @returns {HealthReport} this.
+     * @returns {this}
      * @memberof HealthReport
      */
     end() {
