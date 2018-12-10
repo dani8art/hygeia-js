@@ -98,6 +98,7 @@ jobs:
           keys:
           - *js_deps_cache_key
           - *js_deps_backup_cache_key
+      - run: git pull
       - run: yarn
       - run: yarn docs:version
       - run: git config --global push.default current
@@ -105,7 +106,6 @@ jobs:
       - run: git config --global user.name "Totem Bot"
       - run: git add .
       - run: git commit -m "docs:fix new docs version [ci skip]"
-      - run: git pull
       - run: git push
       - run: yarn docs:build
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
