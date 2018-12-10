@@ -19,7 +19,7 @@
     "docs:healthreport:json": "jsdoc2md --json --files src/domain/health-report.js > docs/api-health-report.json",
     "docs:checker:json": "jsdoc2md --json --files src/checker.js > docs/api-checker.json",
     "docs:dev": "yarn --cwd website/ start",
-    "docs:version": "yarn --cwd website/ run version",
+    "docs:version": "yarn --cwd website/ run version ${npm_package_version}",
     "docs:website": "yarn --cwd website/ run build",
     "docs:build": "yarn docs:website && yarn docs:docker:build",
     "docs:docker:build": "docker build -f ./website/dockerfile -t ${npm_package_docker_image} .",
