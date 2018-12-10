@@ -108,7 +108,7 @@ jobs:
       - run: git commit -m "docs:fix new docs version [ci skip]"
       - run: git push
       - run: yarn docs:build
-      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS docker-registry.darteaga.com
       - run: yarn docs:docker:push
       - save_cache:
           paths:
