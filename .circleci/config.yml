@@ -134,6 +134,18 @@ jobs:
             - node_modules
           key: *js_deps_cache_key
 
+  next:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - run: git config --global push.default matching
+      - run: git config --global user.email "totem-bot@darteaga.com"
+      - run: git config --global user.name "Totem Bot"
+      - run: git checkout develop
+      - run: git merge master --strategy-option theirs -m "ci:prepare develop for the next iteration [ci skip]"
+      - run: git push
+
 workflows:
   version: 2
   all:
@@ -189,6 +201,13 @@ workflows:
       - docs_deliver:
           requires:
             - release
+          filters:
+            branches:
+              only:
+                - master
+      - next:
+          requires:
+            - docs_deliver
           filters:
             branches:
               only:
