@@ -115,26 +115,29 @@ jobs:
             - node_modules
           key: *js_deps_cache_key
 
+  pre_npm_publish:
+    docker:
+      - image: circleci/node:8
+    steps:
+      - checkout
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./.npmrc
+      - run:
+          name: Publish package
+          command: npm publish --tag next
+          
   npm_publish:
     docker:
       - image: circleci/node:8
     steps:
       - checkout
-      - restore_cache:
-          keys:
-          - *js_deps_cache_key
-          - *js_deps_backup_cache_key
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./.npmrc
       - run:
           name: Publish package
           command: npm publish
-      - save_cache:
-          paths:
-            - node_modules
-          key: *js_deps_cache_key
-
   next:
     docker:
       - image: circleci/node:8
@@ -158,12 +161,7 @@ workflows:
               ignore:
                 - develop
                 - master
-      - npm_publish:
-          filters:
-            tags:
-              only: /.*/
-            branches:
-              ignore: /.*/
+                
   canary:
     jobs:
       - test:
@@ -181,6 +179,13 @@ workflows:
       - pre_docs_deliver:
           requires:
             - pre_release
+          filters:
+            branches:
+              only:
+                - develop
+      - pre_npm_publish:
+          requires:
+            - pre_docs_deliver
           filters:
             branches:
               only:
@@ -208,6 +213,13 @@ workflows:
               only:
                 - master
       - next:
+          requires:
+            - docs_deliver
+          filters:
+            branches:
+              only:
+                - master
+      - npm_publish:
           requires:
             - docs_deliver
           filters:
