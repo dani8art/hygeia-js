@@ -120,7 +120,7 @@ jobs:
       - image: circleci/node:8
     steps:
       - checkout
-      - run: git pull
+      - run: git pull origin develop
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./.npmrc
