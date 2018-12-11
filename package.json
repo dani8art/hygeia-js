@@ -70,7 +70,8 @@
     "jest": "^22.0.0",
     "jsdoc-to-markdown": "^4.0.1",
     "rimraf": "^2.6.2",
-    "serverless": "^1.29.0"
+    "serverless": "^1.29.0",
+    "release-it": "^8.4.0"
   },
   "bugs": {
     "url": "https://github.com/dani8art/hygeia-js/issues",
@@ -81,7 +82,5 @@
     "url": "https://github.com/dani8art/hygeia-js.git"
   },
   "homepage": "https://github.com/dani8art/hygeia-js",
-  "dependencies": {
-    "release-it": "^7.6.3"
-  }
+  "dependencies": {}
 }
