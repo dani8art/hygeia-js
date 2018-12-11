@@ -14,7 +14,7 @@
     "release": true,
     "releaseName": "%s",
     "tokenRef": "GITHUB_TOKEN",
-    "draft": true
+    "draft": false
   },
   "changelogCommand": "git log --pretty=format:'* %s (%h)' [REV_RANGE]"
 }
