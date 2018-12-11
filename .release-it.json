@@ -3,6 +3,7 @@
   "non-interactive": true,
   "requireUpstream": false,
   "preReleaseId": "canary",
+  "requireCleanWorkingDir": false,
   "src": {
     "commitMessage": "ci: %s [ci skip]",
     "tagAnnotation": "%s"
