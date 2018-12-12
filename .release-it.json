@@ -3,7 +3,7 @@
   "non-interactive": true,
   "preReleaseId": "next",
   "git": {
-    "commitMessage": "ci: %s [ci skip]",
+    "commitMessage": "chore: %s [ci skip]",
     "tagAnnotation": "%s",
     "requireUpstream": false,
     "requireCleanWorkingDir": false
