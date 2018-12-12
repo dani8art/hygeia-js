@@ -1,6 +1,6 @@
 {
   "name": "hygeia-js",
-  "version": "0.0.8",
+  "version": "0.0.9-next.3",
   "description": "A toolkit for health checking of web services.",
   "main": "src/index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "test:dev": "jest --watchAll --verbose",
     "test:ci": "jest --coverage --json --outputFile=test-results.json",
     "release": "release-it",
-    "release:pre": "release-it --preRelease=canary",
+    "release:pre": "release-it --preRelease",
     "license": "gulp",
     "lambda:event": "AWS_REGION=us-west-2 node dev/lambda-event.js",
     "docs": "yarn docs:checker && yarn docs:service && yarn docs:healthreport",
@@ -70,7 +70,8 @@
     "jest": "^22.0.0",
     "jsdoc-to-markdown": "^4.0.1",
     "rimraf": "^2.6.2",
-    "serverless": "^1.29.0"
+    "serverless": "^1.29.0",
+    "release-it": "git+https://github.com/webpro/release-it.git#ea43b5560439d16f9ae7228f3cee742273d74b34"
   },
   "bugs": {
     "url": "https://github.com/dani8art/hygeia-js/issues",
@@ -81,7 +82,5 @@
     "url": "https://github.com/dani8art/hygeia-js.git"
   },
   "homepage": "https://github.com/dani8art/hygeia-js",
-  "dependencies": {
-    "release-it": "^7.6.3"
-  }
+  "dependencies": {}
 }
