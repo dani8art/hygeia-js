@@ -1,12 +1,12 @@
 {
   "increment": "conventional:angular",
   "non-interactive": true,
-  "requireUpstream": false,
-  "preReleaseId": "canary",
-  "requireCleanWorkingDir": false,
-  "src": {
+  "preReleaseId": "next",
+  "git": {
     "commitMessage": "ci: %s [ci skip]",
-    "tagAnnotation": "%s"
+    "tagAnnotation": "%s",
+    "requireUpstream": false,
+    "requireCleanWorkingDir": false
   },
   "npm": {
     "publish": false
@@ -17,5 +17,7 @@
     "tokenRef": "GITHUB_TOKEN",
     "draft": false
   },
-  "changelogCommand": "git log --pretty=format:'* %s (%h)' [REV_RANGE]"
+  "scripts": {
+    "changelog": "git log --pretty=format:'* %s (%h)' [REV_RANGE]"
+  }
 }
