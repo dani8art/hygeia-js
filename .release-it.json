@@ -18,6 +18,6 @@
     "draft": false
   },
   "scripts": {
-    "changelog": "./changelog.sh ${version}"
+    "changelog": "./scripts/changelog.sh ${version}"
   }
 }
