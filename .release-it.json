@@ -18,6 +18,6 @@
     "draft": false
   },
   "scripts": {
-    "changelog": "git log --pretty=format:'* %s (%h)' [REV_RANGE]"
+    "changelog": "./changelog.sh ${version}"
   }
 }
