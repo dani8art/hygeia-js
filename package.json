@@ -71,7 +71,7 @@
     "jsdoc-to-markdown": "^4.0.1",
     "rimraf": "^2.6.2",
     "serverless": "^1.29.0",
-    "release-it": "git+https://github.com/webpro/release-it.git#ea43b5560439d16f9ae7228f3cee742273d74b34"
+    "release-it": "^9.0.1"
   },
   "bugs": {
     "url": "https://github.com/dani8art/hygeia-js/issues",
