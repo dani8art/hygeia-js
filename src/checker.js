@@ -1,17 +1,12 @@
-/**
- * hygeia-js
- * Copyright (c) 2018 darteaga (https://github.com/dani8art/hygeia-js)
- * GPL-3.0 Licensed
- */
-
 'use strict';
 
 const https = require('https').request;
 const http = require('http').request;
 const URL = require('url');
-const { HealthReport, Measure, Service } = require('./domain');
-const { createStore } = require('./stores');
-const { createReporter } = require('./reporters');
+
+const HealthReport = require('./domain/health-report');
+const Service = require('./domain/service');
+const Measure = require('./domain/measure');
 
 /**
  * @class Checker
@@ -25,25 +20,31 @@ class Checker {
      * @example
      * ```js
      * const { Checker } = require('hygeia-js');
-     * const myChecker = new Checker(options);
+     * const { MemoryStore } = require('hygeia-js/stores/store-memory');
+     * const { EmailReporter } = require('hygeia-js/reporters/reporter-email');
+     * 
+     * const myChecker = new Checker({ 
+     *      store: new MemoryStore(data),   
+     *      reporters: [ new EmailReporter(options) ] 
+     * });
      * 
      * myChecker.check().then(done).catch(errorHandler);
      * ```
      */
     constructor(options) {
-        if (!options.store) throw new Error('Store options are required.');
-        if (!options.reporter) throw new Error('Reporter options are required.');
+        if (!options.store) throw new Error('A store is required.');
+        if (!options.reporter) throw new Error('At least 1 reporter is required.');
 
         this.options = options;
-        this.store = createStore(options.store);
-        this.reporter = createReporter(options.reporter);
+        this.store = options.store;
+        this.reporter = options.reporter;
     }
 
     /**
      * Set the store of the checker
      * @param {Store} store  Store where services will be gotten. 
      * @memberof Checker
-     * @returns {void}
+     * @returns {this}
      * @example
      * ```js
      * myChecker.useStore(new FileStore('./path/to/file'))
@@ -52,10 +53,12 @@ class Checker {
     useStore(store) {
         console.log('Set store.');
         this.store = store;
+        return this;
     }
 
     /**
-     * For each services in the `Checker` will check its status.
+     * It will check the status of every services in the `Store`, generating
+     * a `HealthReport`
      * @memberof Checker
      * @returns {Promise<HealthReport>}
      * @example
@@ -85,7 +88,7 @@ class Checker {
                     console.log('End checking, Results: %s', JSON.stringify(hreport, null, 2));
 
                     console.log('Reporter policy = ' + this.reporter.policy);
-                    let isHealthy = hreport.isHealthy();
+                    const isHealthy = hreport.isHealthy();
                     console.log('isHealthy = ' + isHealthy);
 
                     if ((this.reporter.policy === 'error' && !isHealthy) || this.reporter.policy === 'always') {
@@ -105,7 +108,7 @@ class Checker {
     }
 
     /**
-     * Make an HTTP/S request for checking the status of `service`.
+     * Make an HTTP/S request for checking the status of `Service`.
      * @static
      * @param {Service} service Service that will be checked.
      * @returns {Promise<Measure>}
@@ -126,13 +129,13 @@ class Checker {
 
         return new Promise((resolve, reject) => {
 
-            let measure = new Measure(service.name), requester = http;
+            const measure = new Measure(service.name);
+            let requester = http;
 
-            if (service.health.indexOf('https://') !== -1)
-                requester = https;
+            if (service.health.indexOf('https://') !== -1) { requester = https; }
 
-            let url = URL.parse(service.health);
-            let opt = {
+            const url = URL.parse(service.health);
+            const opt = {
                 protocol: url.protocol,
                 hostname: url.hostname,
                 port: url.port,
@@ -141,7 +144,7 @@ class Checker {
                 timeout: service.timeout
             };
 
-            let req = requester(opt, (res) => {
+            const req = requester(opt, (res) => {
                 console.log('End request for service=%s', service.name);
                 measure.end(res.statusCode);
                 res.setEncoding('utf8');

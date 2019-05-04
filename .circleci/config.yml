@@ -126,8 +126,11 @@ jobs:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./.npmrc
       - run:
+          name: Build assests
+          command: yarn build
+      - run:
           name: Publish package
-          command: npm publish --tag next
+          command: npm publish --tag next dist/
           
   npm_publish:
     docker:
@@ -139,8 +142,11 @@ jobs:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./.npmrc
       - run:
+          name: Build assests
+          command: yarn build
+      - run:
           name: Publish package
-          command: npm publish
+          command: npm publish dist/
   next:
     docker:
       - image: circleci/node:8
