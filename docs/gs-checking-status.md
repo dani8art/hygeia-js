@@ -27,19 +27,20 @@ const hygeiaConfig = {
             },
         ]
     },
-    reporters: [
-        {
-            email: 'admin@darteaga.com',
-            policy: 'always',
-        },
-    ]
+    reporter: {
+        email: 'admin@darteaga.com',
+        policy: 'always',
+    },
 };
 ```
 
 ## Create a checker
 
 ```javascript
-const checker = new Checker(hygeiaConfig);
+const store = new MemoryStore(hygeiaConfig.store);
+const reporter = new MemoryStore(hygeiaConfig.reporter);
+
+const checker = new Checker({store, reporter});
 
 checker.check()
     .then(() => console.log('Status checked for all the services.'))

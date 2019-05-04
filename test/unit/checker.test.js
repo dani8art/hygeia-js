@@ -1,6 +1,7 @@
 'use strict';
-const { Checker } = require('../../src');
-const { Measure, Service } = require('../../src/domain');
+const Checker = require('../../src');
+const Measure = require('../../src/domain/measure');
+const Service = require('../../src/domain/service');
 
 describe('Checker', () => {
     test('Create a new checker', () => {
@@ -20,7 +21,7 @@ describe('Checker', () => {
             const checker = new Checker({
                 reporter: { email: 'test@test.com' }
             });
-        }).toThrow('Store options are required.');
+        }).toThrow('A store is required.');
     });
 
     test('Throw error if reporter options are not passed', () => {
@@ -28,7 +29,7 @@ describe('Checker', () => {
             const checker = new Checker({
                 store: { data: [{ name: 'google', health: 'http://www.google.es' }] },
             });
-        }).toThrow('Reporter options are required.');
+        }).toThrow('At least 1 reporter is required.');
     });
 
     test('sendRequest is a Promise', () => {
@@ -50,7 +51,7 @@ describe('Checker', () => {
         Checker.request({ name: 'google', health: 'http://www.google.es:81', timeout: 3000 })
             .then(measure => {
                 expect(measure).toBeInstanceOf(Measure);
-                expect(measure.health).not.toBe(200);
+                expect(measure.health).toBe("ECONNRESET");
                 done();
             });
     });

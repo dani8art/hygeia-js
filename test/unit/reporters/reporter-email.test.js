@@ -1,5 +1,5 @@
 'use strict';
-const { EmailReporter } = require('../../../src/reporters');
+const EmailReporter = require('../../../src/reporters/reporter-email');
 
 describe('Reporters - Email', () => {
 
@@ -49,7 +49,7 @@ describe('Reporters - Email', () => {
         expect(sesOptions.Message.Body.Html.Charset).toBe('UTF-8');
         expect(sesOptions.Message.Body.Html.Data).toMatchSnapshot();
         expect(sesOptions.Message.Subject.Charset).toBe('UTF-8');
-        expect(sesOptions.Message.Subject.Data).toBe('Report [hygeia-healthcheck]');
+        expect(sesOptions.Message.Subject.Data).toBe('Report [hygeia-js]');
         expect(sesOptions.Source).toBe('hygeia@darteaga.com');
     });
 });

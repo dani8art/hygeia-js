@@ -1,11 +1,5 @@
-/**
- * hygeia-js
- * Copyright (c) 2018 darteaga (https://github.com/dani8art/hygeia-js)
- * GPL-3.0 Licensed
- */
-
 'use strict';
-const { Service } = require('../domain');
+const Service = require('../domain/service');
 
 /**
  * @class MemoryStore
@@ -18,8 +12,7 @@ class MemoryStore {
      * @memberof MemoryStore
      */
     constructor(options) {
-        if (!options.data)
-            throw new Error('Data is required.');
+        if (!options.data) { throw new Error('Data is required.'); }
 
         // add services data from memory checking if they are compliance with class Service.
         this.data = options.data.map(ser => new Service(ser));
@@ -36,4 +29,4 @@ class MemoryStore {
 
 }
 
-module.exports = { MemoryStore };
+module.exports = MemoryStore;

@@ -1,5 +1,5 @@
 'use strict';
-const { Service } = require('../../../src/domain');
+const Service = require('../../../src/domain/service');
 
 describe('Service', () => {
 
