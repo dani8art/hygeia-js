@@ -121,6 +121,10 @@ jobs:
       - image: circleci/node:8
     steps:
       - checkout
+      - restore_cache:
+          keys:
+          - *js_deps_cache_key
+          - *js_deps_backup_cache_key
       - run: git pull origin develop
       - run:
           name: Authenticate with registry
@@ -137,6 +141,10 @@ jobs:
       - image: circleci/node:8
     steps:
       - checkout
+      - restore_cache:
+          keys:
+          - *js_deps_cache_key
+          - *js_deps_backup_cache_key
       - run: git pull
       - run:
           name: Authenticate with registry
