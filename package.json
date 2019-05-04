@@ -63,7 +63,7 @@
     "@commitlint/config-conventional": "^7.1.2",
     "aws-sdk": "^2.169.0",
     "docusaurus": "^1.5.1",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.1",
     "gulp-cli": "^2.0.0",
     "gulp-copy": "^4.0.1",
     "gulp-zip": "^4.1.0",
