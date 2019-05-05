@@ -11,7 +11,12 @@ class HealthReport {
      * @constructor
      */
     constructor() {
-        this.pkg = require('../../package.json');
+        try {
+            this.pkg = require('../../package.json');
+        } catch (e) {
+            this.pkg = require('../package.json');
+        }
+
         this.version = this.pkg.version;
         this.environment = process.env.NODE_ENV || 'dev';
         this.measures = [];
