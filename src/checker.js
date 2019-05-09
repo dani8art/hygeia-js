@@ -144,25 +144,19 @@ class Checker {
                 timeout: service.timeout
             };
 
-            const req = requester(opt, (res) => {
-                console.log('End request for service=%s', service.name);
-                measure.end(res.statusCode);
-                res.setEncoding('utf8');
-                res.on('data', (chunk) => { });
-                res.on('end', () => resolve(measure));
-            }, reject);
-
-            req.on('socket', socket => {
-                try {
-                    socket.setTimeout(service.timeout);
-                } catch (e) { return reject(e); }
-
-                // abort if timeout
-                socket.on('timeout', () => req.abort());
-                socket.on('error', reject);
+            const req = requester(opt, res => {
+                res.on('data', chunk => { });
+                res.on('end', () => {
+                    console.log('End request for service=%s', service.name);
+                    measure.end(res.statusCode);
+                    resolve(measure);
+                });
             });
 
+            req.setTimeout(service.timeout, req.abort);
+
             req.on('error', err => {
+                console.log('End request with errors for service=%s', service.name);
                 measure.end(err.code);
                 resolve(measure);
             });

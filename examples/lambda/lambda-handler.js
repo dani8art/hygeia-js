@@ -15,6 +15,6 @@ exports.handler = (event, context, callback) => {
 
     checker.check()
         .then(() => callback(null, 'Status checked for all the services.'))
-        .then((err => callback(err)));
+        .catch((err => callback(err)));
 }
 

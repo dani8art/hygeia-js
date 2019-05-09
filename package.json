@@ -4,6 +4,7 @@
   "description": "A toolkit for health checking of web services.",
   "main": "index.js",
   "scripts": {
+    "run:dev": "yarn lambda:event",
     "test": "jest --coverage",
     "test:dev": "jest --watchAll --verbose",
     "test:ci": "jest --coverage --json --outputFile=test-results.json",
