@@ -1,7 +1,28 @@
-'use strict';
+jest.mock('http');
+jest.mock('https');
+
+const [http, https] = [require('http'), require('https')];
+
+const httpReqObjectMock = {
+    on: jest.fn(),
+    setTimeout: jest.fn(),
+    end: jest.fn(),
+    abort: jest.fn(),
+};
+
+let expectedResponseStatus;
+const httpReqFnMock = (opt, reqCallback) => {
+    reqCallback({
+        on: (event, resCallback) => { resCallback(); },
+        statusCode: expectedResponseStatus,
+    });
+    return httpReqObjectMock;
+};
+
+http.request.mockImplementation(httpReqFnMock);
+https.request.mockImplementation(httpReqFnMock);
+
 const Checker = require('../../src');
-const Measure = require('../../src/domain/measure');
-const Service = require('../../src/domain/service');
 
 describe('Checker Tests', () => {
     test('should create an instance of Checker', () => {
@@ -29,35 +50,54 @@ describe('Checker Tests', () => {
         }).toThrow('At least 1 reporter is required.');
     });
 
-    describe('#sendRequest', ()=>{
+    describe('#sendRequest', () => {
+        const healthyService = { name: 'google', health: 'http://www.google.es', timeout: 3000 };
+        const unHealthyService = { name: 'google', health: 'http://www.google.es:81', timeout: 3000 };
+
         test('should return a Promise instance', () => {
-            let req = Checker.request({ name: 'google', health: 'http://www.google.es', timeout: 3000 });
-    
+            const req = Checker.request(healthyService);
+
             expect(req).toBeInstanceOf(Promise);
         });
-    });
 
+        test('should return measure status 200 when service is healthy', () => {
+            expectedResponseStatus = 200;
+            expect.assertions(1);
+            return Checker
+                .request(healthyService)
+                .then(measure => expect(measure.health).toBe(expectedResponseStatus));
+        });
 
-    test('sendRequest statusCode == 200', done => {
-        Checker.request({ name: 'google', health: 'http://www.google.es', timeout: 3000 })
-            .then(measure => {
-                expect(measure).toBeInstanceOf(Measure);
-                expect(measure.health).toBe(200);
-                done();
-            });
-    });
+        test('should return measure status ECONNRESET when service is unHealthy', () => {
+            expectedResponseStatus = 'ECONNRESET';
 
-    test('sendRequest statusCode != 200', done => {
-        Checker.request({ name: 'google', health: 'http://www.google.es:81', timeout: 3000 })
-            .then(measure => {
-                expect(measure).toBeInstanceOf(Measure);
-                expect(measure.health).toBe("ECONNRESET");
-                done();
-            });
-    });
+            return Checker
+                .request(unHealthyService)
+                .then(measure => expect(measure.health).toBe(expectedResponseStatus));
+        });
 
-    test('sendRequest without timeout', () => {
-        const service = new Service({ name: 'google', health: 'http://www.google.es' });
-        expect(Checker.request(service)).reject;
+        test('should configure timeout properly', () => {
+            return Checker
+                .request(unHealthyService)
+                .then(() => {
+                    return expect(httpReqObjectMock.setTimeout)
+                        .toHaveBeenCalledWith(unHealthyService.timeout, httpReqObjectMock.abort);
+                });
+        });
+
+        test('should configure on error event properly', () => {
+            return Checker
+                .request(unHealthyService)
+                .then(() => {
+                    return expect(httpReqObjectMock.on)
+                        .toHaveBeenCalledWith('error', expect.any(Function));
+                });
+        });
+
+        test('should call req end', () => {
+            return Checker
+                .request(unHealthyService)
+                .then(() => expect(httpReqObjectMock.end).toHaveBeenCalled());
+        });
     });
 });
