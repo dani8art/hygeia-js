@@ -5,16 +5,8 @@ module.exports = {
         store: {
             // type: 'memory', 
             data: [
-                {
-                    name: 'google',
-                    health: 'https://www.google.es',
-                    method: 'GET'
-                },
-                {
-                    name: 'error',
-                    health: 'http://www.google.com:81',
-                    method: 'GET'
-                }
+                { name: 'google', health: 'https://www.google.es', method: 'GET' },
+                { name: 'error', health: 'http://www.google.es:81', method: 'GET' }
             ]
         },
         reporter: {

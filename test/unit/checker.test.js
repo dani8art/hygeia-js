@@ -3,20 +3,17 @@ const Checker = require('../../src');
 const Measure = require('../../src/domain/measure');
 const Service = require('../../src/domain/service');
 
-describe('Checker', () => {
-    test('Create a new checker', () => {
+describe('Checker Tests', () => {
+    test('should create an instance of Checker', () => {
         const checker = new Checker({
             store: { data: [{ name: 'google', health: 'http://www.google.es' }] },
             reporter: { email: 'test@test.com' }
         });
 
         expect(checker).toBeInstanceOf(Checker);
-        expect(checker.useStore).toBeDefined();
-        expect(checker.check).toBeDefined();
-        expect(Checker.request).toBeDefined();
     });
 
-    test('Throw error if store options are not passed', () => {
+    test('should throw error if any store is passed', () => {
         expect(() => {
             const checker = new Checker({
                 reporter: { email: 'test@test.com' }
@@ -24,7 +21,7 @@ describe('Checker', () => {
         }).toThrow('A store is required.');
     });
 
-    test('Throw error if reporter options are not passed', () => {
+    test('should throw error if any reporter is passed', () => {
         expect(() => {
             const checker = new Checker({
                 store: { data: [{ name: 'google', health: 'http://www.google.es' }] },
@@ -32,11 +29,14 @@ describe('Checker', () => {
         }).toThrow('At least 1 reporter is required.');
     });
 
-    test('sendRequest is a Promise', () => {
-        let req = Checker.request({ name: 'google', health: 'http://www.google.es', timeout: 3000 });
-
-        expect(req).toBeInstanceOf(Promise);
+    describe('#sendRequest', ()=>{
+        test('should return a Promise instance', () => {
+            let req = Checker.request({ name: 'google', health: 'http://www.google.es', timeout: 3000 });
+    
+            expect(req).toBeInstanceOf(Promise);
+        });
     });
+
 
     test('sendRequest statusCode == 200', done => {
         Checker.request({ name: 'google', health: 'http://www.google.es', timeout: 3000 })
