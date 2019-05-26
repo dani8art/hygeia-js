@@ -6,7 +6,7 @@
   "scripts": {
     "run:dev": "yarn lambda:event",
     "test": "jest --coverage",
-    "test:dev": "jest --watchAll --verbose",
+    "test:dev": "jest --coverage --watchAll --verbose",
     "test:ci": "jest --coverage --json --outputFile=test-results.json",
     "release": "release-it",
     "release:pre": "release-it --preRelease",

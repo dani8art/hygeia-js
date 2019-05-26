@@ -67,42 +67,53 @@ class Checker {
      * ``` 
      */
     check() {
-        let promises = [], hreport = new HealthReport().start();
+        const report = new HealthReport();
+        report.start();
+
         return new Promise((resolve, reject) => {
             this.store.get()
                 .then(services => {
                     console.log('Start checking for: %s', services.map(e => e.name));
+                    const promises = [];
 
                     // Make promises checking if data are compliance with class Service.
-                    services.map(ser => new Service(ser)).forEach(element => {
-                        promises.push(Checker.request(element));
-                    });
+                    services
+                        .map(ser => new Service(ser))
+                        .forEach(element => promises.push(Checker.request(element)));
+
                     return Promise.all(promises);
                 })
-                .then(res => {
+                .then(measures => {
                     // Add measures to the report.
-                    res.forEach(e => hreport.addMeasure(e.value()));
-                    return hreport.end();
+                    measures
+                        .forEach(measure => report.addMeasure(measure.value()));
+
+                    return report.end();
                 })
-                .then((hreport) => {
-                    console.log('End checking, Results: %s', JSON.stringify(hreport, null, 2));
+                .then(() => {
+                    console.log('End checking, Results: %s', JSON.stringify(report, null, 2));
 
                     console.log('Reporter policy = ' + this.reporter.policy);
-                    const isHealthy = hreport.isHealthy();
+                    const isHealthy = report.isHealthy();
                     console.log('isHealthy = ' + isHealthy);
 
                     if ((this.reporter.policy === 'error' && !isHealthy) || this.reporter.policy === 'always') {
                         console.log('Send report by ' + this.reporter.name);
-                        return this.reporter.send(hreport).then(resolve);
+                        return this.reporter
+                            .send(report)
+                            .then(() => resolve(report));
                     } else {
                         console.log('Not Send report');
-                        return Promise.resolve();
+                        return resolve(report);
                     }
                 })
                 .catch(err => {
                     console.error(err);
                     console.log('Send status checking by reporter.');
-                    return this.reporter.send(hreport).then(() => reject(err)).catch(reject);
+                    return this.reporter
+                        .send(report)
+                        .then(() => reject(err))
+                        .catch(reject);
                 });
         });
     }
