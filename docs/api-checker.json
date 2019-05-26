@@ -27,7 +27,7 @@
       }
     ],
     "examples": [
-      "```js\nconst { Checker } = require('hygeia-js');\nconst myChecker = new Checker(options);\n\nmyChecker.check().then(done).catch(errorHandler);\n```"
+      "```js\nconst { Checker } = require('hygeia-js');\nconst { MemoryStore } = require('hygeia-js/stores/store-memory');\nconst { EmailReporter } = require('hygeia-js/reporters/reporter-email');\n\nconst myChecker = new Checker({ \n     store: new MemoryStore(data),   \n     reporters: [ new EmailReporter(options) ] \n});\n\nmyChecker.check().then(done).catch(errorHandler);\n```"
     ],
     "order": 2
   },
@@ -38,7 +38,7 @@
     "kind": "class",
     "scope": "global",
     "meta": {
-      "lineno": 16,
+      "lineno": 11,
       "filename": "checker.js",
       "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src"
     },
@@ -51,7 +51,7 @@
     "kind": "class",
     "scope": "global",
     "meta": {
-      "lineno": 33,
+      "lineno": 34,
       "filename": "checker.js",
       "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src"
     },
@@ -83,13 +83,13 @@
       {
         "type": {
           "names": [
-            "void"
+            "this"
           ]
         }
       }
     ],
     "meta": {
-      "lineno": 52,
+      "lineno": 53,
       "filename": "checker.js",
       "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src"
     },
@@ -101,7 +101,7 @@
     "name": "check",
     "kind": "function",
     "scope": "instance",
-    "description": "For each services in the `Checker` will check its status.",
+    "description": "It will check the status of every services in the `Store`, generating\na `HealthReport`",
     "memberof": "Checker",
     "params": [],
     "examples": [
@@ -117,7 +117,7 @@
       }
     ],
     "meta": {
-      "lineno": 66,
+      "lineno": 69,
       "filename": "checker.js",
       "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src"
     },
@@ -129,7 +129,7 @@
     "name": "request",
     "kind": "function",
     "scope": "static",
-    "description": "Make an HTTP/S request for checking the status of `service`.",
+    "description": "Make an HTTP/S request for checking the status of `Service`.",
     "memberof": "Checker",
     "params": [
       {
@@ -155,7 +155,7 @@
       }
     ],
     "meta": {
-      "lineno": 124,
+      "lineno": 127,
       "filename": "checker.js",
       "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src"
     },

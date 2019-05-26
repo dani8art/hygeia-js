@@ -66,6 +66,7 @@ typings/
 # End of https://www.gitignore.io/api/node
 
 ##CUSTOM
+.vscode
 .directory
 sandbox*\.js
 coverage/

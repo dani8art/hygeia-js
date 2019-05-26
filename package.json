@@ -6,7 +6,7 @@
   "scripts": {
     "run:dev": "yarn lambda:event",
     "test": "jest --coverage",
-    "test:dev": "jest --watchAll --verbose",
+    "test:dev": "jest --coverage --watchAll --verbose",
     "test:ci": "jest --coverage --json --outputFile=test-results.json",
     "release": "release-it",
     "release:pre": "release-it --preRelease",
@@ -65,18 +65,17 @@
     "@commitlint/config-conventional": "^7.1.2",
     "aws-sdk": "^2.169.0",
     "delete": "^1.1.0",
-    "docusaurus": "^1.5.1",
+    "docusaurus": "^1.10.0",
     "gulp": "^4.0.1",
     "gulp-cli": "^2.0.0",
     "gulp-copy": "^4.0.1",
     "gulp-header": "^2.0.7",
     "gulp-zip": "^4.1.0",
     "husky": "^1.2.0",
-    "jest": "^22.0.0",
-    "jsdoc-to-markdown": "^4.0.1",
+    "jest": "^24.8.0",
+    "jsdoc-to-markdown": "^5.0.0",
     "release-it": "^9.0.1",
-    "rimraf": "^2.6.2",
-    "serverless": "^1.29.0"
+    "rimraf": "^2.6.2"
   },
   "bugs": {
     "url": "https://github.com/dani8art/hygeia-js/issues",
