@@ -33,11 +33,10 @@ class Checker {
      */
     constructor(options) {
         if (!options.store) throw new Error('A store is required.');
-        if (!options.reporter) throw new Error('At least 1 reporter is required.');
 
         this.options = options;
         this.store = options.store;
-        this.reporter = options.reporter;
+        this.reporters = options.reporters;
     }
 
     /**
@@ -85,35 +84,19 @@ class Checker {
                 })
                 .then(measures => {
                     // Add measures to the report.
-                    measures
-                        .forEach(measure => report.addMeasure(measure.value()));
+                    measures.forEach(measure => report.addMeasure(measure.value()));
+                    report.end();
 
-                    return report.end();
-                })
-                .then(() => {
-                    console.log('End checking, Results: %s', JSON.stringify(report, null, 2));
+                    const relevantReporters = this.reporters
+                        .filter(reporter => policyPredicate(report, reporter));
 
-                    console.log('Reporter policy = ' + this.reporter.policy);
-                    const isHealthy = report.isHealthy();
-                    console.log('isHealthy = ' + isHealthy);
-
-                    if ((this.reporter.policy === 'error' && !isHealthy) || this.reporter.policy === 'always') {
-                        console.log('Send report by ' + this.reporter.name);
-                        return this.reporter
-                            .send(report)
-                            .then(() => resolve(report));
-                    } else {
-                        console.log('Not Send report');
-                        return resolve(report);
-                    }
+                    return sendReport(report, relevantReporters)
+                        .then(resolve);
                 })
                 .catch(err => {
-                    console.error(err);
-                    console.log('Send status checking by reporter.');
-                    return this.reporter
-                        .send(report)
+                    return sendReport(report, this.reporters)
                         .then(() => reject(err))
-                        .catch(reject);
+                        .catch(reject)
                 });
         });
     }
@@ -176,6 +159,19 @@ class Checker {
         });
     }
 
+}
+
+function sendReport(report, reporters) {
+    if (reporters && reporters.length > 0) {
+        return Promise.all(reporters.map(reporter => reporter.send(report)))
+    } else {
+        return Promise.resolve();
+    }
+}
+
+function policyPredicate(report, reporter) {
+    const isHealthy = report.isHealthy();
+    return (reporter.policy === 'error' && !isHealthy) || reporter.policy === 'always';
 }
 
 module.exports = Checker;

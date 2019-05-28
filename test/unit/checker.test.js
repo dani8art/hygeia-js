@@ -76,7 +76,7 @@ describe('Checker Tests', () => {
     test('should create an instance of Checker', () => {
         const checker = new Checker({
             store: { data: [{ name: 'google', health: 'http://www.google.es' }] },
-            reporter: { email: 'test@test.com' }
+            reporters: [{ email: 'test@test.com' }],
         });
 
         expect(checker).toBeInstanceOf(Checker);
@@ -85,17 +85,9 @@ describe('Checker Tests', () => {
     test('should throw error if any store is passed', () => {
         expect(() => {
             const checker = new Checker({
-                reporter: { email: 'test@test.com' }
+                reporters: [{ email: 'test@test.com' }],
             });
         }).toThrow('A store is required.');
-    });
-
-    test('should throw error if any reporter is passed', () => {
-        expect(() => {
-            const checker = new Checker({
-                store: { data: [{ name: 'google', health: 'http://www.google.es' }] },
-            });
-        }).toThrow('At least 1 reporter is required.');
     });
 
     describe('#sendRequest', () => {
@@ -167,7 +159,7 @@ describe('Checker Tests', () => {
         let myChecker;
 
         beforeEach(() => {
-            myChecker = new Checker({ store: storeMock, reporter: reporterMock });
+            myChecker = new Checker({ store: storeMock, reporters: [reporterMock] });
         });
 
         test('should return a Promise', () => {
@@ -254,9 +246,7 @@ describe('Checker Tests', () => {
 
         test('should send report and reject the promise', () => {
             expect.assertions(1);
-            Service.mockImplementation(() => {
-                throw new Error('some error');
-            });
+            Service.mockImplementation(() => { throw new Error('some error') });
 
             return myChecker
                 .check()
@@ -266,5 +256,16 @@ describe('Checker Tests', () => {
 
         });
 
+        test('should not send report when there is not reporter', () => {
+            expect.assertions(1);
+            myChecker.reporters = [];
+
+            return myChecker
+                .check()
+                .then(() => {
+                    expect(reporterMock.send).not.toHaveBeenCalled();
+                });
+
+        });
     });
 });
