@@ -1,9 +1,3 @@
-/**
- * hygeia-js
- * Copyright (c) 2018 darteaga (https://github.com/dani8art/hygeia-js)
- * GPL-3.0 Licensed
- */
-
 'use strict';
 
 /**
@@ -19,6 +13,15 @@ class Measure {
     constructor(service) {
         this.service = service;
         this.startTs = Measure.now();
+    }
+
+    /**
+     * Start the measure and mark the time.
+     * @memberof Measure
+     */
+    start() {
+        this.startTs = Measure.now();
+        return this;
     }
 
     /**

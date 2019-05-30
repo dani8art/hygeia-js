@@ -15,31 +15,21 @@ We recomend to create a new file called `.hygeia.cfg.js` but you can keep it on 
 const hygeiaConfig = {
     store: {
         data: [
-            {
-                name: 'google',
-                health: 'https://www.google.es',
-                method: 'GET',
-            },
-            {
-                name: 'error',
-                health: 'http://www.google.com:81',
-                method: 'GET',
-            },
+            { name: 'google', health: 'https://www.google.es', method: 'GET' },
+            { name: 'error', health: 'http://www.google.com:81', method: 'GET' },
         ]
     },
-    reporters: [
-        {
-            email: 'admin@darteaga.com',
-            policy: 'always',
-        },
-    ]
+    reporter: { email: 'admin@darteaga.com', policy: 'always' },
 };
 ```
 
 ## Create a checker
 
 ```javascript
-const checker = new Checker(hygeiaConfig);
+const store = new MemoryStore(hygeiaConfig.store);
+const reporters = [ new EmailReporter(hygeiaConfig.reporter) ];
+
+const checker = new Checker({store, reporter});
 
 checker.check()
     .then(() => console.log('Status checked for all the services.'))

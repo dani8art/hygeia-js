@@ -16,7 +16,7 @@
     "kind": "class",
     "scope": "global",
     "meta": {
-      "lineno": 10,
+      "lineno": 4,
       "filename": "health-report.js",
       "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src/domain"
     },
@@ -29,7 +29,7 @@
     "kind": "class",
     "scope": "global",
     "meta": {
-      "lineno": 19,
+      "lineno": 13,
       "filename": "health-report.js",
       "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src/domain"
     },
@@ -54,7 +54,7 @@
       }
     ],
     "meta": {
-      "lineno": 31,
+      "lineno": 30,
       "filename": "health-report.js",
       "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src/domain"
     },
@@ -89,7 +89,7 @@
       }
     ],
     "meta": {
-      "lineno": 42,
+      "lineno": 41,
       "filename": "health-report.js",
       "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src/domain"
     },
@@ -114,7 +114,7 @@
       }
     ],
     "meta": {
-      "lineno": 53,
+      "lineno": 52,
       "filename": "health-report.js",
       "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src/domain"
     },
@@ -140,7 +140,7 @@
       }
     ],
     "meta": {
-      "lineno": 66,
+      "lineno": 65,
       "filename": "health-report.js",
       "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src/domain"
     },
@@ -165,7 +165,7 @@
       }
     ],
     "meta": {
-      "lineno": 76,
+      "lineno": 75,
       "filename": "health-report.js",
       "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src/domain"
     },

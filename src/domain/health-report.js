@@ -1,9 +1,3 @@
-/**
- * hygeia-js
- * Copyright (c) 2018 darteaga (https://github.com/dani8art/hygeia-js)
- * GPL-3.0 Licensed
- */
-
 'use strict';
 const Measure = require('./measure');
 
@@ -17,7 +11,12 @@ class HealthReport {
      * @constructor
      */
     constructor() {
-        this.pkg = require('../../package.json');
+        try {
+            this.pkg = require('../../package.json');
+        } catch (e) {
+            this.pkg = require('../package.json');
+        }
+
         this.version = this.pkg.version;
         this.environment = process.env.NODE_ENV || 'dev';
         this.measures = [];

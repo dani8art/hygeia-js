@@ -121,26 +121,40 @@ jobs:
       - image: circleci/node:8
     steps:
       - checkout
+      - restore_cache:
+          keys:
+          - *js_deps_cache_key
+          - *js_deps_backup_cache_key
       - run: git pull origin develop
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./.npmrc
       - run:
+          name: Build assests
+          command: yarn build
+      - run:
           name: Publish package
-          command: npm publish --tag next
+          command: npm publish --tag next dist/
           
   npm_publish:
     docker:
       - image: circleci/node:8
     steps:
       - checkout
+      - restore_cache:
+          keys:
+          - *js_deps_cache_key
+          - *js_deps_backup_cache_key
       - run: git pull
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./.npmrc
       - run:
+          name: Build assests
+          command: yarn build
+      - run:
           name: Publish package
-          command: npm publish
+          command: npm publish dist/
   next:
     docker:
       - image: circleci/node:8
