@@ -6,7 +6,7 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/dani8art/hyegia-js/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/hygeia-js.svg?style=flat)](https://www.npmjs.com/package/hygeia-js) [![CircleCI](https://circleci.com/gh/dani8art/hygeia-js.svg?style=svg&circle-token=8069e6f68b6fe5b7f2034ec0efa9e7429697c129)](https://circleci.com/gh/dani8art/hygeia-js) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)]() [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest) [![jest](https://facebook.github.io/jest/img/jest-badge.svg)](https://github.com/facebook/jest) 
 
 
-Hygeia is a modular health checking tool, It is writen in JavaScript and designed and thougth for deploying in many differents scenarios such as: [AWS Lambda](), [Express Middleware](), [Hapi Plugin]() or [Moleculer Service]().
+Hygeia is a modular health checking tool, It is writen in JavaScript and designed and thougth for deploying in many differents scenarios such as: [AWS Lambda](https://github.com/dani8art/hygeia-lambda-healthcheck), [Express Middleware](), [Hapi Plugin]() or [Moleculer Service]().
 
 * **Modular:** Hygeia was designed to be as configurable as it was possible, its modular design makes it different and it allows you to use several tools for checking the status of services.
 * **Deployment agnostic:** It can be used in many differents scenarios, JavaScript allows you to use it on a background process wrote and launch in Node JS, as an endpoint of a RESTful API or as an AWS Lambda function.
@@ -33,15 +33,11 @@ We have several examples [on the website](https://hygeia.darteaga.com/docs/gs-ch
 
 ```jsx
 const store = new MemoryStore({
-  data: [{
-    name: 'google',
-    health: 'https://www.google.es',
-    method: 'GET',
-  }]
+  data: [{ name: 'google', health: 'https://www.google.es', method: 'GET' }]
 });
-const reporter = new EmailReporter({email: 'example@example.com', policy: 'always'});
+const reporters = [new EmailReporter({email: 'example@example.com', policy: 'always'})];
 
-const checker = new Checker({store, reporter});
+const checker = new Checker({store, reporters});
 
 checker.check()
     .then(() => console.log('Status checked for all the services.'))

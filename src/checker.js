@@ -15,8 +15,8 @@ class Checker {
     /**
      * Creates an instance of Checker.
      * @constructor
-     * @param {Store} options.store Store where services will be gotten. 
-     * @param {Reporter[]} options.reporters Reporters where HealtReport will be sent. 
+     * @param {Store} options.store **Required** Store where services will be gotten. 
+     * @param {Reporter[]} options.reporters **Optional** Reporters where HealtReport will be sent. 
      * @example
      * ```js
      * const { Checker } = require('hygeia-js');
@@ -24,7 +24,7 @@ class Checker {
      * const { EmailReporter } = require('hygeia-js/reporters/reporter-email');
      * 
      * const myChecker = new Checker({ 
-     *      store: new MemoryStore(data),   
+     *      store: new MemoryStore({ data }),   
      *      reporters: [ new EmailReporter(options) ] 
      * });
      * 
@@ -62,7 +62,9 @@ class Checker {
      * @returns {Promise<HealthReport>}
      * @example
      * ```js
-     * myChecker.check().then(healthReport => console.log(healthReport));
+     * myChecker
+     *  .check()
+     *  .then(healthReport => console.log(healthReport));
      * ``` 
      */
     check() {
@@ -91,7 +93,7 @@ class Checker {
                         .filter(reporter => policyPredicate(report, reporter));
 
                     return sendReport(report, relevantReporters)
-                        .then(resolve);
+                        .then(() => resolve(report));
                 })
                 .catch(err => {
                     return sendReport(report, this.reporters)
@@ -115,7 +117,9 @@ class Checker {
      *   method: 'GET'
      * };
      * 
-     * Checker.request(service).then(measure => console.log(measure));
+     * Checker
+     *  .request(service)
+     *  .then(measure => console.log(measure));
      * ``` 
      */
     static request(service) {

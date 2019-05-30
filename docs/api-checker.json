@@ -13,7 +13,7 @@
             "Store"
           ]
         },
-        "description": "Store where services will be gotten.",
+        "description": "**Required** Store where services will be gotten.",
         "name": "options.store"
       },
       {
@@ -22,12 +22,12 @@
             "Array.<Reporter>"
           ]
         },
-        "description": "Reporters where HealtReport will be sent.",
+        "description": "**Optional** Reporters where HealtReport will be sent.",
         "name": "options.reporters"
       }
     ],
     "examples": [
-      "```js\nconst { Checker } = require('hygeia-js');\nconst { MemoryStore } = require('hygeia-js/stores/store-memory');\nconst { EmailReporter } = require('hygeia-js/reporters/reporter-email');\n\nconst myChecker = new Checker({ \n     store: new MemoryStore(data),   \n     reporters: [ new EmailReporter(options) ] \n});\n\nmyChecker.check().then(done).catch(errorHandler);\n```"
+      "```js\nconst { Checker } = require('hygeia-js');\nconst { MemoryStore } = require('hygeia-js/stores/store-memory');\nconst { EmailReporter } = require('hygeia-js/reporters/reporter-email');\n\nconst myChecker = new Checker({ \n     store: new MemoryStore({ data }),   \n     reporters: [ new EmailReporter(options) ] \n});\n\nmyChecker.check().then(done).catch(errorHandler);\n```"
     ],
     "order": 2
   },
@@ -89,7 +89,7 @@
       }
     ],
     "meta": {
-      "lineno": 53,
+      "lineno": 52,
       "filename": "checker.js",
       "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src"
     },
@@ -105,7 +105,7 @@
     "memberof": "Checker",
     "params": [],
     "examples": [
-      "```js\nmyChecker.check().then(healthReport => console.log(healthReport));\n``` "
+      "```js\nmyChecker\n .check()\n .then(healthReport => console.log(healthReport));\n``` "
     ],
     "returns": [
       {
@@ -117,7 +117,7 @@
       }
     ],
     "meta": {
-      "lineno": 69,
+      "lineno": 70,
       "filename": "checker.js",
       "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src"
     },
@@ -143,7 +143,7 @@
       }
     ],
     "examples": [
-      "```js\nconst service = {\n  name: 'google',\n  health: 'https://www.google.es',\n  method: 'GET'\n};\n\nChecker.request(service).then(measure => console.log(measure));\n``` "
+      "```js\nconst service = {\n  name: 'google',\n  health: 'https://www.google.es',\n  method: 'GET'\n};\n\nChecker\n .request(service)\n .then(measure => console.log(measure));\n``` "
     ],
     "returns": [
       {
@@ -155,7 +155,7 @@
       }
     ],
     "meta": {
-      "lineno": 127,
+      "lineno": 125,
       "filename": "checker.js",
       "path": "/Users/darteaga/development/workspaces/hygeia/hygeia-js/src"
     },

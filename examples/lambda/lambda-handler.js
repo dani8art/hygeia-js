@@ -9,9 +9,9 @@ exports.handler = (event, context, callback) => {
     const envConfig = config[process.env.NODE_ENV || 'dev'];
 
     const store = new MemoryStore(envConfig.store);
-    const reporter = new EmailReporter(envConfig.reporter);
+    const reporters = [new EmailReporter(envConfig.reporter)];
 
-    const checker = new Checker({ store, reporter });
+    const checker = new Checker({ store, reporters });
 
     checker.check()
         .then(() => callback(null, 'Status checked for all the services.'))

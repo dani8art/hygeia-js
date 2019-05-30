@@ -15,22 +15,11 @@ We recomend to create a new file called `.hygeia.cfg.js` but you can keep it on 
 const hygeiaConfig = {
     store: {
         data: [
-            {
-                name: 'google',
-                health: 'https://www.google.es',
-                method: 'GET',
-            },
-            {
-                name: 'error',
-                health: 'http://www.google.com:81',
-                method: 'GET',
-            },
+            { name: 'google', health: 'https://www.google.es', method: 'GET' },
+            { name: 'error', health: 'http://www.google.com:81', method: 'GET' },
         ]
     },
-    reporter: {
-        email: 'admin@darteaga.com',
-        policy: 'always',
-    },
+    reporter: { email: 'admin@darteaga.com', policy: 'always' },
 };
 ```
 
@@ -38,7 +27,7 @@ const hygeiaConfig = {
 
 ```javascript
 const store = new MemoryStore(hygeiaConfig.store);
-const reporter = new MemoryStore(hygeiaConfig.reporter);
+const reporters = [ new EmailReporter(hygeiaConfig.reporter) ];
 
 const checker = new Checker({store, reporter});
 

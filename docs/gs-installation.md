@@ -9,7 +9,7 @@ Hygeia JS was designed from the ground up to be easily installed and used to get
 
 Ensure you have the latest version of Node installed. We also recommend you install Yarn as well.
 
-> You have to be on Node >= 8.x and Yarn >= 1.5.
+> You have to be on Node >= 10.x and Yarn >= 1.5.
 
 Add hygeia-js as dependecy of your project.
 

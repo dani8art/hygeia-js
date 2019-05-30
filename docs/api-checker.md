@@ -22,8 +22,8 @@ Creates an instance of Checker.
 
 | Param | Type | Description |
 | --- | --- | --- |
-| options.store | <code>Store</code> | Store where services will be gotten. |
-| options.reporters | <code>Array.&lt;Reporter&gt;</code> | Reporters where HealtReport will be sent. |
+| options.store | <code>Store</code> | **Required** Store where services will be gotten. |
+| options.reporters | <code>Array.&lt;Reporter&gt;</code> | **Optional** Reporters where HealtReport will be sent. |
 
 **Example**  
 ```js
@@ -32,7 +32,7 @@ const { MemoryStore } = require('hygeia-js/stores/store-memory');
 const { EmailReporter } = require('hygeia-js/reporters/reporter-email');
 
 const myChecker = new Checker({ 
-     store: new MemoryStore(data),   
+     store: new MemoryStore({ data }),   
      reporters: [ new EmailReporter(options) ] 
 });
 
@@ -62,7 +62,9 @@ a `HealthReport`
 **Kind**: instance method of [<code>Checker</code>](#Checker)  
 **Example**  
 ```js
-myChecker.check().then(healthReport => console.log(healthReport));
+myChecker
+ .check()
+ .then(healthReport => console.log(healthReport));
 ``` 
 <a name="Checker.request"></a>
 
@@ -83,5 +85,7 @@ const service = {
   method: 'GET'
 };
 
-Checker.request(service).then(measure => console.log(measure));
+Checker
+ .request(service)
+ .then(measure => console.log(measure));
 ``` 
