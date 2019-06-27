@@ -20,7 +20,7 @@ It is divided into several sections:
 
 * [Quick Start](https://hygeia.darteaga.com/docs/gs-checking-status.html)
 * [Advanced Guides](https://hygeia.darteaga.com/docs/health-checking-lambda-aws.html)
-* [API Reference](https://hygeia.darteaga.com/docs/api-checker.html)
+* [API Reference](https://hygeia.darteaga.com/docs/api-checker.js.html)
 * [Tutorial](https://hygeia.darteaga.com/docs/health-checking-lambda-aws.html)
 * [Where to Get Support](https://hygeia.darteaga.com/docs/where-to-get-support.html)
 * [Contributing Guide]()
