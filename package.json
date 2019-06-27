@@ -65,7 +65,7 @@
     "@commitlint/config-conventional": "^7.1.2",
     "aws-sdk": "^2.169.0",
     "delete": "^1.1.0",
-    "docusaurus": "^1.10.0",
+    "docusaurus": "^1.11.1",
     "gulp": "^4.0.1",
     "gulp-cli": "^2.0.0",
     "gulp-copy": "^4.0.1",
