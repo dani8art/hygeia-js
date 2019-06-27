@@ -18,15 +18,17 @@ const versions = require(`${CWD}/versions.json`);
 
 function Versions() {
   const latestVersion = versions[0];
-  const repoUrl = `https://github.com/${siteConfig.organizationName}/${
-    siteConfig.projectName
-  }`;
+  const repoUrl = `https://github.com/${siteConfig.organizationName}/${siteConfig.projectName}`;
+  const releasesUrl = `${repoUrl}/releases`;
+  const latestReleaseUrl = `${releasesUrl}/tag/${latestVersion}`;
+  const preReleaseDocsUrl = `${repoUrl}/tree/develop`;
+
   return (
     <div className="docMainWrapper wrapper">
       <Container className="mainContainer versionsContainer">
         <div className="post">
           <header className="postHeader">
-            <h1>{siteConfig.title} Versions</h1>
+            <h1 class="postHeaderTitle">{siteConfig.title} Versions</h1>
           </header>
           <p>New versions of this project are released every so often.</p>
           <h3 id="latest">Current version (Stable)</h3>
@@ -35,10 +37,10 @@ function Versions() {
               <tr>
                 <th>{latestVersion}</th>
                 <td>
-                  <a href="">Documentation</a>
+                  <a href="/docs/gs-installation.html">Documentation</a>
                 </td>
                 <td>
-                  <a href="">Release Notes</a>
+                  <a href={latestReleaseUrl}>Release Notes</a>
                 </td>
               </tr>
             </tbody>
@@ -51,34 +53,35 @@ function Versions() {
           <table className="versions">
             <tbody>
               <tr>
-                <th>master</th>
+                <th>next</th>
                 <td>
-                  <a href="">Documentation</a>
+                  <a href={preReleaseDocsUrl}>Documentation</a>
                 </td>
                 <td>
-                  <a href="">Release Notes</a>
+                  <a href={releasesUrl}>Release Notes</a>
                 </td>
               </tr>
             </tbody>
           </table>
-          <p>Other text describing this section.</p>
+          <p>Next version is the edge version of hygeia-js which is in continuous development and could contain some bugs.</p>
           <h3 id="archive">Past Versions</h3>
           <table className="versions">
             <tbody>
-              {versions.map(
-                version =>
-                  version !== latestVersion && (
-                    <tr>
-                      <th>{version}</th>
-                      <td>
-                        <a href="">Documentation</a>
-                      </td>
-                      <td>
-                        <a href="">Release Notes</a>
-                      </td>
-                    </tr>
-                  ),
-              )}
+              {versions.map(version => {
+                const pastReleaseDocsUrl = `/docs/${version}/gs-installation.html`;
+                const pastReleaseUrl = `${releasesUrl}/tag/${version}`;
+                return version !== latestVersion && (
+                  <tr>
+                    <th>{version}</th>
+                    <td>
+                      <a href={pastReleaseDocsUrl}>Documentation</a>
+                    </td>
+                    <td>
+                      <a href={pastReleaseUrl}>Release Notes</a>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
           <p>

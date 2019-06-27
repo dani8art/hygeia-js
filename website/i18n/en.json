@@ -70,6 +70,16 @@
       },
       "version-0.0.4-where-to-get-support": {
         "title": "Contact"
+      },
+      "version-1.0.0-api-checker.js": {
+        "title": "Checker",
+        "sidebar_label": "Checker"
+      },
+      "version-1.0.0-gs-checking-status": {
+        "title": "Checking Status"
+      },
+      "version-1.0.0-gs-installation": {
+        "title": "Installation"
       }
     },
     "links": {
