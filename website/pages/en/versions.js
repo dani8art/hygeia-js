@@ -21,7 +21,6 @@ function Versions() {
   const repoUrl = `https://github.com/${siteConfig.organizationName}/${siteConfig.projectName}`;
   const releasesUrl = `${repoUrl}/releases`;
   const latestReleaseUrl = `${releasesUrl}/tag/${latestVersion}`;
-  const preReleaseDocsUrl = `${repoUrl}/tree/develop`;
 
   return (
     <div className="docMainWrapper wrapper">
@@ -55,7 +54,7 @@ function Versions() {
               <tr>
                 <th>next</th>
                 <td>
-                  <a href={preReleaseDocsUrl}>Documentation</a>
+                  <a href="/docs/next/gs-installation.html">Documentation</a>
                 </td>
                 <td>
                   <a href={releasesUrl}>Release Notes</a>
