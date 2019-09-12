@@ -108,7 +108,7 @@ const Features = props => (
         title: 'Modular',
       },
       {
-        content: 'It can be used in many differents scenarios, JavaScript allows you to use it on a background process wrote and launch in Node JS, as an endpoint of a RESTful API or as an AWS Lambda function.',
+        content: 'It can be used in many different environments, Javascript allows you to use it on a background process in Node.js, as an endpoint of in a RESTful API or as an AWS Lambda function.',
         image: imgUrl('features-deployment.png'),
         imageAlign: 'top',
         title: 'Deployment agnostic',
