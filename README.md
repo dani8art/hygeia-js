@@ -6,12 +6,12 @@
 [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/dani8art/hyegia-js/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/hygeia-js.svg?style=flat)](https://www.npmjs.com/package/hygeia-js) [![CircleCI](https://circleci.com/gh/dani8art/hygeia-js.svg?style=svg&circle-token=8069e6f68b6fe5b7f2034ec0efa9e7429697c129)](https://circleci.com/gh/dani8art/hygeia-js) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)]() [![tested with jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://github.com/facebook/jest) [![jest](https://facebook.github.io/jest/img/jest-badge.svg)](https://github.com/facebook/jest) 
 
 
-Hygeia is a modular health checking tool, It is writen in JavaScript and designed and thougth for deploying in many differents scenarios such as: [AWS Lambda](https://github.com/dani8art/hygeia-lambda-healthcheck), [Express Middleware](), [Hapi Plugin]() or [Moleculer Service]().
+Hygeia is a modular health checking tool, It is written in Javascript and designed and thought for deploying in many different scenarios such as [AWS Lambda](https://github.com/dani8art/hygeia-lambda-healthcheck), [Express Middleware](), [Hapi Plugin]() or [Moleculer Service]().
 
 * **Modular:** Hygeia was designed to be as configurable as it was possible, its modular design makes it different and it allows you to use several tools for checking the status of services.
-* **Deployment agnostic:** It can be used in many differents scenarios, JavaScript allows you to use it on a background process wrote and launch in Node JS, as an endpoint of a RESTful API or as an AWS Lambda function.
+* **Deployment agnostic:** It can be used in many different environments, Javascript allows you to use it on a background process in Node.js, as an endpoint of in a RESTful API or as an AWS Lambda function.
 
-[Learn how to use Hygeia JS in your own project](https://hygeia.darteaga.com/docs/gs-installation.html).
+[Learn how to use Hygeia JS in your project](https://hygeia.darteaga.com/docs/gs-installation.html).
 
 ## Documentation
 
@@ -65,7 +65,7 @@ The main purpose of this repository is to continue to evolve Hygeia core, making
 
 ### [Code of Conduct](https://code.fb.com/codeofconduct/)
 
-We has adopted a Code of Conduct from Facebook Open Source that we expect project participants to adhere to. Please read [the full text](https://code.fb.com/codeofconduct/) so that you can understand what actions will and will not be tolerated.
+We have adopted a Code of Conduct from Facebook Open Source that we expect project participants to adhere to. Please read [the full text](https://code.fb.com/codeofconduct/) so that you can understand what actions will and will not be tolerated.
 
 ### [Contributing Guide]()
 
