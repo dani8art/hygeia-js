@@ -1,5 +1,4 @@
 {
-  "increment": "conventional:angular",
   "non-interactive": true,
   "preReleaseId": "next",
   "git": {
@@ -19,5 +18,10 @@
   },
   "scripts": {
     "changelog": "./scripts/changelog.sh ${version}"
+  },
+  "plugins": {
+    "@release-it/conventional-changelog": {
+      "preset": "angular"
+    }
   }
 }

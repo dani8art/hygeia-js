@@ -2,7 +2,7 @@ version: 2
 
 references:
   js_deps_cache_key: &js_deps_cache_key
-    v1-dependency-{{ checksum "yarn.lock" }}
+    v1-dependency-{{ checksum "package-lock.lock" }}
   js_deps_backup_cache_key: &js_deps_backup_cache_key
     v1-dependency-
 
@@ -18,12 +18,12 @@ jobs:
           - *js_deps_backup_cache_key
       - run: 
           name: install npm dependecies
-          command: yarn
+          command: npm i
       - save_cache:
           paths:
             - node_modules
           key: *js_deps_cache_key
-      - run: yarn test
+      - run: npm test
 
   pre_release:
     docker:
@@ -36,11 +36,11 @@ jobs:
           - *js_deps_backup_cache_key
       - run:
           name: install npm dependecies
-          command: yarn
+          command: npm i
       - run: git config --global push.default current
       - run: git config --global user.email "totem-bot@darteaga.com"
       - run: git config --global user.name "Totem Bot"
-      - run: yarn release:pre
+      - run: npm run release:pre
       - save_cache:
           paths:
             - node_modules
@@ -57,11 +57,11 @@ jobs:
           - *js_deps_backup_cache_key
       - run:
           name: install npm dependecies
-          command: yarn
+          command: npm i
       - run: git config --global push.default matching
       - run: git config --global user.email "totem-bot@darteaga.com"
       - run: git config --global user.name "Totem Bot"
-      - run: yarn release
+      - run: npm run release
       - save_cache:
           paths:
             - node_modules
@@ -78,10 +78,10 @@ jobs:
           keys:
           - *js_deps_cache_key
           - *js_deps_backup_cache_key
-      - run: yarn
-      - run: yarn docs:build
+      - run: npm i
+      - run: npm run docs:build
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS docker-registry.darteaga.com
-      - run: yarn docs:docker:push
+      - run: npm run docs:docker:push
       - save_cache:
           paths:
             - node_modules
@@ -99,8 +99,8 @@ jobs:
           - *js_deps_cache_key
           - *js_deps_backup_cache_key
       - run: git pull
-      - run: yarn
-      - run: yarn docs:version
+      - run: npm i
+      - run: npm run docs:version
       - run: git config --global push.default current
       - run: git config --global user.email "totem-bot@darteaga.com"
       - run: git config --global user.name "Totem Bot"
@@ -108,9 +108,9 @@ jobs:
       - run: | 
           git commit -m "docs: fix new docs version [ci skip]"
       - run: git push
-      - run: yarn docs:build
+      - run: npm run docs:build
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS docker-registry.darteaga.com
-      - run: yarn docs:docker:push
+      - run: npm run docs:docker:push
       - save_cache:
           paths:
             - node_modules
@@ -131,7 +131,7 @@ jobs:
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./.npmrc
       - run:
           name: Build assests
-          command: yarn build
+          command: npm run build
       - run:
           name: Publish package
           command: npm publish --tag next dist/
@@ -151,7 +151,7 @@ jobs:
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./.npmrc
       - run:
           name: Build assests
-          command: yarn build
+          command: npm run build
       - run:
           name: Publish package
           command: npm publish dist/
