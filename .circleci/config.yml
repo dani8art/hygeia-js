@@ -2,7 +2,7 @@ version: 2
 
 references:
   js_deps_cache_key: &js_deps_cache_key
-    v1-dependency-{{ checksum "package-lock.lock" }}
+    v1-dependency-{{ checksum "package-lock.json" }}
   js_deps_backup_cache_key: &js_deps_backup_cache_key
     v1-dependency-
 
