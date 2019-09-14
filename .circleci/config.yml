@@ -135,7 +135,7 @@ workflows:
 
       - npm_publish:
           requires:
-            - docs_deliver
+            - aws-ecr/build_and_push_image
           filters:
             branches:
               only:
