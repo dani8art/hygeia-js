@@ -11,7 +11,7 @@ references:
 jobs:
   test:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:10
     steps:
       - checkout
       - restore_cache:
@@ -29,7 +29,7 @@ jobs:
 
   release:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:10
     steps:
       - checkout
       - restore_cache:
@@ -50,11 +50,9 @@ jobs:
   
   docs_deliver:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:10
     steps:
       - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
       - restore_cache:
           keys:
           - *js_deps_cache_key
@@ -69,9 +67,12 @@ jobs:
       - run: | 
           git commit -m "docs: fix new docs version [ci skip]"
       - run: git push
-      - run: npm run docs:build
-      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS docker-registry.darteaga.com
-      - run: npm run docs:docker:push
+      - run: npm run docs:website
+      - aws-ecr/build-and-push-image:
+          dockerfile: website/dockerfile
+          repo: hygeia/hygeia-docs
+          region: AWS_DEFAULT_REGION
+          tag: latest,${CIRCLE_SHA1}
       - save_cache:
           paths:
             - node_modules
@@ -79,7 +80,7 @@ jobs:
           
   npm_publish:
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:10
     steps:
       - checkout
       - restore_cache:
@@ -121,12 +122,9 @@ workflows:
               only:
                 - master
 
-      - aws-ecr/build-and-push-image:
+      - docs_deliver:
           requires:
             - release
-          repo: hygeia/hygeia-docs
-          region: AWS_DEFAULT_REGION
-          tag: latest,${CIRCLE_SHA1}
           filters:
             branches:
               only:
@@ -134,7 +132,7 @@ workflows:
 
       - npm_publish:
           requires:
-            - aws-ecr/build-and-push-image
+            - docs_deliver
           filters:
             branches:
               only:
