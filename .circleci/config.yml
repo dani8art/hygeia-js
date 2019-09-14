@@ -1,5 +1,7 @@
-version: 2
-
+version: 2.1
+orbs:
+  aws-ecr: circleci/aws-ecr@6.3.0
+  
 references:
   js_deps_cache_key: &js_deps_cache_key
     v1-dependency-{{ checksum "package-lock.json" }}
@@ -25,27 +27,6 @@ jobs:
           key: *js_deps_cache_key
       - run: npm test
 
-  pre_release:
-    docker:
-      - image: circleci/node:8
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-          - *js_deps_cache_key
-          - *js_deps_backup_cache_key
-      - run:
-          name: install npm dependecies
-          command: npm i
-      - run: git config --global push.default current
-      - run: git config --global user.email "totem-bot@darteaga.com"
-      - run: git config --global user.name "Totem Bot"
-      - run: npm run release:pre
-      - save_cache:
-          paths:
-            - node_modules
-          key: *js_deps_cache_key
-
   release:
     docker:
       - image: circleci/node:8
@@ -62,26 +43,6 @@ jobs:
       - run: git config --global user.email "totem-bot@darteaga.com"
       - run: git config --global user.name "Totem Bot"
       - run: npm run release
-      - save_cache:
-          paths:
-            - node_modules
-          key: *js_deps_cache_key
-
-  pre_docs_deliver:
-    docker:
-      - image: circleci/node:8
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-      - restore_cache:
-          keys:
-          - *js_deps_cache_key
-          - *js_deps_backup_cache_key
-      - run: npm i
-      - run: npm run docs:build
-      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS docker-registry.darteaga.com
-      - run: npm run docs:docker:push
       - save_cache:
           paths:
             - node_modules
@@ -115,26 +76,6 @@ jobs:
           paths:
             - node_modules
           key: *js_deps_cache_key
-
-  pre_npm_publish:
-    docker:
-      - image: circleci/node:8
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-          - *js_deps_cache_key
-          - *js_deps_backup_cache_key
-      - run: git pull origin develop
-      - run:
-          name: Authenticate with registry
-          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./.npmrc
-      - run:
-          name: Build assests
-          command: npm run build
-      - run:
-          name: Publish package
-          command: npm publish --tag next dist/
           
   npm_publish:
     docker:
@@ -145,7 +86,6 @@ jobs:
           keys:
           - *js_deps_cache_key
           - *js_deps_backup_cache_key
-      - run: git pull
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./.npmrc
@@ -155,19 +95,6 @@ jobs:
       - run:
           name: Publish package
           command: npm publish dist/
-  next:
-    docker:
-      - image: circleci/node:8
-    steps:
-      - checkout
-      - run: git config --global push.default matching
-      - run: git config --global user.email "totem-bot@darteaga.com"
-      - run: git config --global user.name "Totem Bot"
-      - run: git pull
-      - run: git checkout develop
-      - run: |
-          git merge master --strategy-option theirs -m "chore: prepare develop for the next iteration [ci skip]"
-      - run: git push
 
 workflows:
   version: 2
@@ -177,37 +104,7 @@ workflows:
           filters:
             branches:
               ignore:
-                - develop
                 - master
-                
-  canary:
-    jobs:
-      - test:
-          filters:
-            branches:
-              only:
-                - develop
-      - pre_release:
-          requires:
-            - test
-          filters:
-            branches:
-              only:
-                - develop
-      - pre_docs_deliver:
-          requires:
-            - pre_release
-          filters:
-            branches:
-              only:
-                - develop
-      - pre_npm_publish:
-          requires:
-            - pre_docs_deliver
-          filters:
-            branches:
-              only:
-                - develop
               
   production:
     jobs:
@@ -223,20 +120,19 @@ workflows:
             branches:
               only:
                 - master
-      - docs_deliver:
+
+      - aws-ecr/build_and_push_image:
           requires:
             - release
+          account-url: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
+          repo: ${AWS_ERC_REPO_NAME}
+          region: ${AWS_DEFAULT_REGION}
+          tag: latest,${CIRCLE_SHA1}
           filters:
             branches:
               only:
                 - master
-      - next:
-          requires:
-            - docs_deliver
-          filters:
-            branches:
-              only:
-                - master
+
       - npm_publish:
           requires:
             - docs_deliver

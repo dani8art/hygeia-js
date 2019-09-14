@@ -34,7 +34,7 @@
     }
   },
   "docker": {
-    "image": "docker-registry.darteaga.com/darteaga/hygeia-js-docs"
+    "image": "762124802081.dkr.ecr.us-west-2.amazonaws.com/hygeia/hygeia-docs"
   },
   "jest": {
     "watchPathIgnorePatterns": [
