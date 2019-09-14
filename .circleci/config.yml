@@ -124,9 +124,8 @@ workflows:
       - aws-ecr/build-and-push-image:
           requires:
             - release
-          account-url: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
-          repo: ${AWS_ERC_REPO_NAME}
-          region: ${AWS_DEFAULT_REGION}
+          repo: hygeia/hygeia-docs
+          region: AWS_DEFAULT_REGION
           tag: latest,${CIRCLE_SHA1}
           filters:
             branches:
