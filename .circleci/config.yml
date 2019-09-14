@@ -121,7 +121,7 @@ workflows:
               only:
                 - master
 
-      - aws-ecr/build_and_push_image:
+      - aws-ecr/build-and-push-image:
           requires:
             - release
           account-url: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com
@@ -135,7 +135,7 @@ workflows:
 
       - npm_publish:
           requires:
-            - aws-ecr/build_and_push_image
+            - aws-ecr/build-and-push-image
           filters:
             branches:
               only:
