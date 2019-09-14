@@ -11,7 +11,7 @@ Hygeia is a modular health checking tool, It is written in Javascript and design
 * **Modular:** Hygeia was designed to be as configurable as it was possible, its modular design makes it different and it allows you to use several tools for checking the status of services.
 * **Deployment agnostic:** It can be used in many different environments, Javascript allows you to use it on a background process in Node.js, as an endpoint of in a RESTful API or as an AWS Lambda function.
 
-[Learn how to use Hygeia JS in your project](https://hygeia.darteaga.com/docs/gs-installation.html).
+[Learn how to use Hygeia JS in your projects](https://hygeia.darteaga.com/docs/gs-installation.html).
 
 ## Documentation
 
