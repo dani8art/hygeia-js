@@ -26,7 +26,8 @@
     "docs:build": "npm run docs:website && npm run docs:docker:build",
     "docs:docker:build": "docker build -f ./website/dockerfile -t ${npm_package_docker_image} .",
     "docs:docker:push": "docker push ${npm_package_docker_image}",
-    "docs:examples": "cd website/ && npm run examples"
+    "docs:examples": "cd website/ && npm run examples",
+    "get:version": "echo ${npm_package_version}"
   },
   "husky": {
     "hooks": {

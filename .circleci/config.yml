@@ -70,11 +70,14 @@ jobs:
           git commit -m "docs: fix new docs version [ci skip]"
       - run: git push
       - run: npm run docs:website
+      - run:
+          name: Export version to a variable.
+          command: export HYGEIA_JS_VERSION=$(npm run --silent get:version)
       - aws-ecr/build-and-push-image:
           dockerfile: website/dockerfile
           repo: hygeia/hygeia-docs
           region: AWS_DEFAULT_REGION
-          tag: latest,${CIRCLE_SHA1}
+          tag: latest,${HYGEIA_JS_VERSION}
       - save_cache:
           paths:
             - node_modules
