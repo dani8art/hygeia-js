@@ -7,7 +7,15 @@ references:
     v1-dependency-{{ checksum "package-lock.json" }}
   js_deps_backup_cache_key: &js_deps_backup_cache_key
     v1-dependency-
-
+    
+commands:
+  git_authoring:
+    description: Authoring git commit.
+    steps:
+      - run: git config --global push.default matching
+      - run: git config --global user.email "totem-bot@darteaga.com"
+      - run: git config --global user.name "Totem Bot"
+      
 jobs:
   test:
     docker:
@@ -19,59 +27,59 @@ jobs:
           - *js_deps_cache_key
           - *js_deps_backup_cache_key
       - run: 
-          name: install npm dependecies
+          name: Install npm dependecies.
           command: npm i
+      - run: 
+          name: Launch unit tests.
+          command: npm test
       - save_cache:
           paths:
             - node_modules
           key: *js_deps_cache_key
-      - run: npm test
 
   release:
     docker:
       - image: circleci/node:10
     steps:
       - checkout
+      - git_authoring
       - restore_cache:
           keys:
           - *js_deps_cache_key
           - *js_deps_backup_cache_key
       - run:
-          name: install npm dependecies
-          command: npm i
-      - run: git config --global push.default matching
-      - run: git config --global user.email "totem-bot@darteaga.com"
-      - run: git config --global user.name "Totem Bot"
-      - run: npm run release
-      - save_cache:
-          paths:
-            - node_modules
-          key: *js_deps_cache_key
+          name: Bump and publish the new version.
+          command: npm run release
   
   docs_deliver:
     docker:
       - image: circleci/node:10
     steps:
       - checkout
+      - git_authoring
       - setup_remote_docker:
-          docker_layer_caching: true
+          docker_layer_caching: true    
       - restore_cache:
           keys:
           - *js_deps_cache_key
           - *js_deps_backup_cache_key
-      - run: git pull
-      - run: npm i
-      - run: npm run docs:version
-      - run: git config --global push.default current
-      - run: git config --global user.email "totem-bot@darteaga.com"
-      - run: git config --global user.name "Totem Bot"
-      - run: git add .
-      - run: | 
-          git commit -m "docs: fix new docs version [ci skip]"
-      - run: git push
-      - run: npm run docs:website
-      - run: 
-          name: "Setup custom environment variables"
+      - run:
+          name: Get latest changes from the repository.
+          command: git pull
+      - run:
+          name: Generate a new docs website version.
+          command: npm run docs:version
+      - run:
+          name: Add commit with doc changes.
+          command: | 
+            git add .
+            git commit -m "docs: fix new docs version [ci skip]"
+            git push
+      - run:
+          name: Build docs website assests. 
+          command: npm run docs:website
+      - run:
+          name: Setup hygeia-js version environment variables.
           command: |
             echo 'export HYGEIA_JS_VERSION="$(npm run --silent get:version)"' >> $BASH_ENV
       - aws-ecr/build-and-push-image:
@@ -79,10 +87,6 @@ jobs:
           repo: hygeia/hygeia-docs
           region: AWS_DEFAULT_REGION
           tag: latest,${HYGEIA_JS_VERSION}
-      - save_cache:
-          paths:
-            - node_modules
-          key: *js_deps_cache_key
           
   npm_publish:
     docker:
@@ -94,13 +98,16 @@ jobs:
           - *js_deps_cache_key
           - *js_deps_backup_cache_key
       - run:
-          name: Authenticate with registry
+          name: Get latest changes from the repository.
+          command: git pull
+      - run:
+          name: Authenticate against npm registry.
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ./.npmrc
       - run:
-          name: Build assests
+          name: Build hygeia-js assests.
           command: npm run build
       - run:
-          name: Publish package
+          name: Publish hygeia-js package to npm.
           command: npm publish dist/
 
 workflows:
