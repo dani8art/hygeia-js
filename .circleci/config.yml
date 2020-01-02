@@ -57,8 +57,7 @@ jobs:
     steps:
       - checkout
       - git_authoring
-      - setup_remote_docker:
-          docker_layer_caching: true    
+      - setup_remote_docker  
       - restore_cache:
           keys:
           - *js_deps_cache_key
